@@ -1,0 +1,19 @@
+{
+  "name": "restified",
+  "version": "0.0.1-dev.0",
+  "description": "REST routes constructor for express and koa",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/restified.git"
+  },
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/restified/issues"
+  },
+  "homepage": "https://github.com/atomixinteractions/restified#readme"
+}
