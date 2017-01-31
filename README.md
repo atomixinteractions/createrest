@@ -86,3 +86,12 @@ export default router.expressMiddleware()
 // export default router.koaMiddleware()
 
 ```
+
+
+## CLI
+
+```bash
+restified               # Show man page
+restified init          # Create main files
+restified routes        # Show routes
+```
