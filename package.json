@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/atomixinteractions/restified/issues"
   },
-  "homepage": "https://github.com/atomixinteractions/restified#readme"
+  "homepage": "https://github.com/atomixinteractions/restified#readme",
+  "dependencies": {
+    "pluralize": "^3.1.0"
+  }
 }
