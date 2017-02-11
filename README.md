@@ -42,7 +42,7 @@ router.root(r => {
     r.member.post('close')
     r.member.post('open', { methodName: 'reopen' })
 
-    r.resource('like', LikeController)
+    r.resource('like', {}, LikeController)
   })
   // get /demos             -> DemosController.#index
   // post /demos            -> DemosController.#create
@@ -60,7 +60,7 @@ router.root(r => {
   r.resource('profile', {}, ProfileController, r => {
     r.resources('bookmark', { memberId: 'id' }, BookmarksController, r => {
       r.member({}, r => {
-        r.resource('share_link', BookmarksController.ShareLinkController)
+        r.resource('share_link', {}, BookmarksController.ShareLinkController)
       })
     })
   })
