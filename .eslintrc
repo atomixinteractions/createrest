@@ -38,7 +38,9 @@
     "comma-dangle": ["error", {
       "functions": "never",
       "objects": "always-multiline",
-      "arrays": "always-multiline"
+      "arrays": "always-multiline",
+      "exports": "always-multiline",
+      "imports": "always-multiline"
     }]
   },
   "parser": "babel-eslint",
