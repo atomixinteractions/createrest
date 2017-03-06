@@ -4,8 +4,13 @@
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
+    "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./lib"
+  },
+  "bin": {
+    "createrest": "./bin/createrest",
+    "rest": "./bin/createrest"
   },
   "repository": {
     "type": "git",
@@ -18,10 +23,16 @@
   },
   "homepage": "https://github.com/atomixinteractions/createrest#readme",
   "dependencies": {
-    "pluralize": "^3.1.0"
+    "pluralize": "^3.1.0",
+    "ramda": "^0.23.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
