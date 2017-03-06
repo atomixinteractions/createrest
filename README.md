@@ -1,4 +1,4 @@
-# Restified
+# createrest
 
 Declare your routes
 
@@ -11,7 +11,8 @@ Declare your routes
 ## Usage example
 
 ```js
-import Restified from 'restified'
+import { createRest } from 'createrest'
+import createExpressMiddleware from 'createrest-express'
 
 import {
   BooksController,
@@ -22,7 +23,7 @@ import {
   BookmarksController,
 } from './controllers'
 
-const router = Restified()
+const router = createRest()
 
 
 router.root(r => {
@@ -78,9 +79,15 @@ router.root(r => {
   // post /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#create
   // patch /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#update
   // delete /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#destroy
+
+  r.scope('admin', r => {
+
+  })
 })
 
-export default router.expressMiddleware()
+
+const middleware = createExpressMiddleware(router)
+export default middleware
 
 // or for Koa
 // export default router.koaMiddleware()
@@ -91,7 +98,9 @@ export default router.expressMiddleware()
 ## CLI
 
 ```bash
-restified               # Show man page
-restified init          # Create main files
-restified routes        # Show routes
+rest               # Show man page
+rest init          # Create main files
+rest routes        # Show routes
 ```
+
+or with alias: `createrest`

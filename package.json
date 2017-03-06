@@ -1,22 +1,30 @@
 {
-  "name": "restified",
+  "name": "createrest",
   "version": "0.0.1-dev.0",
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./lib"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/atomixinteractions/restified.git"
+    "url": "git+https://github.com/atomixinteractions/createrest.git"
   },
   "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/atomixinteractions/restified/issues"
+    "url": "https://github.com/atomixinteractions/createrest/issues"
   },
-  "homepage": "https://github.com/atomixinteractions/restified#readme",
+  "homepage": "https://github.com/atomixinteractions/createrest#readme",
   "dependencies": {
     "pluralize": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "express": "^4.14.1"
   }
 }
