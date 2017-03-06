@@ -30,7 +30,7 @@ const router = createRest({ before: [myLoggerFunction] }, childs(
   // post /books            -> BooksController.#create
   // get /books/:bookId     -> BooksController.#read
   // put /books/:bookId     -> BooksController.#update
-  // patch /books/:bookId   -> BooksController.#update
+  // patch /books/:bookId   -> BooksController.#patch
   // delete /books/:bookId  -> BooksController.#destroy
 
   resources('section', { only: ['index', 'read'] }, SectionsController),
@@ -49,7 +49,7 @@ const router = createRest({ before: [myLoggerFunction] }, childs(
   // post /demos            -> DemosController.#create
   // get /demos/:demoId     -> DemosController.#read
   // put /demos/:demoId     -> DemosController.#update
-  // patch /demos/:demoId   -> DemosController.#update
+  // patch /demos/:demoId   -> DemosController.#patch
   // delete /demos/:demoId  -> DemosController.#destroy
   // post /demos/:demoId/close    -> DemosController.#close
   // post /demos/:demoId/open     -> DemosController.#reopen
@@ -73,7 +73,7 @@ const router = createRest({ before: [myLoggerFunction] }, childs(
   // post /profile/bookmarks            -> BookmarksController.#create
   // get /profile/bookmarks/:id         -> BookmarksController.#read
   // put /profile/bookmarks/:id         -> BookmarksController.#update
-  // patch /profile/bookmarks/:id       -> BookmarksController.#update
+  // patch /profile/bookmarks/:id       -> BookmarksController.#patch
   // delete /profile/bookmarks/:id      -> BookmarksController.#destroy
   // get /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#read
   // post /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#create
@@ -96,7 +96,7 @@ const router = createRest({ before: [myLoggerFunction] }, childs(
   // post /admin/pages            -> PagesController.#create
   // get /admin/pages/:id         -> PagesController.#read
   // put /admin/pages/:id         -> PagesController.#update
-  // patch /admin/pages/:id       -> PagesController.#update
+  // patch /admin/pages/:id       -> PagesController.#patch
   // delete /admin/pages/:id      -> PagesController.#destroy
   // get /admin/status/database       -> StatusController.#database
   // get /admin/status/service        -> StatusController.#service
