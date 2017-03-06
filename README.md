@@ -11,7 +11,20 @@ Declare your routes
 ## Usage example
 
 ```js
-import { createRest, resources, get, post, resource, member, childs, scope } from 'createrest'
+import {
+  createRest,
+  printRoutes,
+  resources,
+  resource,
+  scope,
+  childs,
+  member,
+  get,
+  post,
+  put,
+  patch,
+  destroy,
+} from 'createrest'
 import createExpressMiddleware from 'createrest-express'
 
 import {
