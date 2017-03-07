@@ -4,6 +4,7 @@
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf ./dist ./docs",
     "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./lib",
@@ -41,6 +42,7 @@
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "rimraf": "^2.6.1"
   }
 }
