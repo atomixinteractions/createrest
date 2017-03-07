@@ -2,7 +2,7 @@
   "name": "createrest",
   "version": "0.0.1-dev.0",
   "description": "REST routes constructor for express and koa",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,6 +33,7 @@
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
+    "documentation": "^4.0.0-beta.18",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
