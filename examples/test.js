@@ -9,6 +9,7 @@ const {
   scope,
   childs,
   resources,
+  resource,
   member,
 } = require('../dist/index')
 
@@ -37,7 +38,8 @@ const router = createRest({}, childs(
     get('foo'),
     member(
       get('bar', noop),
-      post('baz', [authByToken, noop])
+      post('baz', [authByToken, noop]),
+      resource('like', { before: [authByToken], after: [noop] }, Foo)
     )
   ))
 ))

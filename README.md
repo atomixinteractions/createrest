@@ -5,7 +5,7 @@ Declare your routes
 
 ## Warning!
 
-> That middleware now in development! Do not use it in production (only before v1 release)
+> Now in development! Do not use it in production (only before v1 release)
 
 
 ## Usage example
