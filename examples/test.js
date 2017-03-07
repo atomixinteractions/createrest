@@ -1,6 +1,7 @@
 const {
   createRest,
   printRoutes,
+  flattenRoutes,
   get,
   post,
   put,
@@ -14,11 +15,12 @@ const {
 } = require('../dist/index')
 
 const noop = () => {}
+const totalBefore = () => {}
 const Demo = { load() {} }
 const authByToken = () => {}
 const Foo = { index() {}, create() {}, read() {}, update() {}, patch() {}, destroy() {} }
 
-const router = createRest({}, childs(
+const router = createRest({ before: [totalBefore] }, childs(
   get('example_get', noop),
   post('post_example', [noop, noop]),
   put('update_example', noop),
@@ -44,5 +46,8 @@ const router = createRest({}, childs(
   ))
 ))
 
-console.log('\n\n', router, '\n\n')
-printRoutes(router)
+console.log(JSON.stringify(router, 2, 2))
+
+// console.log('\n\n', router.childs[0], '\n\n')
+// printRoutes(router)
+// console.log('\n\n', flattenRoutes(router))

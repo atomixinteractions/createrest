@@ -4,6 +4,7 @@
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
     "clean": "rimraf ./dist ./docs",
     "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -42,6 +43,7 @@
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.11.0",
     "rimraf": "^2.6.1"
   }
 }
