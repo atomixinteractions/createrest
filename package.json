@@ -2,11 +2,12 @@
   "name": "createrest",
   "version": "0.0.1-dev.0",
   "description": "REST routes constructor for express and koa",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./lib"
+    "lint": "eslint ./lib",
+    "docs": "documentation build -f html -o docs"
   },
   "bin": {
     "createrest": "./bin/createrest",
