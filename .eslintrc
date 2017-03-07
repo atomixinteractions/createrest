@@ -41,7 +41,8 @@
       "arrays": "always-multiline",
       "exports": "always-multiline",
       "imports": "always-multiline"
-    }]
+    }],
+    "brace-style": ["error", "stroustrup"]
   },
   "parser": "babel-eslint",
   "settings": {
