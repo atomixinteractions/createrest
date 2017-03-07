@@ -7,7 +7,9 @@
     "build": "babel -d ./dist ./lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./lib",
-    "docs": "documentation build -f html -o docs"
+    "docs": "documentation build -f html -o docs",
+    "deploy:docs": "git subtree push --prefix docs origin gh-pages",
+    "postversion": "npm run lint && npm run build && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
   },
   "bin": {
     "createrest": "./bin/createrest",
