@@ -2,6 +2,8 @@
 
 Declare your routes
 
+Docs at https://atomixinteractions.github.io/createrest
+
 
 ## Warning!
 
