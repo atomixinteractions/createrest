@@ -7,7 +7,7 @@ Docs at https://atomixinteractions.github.io/createrest
 
 ## Warning!
 
-> Now in development! Do not use it in production (only before v1 release)
+> Now in development! Use in production only after v1 release!
 
 
 ## Usage example
@@ -16,110 +16,50 @@ Docs at https://atomixinteractions.github.io/createrest
 import {
   createRest,
   printRoutes,
-  resources,
-  resource,
-  scope,
-  childs,
-  member,
-  get,
-  post,
-  put,
-  patch,
-  destroy,
 } from 'createrest'
-import createExpressMiddleware from 'createrest-express'
+import expressMiddleware from 'createrest-express'
+import express from 'express'
 
-import {
-  BooksController,
-  SectionsController,
-  DemosController,
-  LikeController,
-  ProfileController,
-  BookmarksController,
-} from './controllers'
+const app = express()
 
+function before1() { console.log('before1()') }
+function before2() { console.log('before2()') }
+function before3() { console.log('before3()') }
+function after1() { console.log('after1()') }
+function after2() { console.log('after2()') }
+function after3() { console.log('after3()') }
+function post1() { console.log('post1()') }
+function get1() { console.log('get1()') }
+function get2() { console.log('get2()') }
+function put3() { console.log('put3()') }
 
-const router = createRest({ before: [myLoggerFunction] }, childs(
-  resources('book', { before: [mySuperValidateFunction] }, BooksController),
-  // get /books             -> BooksController.#index
-  // post /books            -> BooksController.#create
-  // get /books/:bookId     -> BooksController.#read
-  // put /books/:bookId     -> BooksController.#update
-  // patch /books/:bookId   -> BooksController.#patch
-  // delete /books/:bookId  -> BooksController.#destroy
+const routes = createRest(e => {
+  e.before(before1)
+  e.after(after1)
 
-  resources('section', { only: ['index', 'read'] }, SectionsController),
-  // get /sections              -> SectionsController.#index
-  // get /sections/:sectionId   -> SectionsController.#read
+  e.post('/', post1)
 
-  resources('demo', {}, DemoController, childs(
-    member(
-      get('status'),
-      post('close'),
-      post('open', { methodName: 'reopen' }),
-    ),
-    resource('like', {}, LikeController),
-  )),
-  // get /demos             -> DemosController.#index
-  // post /demos            -> DemosController.#create
-  // get /demos/:demoId     -> DemosController.#read
-  // put /demos/:demoId     -> DemosController.#update
-  // patch /demos/:demoId   -> DemosController.#patch
-  // delete /demos/:demoId  -> DemosController.#destroy
-  // post /demos/:demoId/close    -> DemosController.#close
-  // post /demos/:demoId/open     -> DemosController.#reopen
-  // get /demos/like      -> LikeController.#read
-  // post /demos/like     -> LikeController.#create
-  // put /demos/like      -> LikeController.#update
-  // delete /demos/like   -> LikeController.#destroy
+  e.scope('demo', e => {
+    e.before(before2)
+    e.after(after2)
 
-  resource('profile', {}, ProfileController, childs(
-    resources('bookmark', { memberId: 'id' }, BookmarksController, childs(
-      member(
-        resource('share_link', {}, BookmarksController.ShareLinkController),
-      ),
-    )),
-  )),
-  // get /profile                -> ProfileController.#read
-  // post /profile               -> ProfileController.#create
-  // put /profile                -> ProfileController.#update
-  // delete /profile             -> ProfileController.#destroy
-  // get /profile/bookmarks             -> BookmarksController.#index
-  // post /profile/bookmarks            -> BookmarksController.#create
-  // get /profile/bookmarks/:id         -> BookmarksController.#read
-  // put /profile/bookmarks/:id         -> BookmarksController.#update
-  // patch /profile/bookmarks/:id       -> BookmarksController.#patch
-  // delete /profile/bookmarks/:id      -> BookmarksController.#destroy
-  // get /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#read
-  // post /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#create
-  // patch /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#update
-  // delete /profile/bookmarks/:id/share_link      -> BookmarksController.ShareLinkController.#destroy
+    e.get('/', get1)
+    e.get('/foo', get2)
 
-  scope('admin', childs(
-    post('login', LoginController.login),
-    post('logout', LoginController.logout),
-    resources('page', {}, PagesController),
-    scope('status', { controller: StatusController }, childs(
-      get('database'),
-      get('service'),
-      get('redis'),
-    )),
-  )),
-  // get /admin/login       -> LoginController.#login
-  // post /admin/login      -> LoginController.#logout
-  // get /admin/pages             -> PagesController.#index
-  // post /admin/pages            -> PagesController.#create
-  // get /admin/pages/:id         -> PagesController.#read
-  // put /admin/pages/:id         -> PagesController.#update
-  // patch /admin/pages/:id       -> PagesController.#patch
-  // delete /admin/pages/:id      -> PagesController.#destroy
-  // get /admin/status/database       -> StatusController.#database
-  // get /admin/status/service        -> StatusController.#service
-  // get /admin/status/redis          -> StatusController.#redis
-))
+    e.scope('bar', e => {
+      e.before(before3)
+      e.after(after3)
 
-export default createExpressMiddleware(router)
+      e.put('/', put3)
+    })
+  })
+})
 
+app.use(expressMiddleware(routes))
+
+app.listen(4001, () => {
+  printRoutes(routes)
+})
 ```
 
 
