@@ -1,5 +1,6 @@
 import test from 'ava'
-import { createRest, printRoutes } from '../lib'
+import { createRest } from '../lib'
+import { printRoutes } from '../lib/printer'
 
 /* eslint-disable no-shadow */
 
@@ -40,14 +41,14 @@ test('Scoped with before/after', t => {
       r.scope('bar', r => {
         r.before(before)
         r.after(after)
-        r.put(put)
+        r.put(() => {})
         r.delete('baz', destroy)
       })
     }), false),
     [
       'GET / -> before(), get(), after()',
       'POST /foo/ -> before(), post(), after()',
-      'PUT /bar/ -> before(), before(), put(), after(), after()',
+      'PUT /bar/ -> before(), before(), <function>(), after(), after()',
       'DELETE /bar/baz/ -> before(), before(), destroy(), after(), after()'
     ]
   )
