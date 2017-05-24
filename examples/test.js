@@ -108,8 +108,13 @@ console.log(strf(routes))
 
 const flat = flattenRoutes(routes)
 Object.keys(flat).forEach(path => {
-  const ro = flat[path]
-  console.log(chalk.green(`${ro.method} ${path}`), ro.listeners.map(fn => `${fn.name}()`).join(', '))
+  const mt = flat[path]
+  Object.keys(mt).forEach(method => {
+    console.log(
+      chalk.green(`${method} ${path}`),
+      mt[method].map(fn => `${fn.name}()`).join(', ')
+    )
+  })
 })
 
 printRoutes(routes)

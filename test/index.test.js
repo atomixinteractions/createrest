@@ -1,5 +1,5 @@
 import test from 'ava'
-import { createRest } from './index'
+import { createRest } from '../lib'
 
 /* eslint-disable no-shadow */
 

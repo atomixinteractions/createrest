@@ -59,7 +59,7 @@
     "require": "babel-register",
     "concurrency": 4,
     "files": [
-      "lib/*.test.js"
+      "test/*.test.js"
     ]
   }
 }

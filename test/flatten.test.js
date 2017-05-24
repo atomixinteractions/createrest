@@ -1,5 +1,5 @@
 import test from 'ava'
-import { createRest, flattenRoutes } from './index'
+import { createRest, flattenRoutes } from '../lib'
 
 /* eslint-disable no-shadow */
 
