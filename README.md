@@ -1,5 +1,12 @@
 # createrest
 
+[![Travis](https://img.shields.io/travis/atomixinteractions/createrest.svg)](https://travis-ci.org/atomixinteractions/createrest)
+[![Coverage Status](https://coveralls.io/repos/github/atomixinteractions/createrest/badge.svg?branch=master)](https://coveralls.io/github/atomixinteractions/createrest?branch=master)
+[![npm](https://img.shields.io/npm/v/createrest.svg)](https://npmjs.com/createrest)
+[![GitHub tag](https://img.shields.io/github/tag/atomixinteractions/createrest.svg)](https://github.com/atomixinteractions/createrest)
+[![license](https://img.shields.io/github/license/atomixinteractions/createrest.svg)](https://github.com/atomixinteractions/createrest)
+
+
 Declare your routes
 
 Docs at https://atomixinteractions.github.io/createrest

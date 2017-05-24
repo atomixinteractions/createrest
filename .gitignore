@@ -117,3 +117,6 @@ Temporary Items
 # End of https://www.gitignore.io/api/node,windows,osx,linux
 dist
 docs
+
+.nyc_output
+coverage
