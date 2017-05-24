@@ -52,13 +52,6 @@
     "stringify-object": "^3.2.0"
   },
   "ava": {
-    "files": [
-      "lib/*.test.js"
-    ],
-    "source": [
-      "lib/*.js",
-      "!lib/*.test.js"
-    ],
     "require": "babel-register",
     "concurrency": 4,
     "babel": "inherit"
