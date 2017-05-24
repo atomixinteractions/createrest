@@ -8,7 +8,7 @@
     "clean": "rimraf ./dist ./docs",
     "build": "babel -d ./dist ./lib",
     "test": "NODE_ENV=test ava",
-    "coverage": "NODE_ENV=test nyc ava",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
     "lint": "eslint ./lib",
     "docs": "documentation build -f html -o docs",
     "deploy:docs": "buildbranch gh-pages docs",
