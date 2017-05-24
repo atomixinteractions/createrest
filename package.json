@@ -7,7 +7,7 @@
     "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
     "clean": "rimraf ./dist ./docs",
     "build": "babel -d ./dist ./lib",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test ava",
     "lint": "eslint ./lib",
     "docs": "documentation build -f html -o docs",
     "deploy:docs": "buildbranch gh-pages docs",
@@ -33,12 +33,15 @@
     "ramda": "^0.23.0"
   },
   "devDependencies": {
+    "@ava/babel-preset-stage-4": "^1.0.0",
+    "ava": "^0.19.1",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
+    "babel-register": "^6.24.1",
     "buildbranch": "^2.0.0",
     "documentation": "^4.0.0-beta.18",
     "eslint": "^3.17.0",
@@ -47,5 +50,17 @@
     "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "stringify-object": "^3.2.0"
+  },
+  "ava": {
+    "files": [
+      "lib/*.test.js"
+    ],
+    "source": [
+      "lib/*.js",
+      "!lib/*.test.js"
+    ],
+    "require": "babel-register",
+    "concurrency": 4,
+    "babel": "inherit"
   }
 }
