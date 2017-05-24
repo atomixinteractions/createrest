@@ -11,7 +11,7 @@
     "lint": "eslint ./lib",
     "docs": "documentation build -f html -o docs",
     "deploy:docs": "buildbranch gh-pages docs",
-    "postversion": "npm run lint && npm test && npm run build && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
+    "postversion": "npm run lint && npm test && npm run build && npm publish  && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
   },
   "bin": {
     "createrest": "./bin/createrest.js",
