@@ -56,12 +56,12 @@ test('Scoped with before/after', t => {
 
 test.todo('Real print to stdout')
 
-// test('Real print to output', t => {
-//   printRoutes(createRest(r => {
-//     r.before(before)
-//     r.after(after)
-//     r.get(get)
-//     r.post('foo', post)
-//   }), false)
-//   t.pass()
-// })
+test('Real print to output', t => {
+  printRoutes(createRest(r => {
+    r.before(before)
+    r.after(after)
+    r.get(get)
+    r.post('foo', post)
+  }), false)
+  t.pass()
+})
