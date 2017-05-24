@@ -62,6 +62,6 @@ test('Real print to output', t => {
     r.after(after)
     r.get(get)
     r.post('foo', post)
-  }), false)
+  }))
   t.pass()
 })
