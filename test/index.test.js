@@ -11,6 +11,13 @@ const destroy = () => {}
 const before = () => {}
 const after = () => {}
 
+const ObjectController = {
+  create() {},
+  read() {},
+  update() {},
+  destroy() {},
+}
+
 const make = (before = [], after = [], scoped = {}, local = {}) => ({
   before,
   after,
@@ -230,3 +237,36 @@ test('Fail if no listeners passed to method', t => {
   })
 })
 
+test('Simple resource with default options', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.resource('unicorn', ObjectController)
+    }),
+    make([], [], {
+      unicorn: make([], [], {
+        ':unicornId': make([], [], {}, {
+          GET: [ObjectController.read],
+          POST: [ObjectController.create],
+          PUT: [ObjectController.update],
+          DELETE: [ObjectController.destroy],
+        }),
+      }),
+    }, {})
+  )
+})
+
+
+test('Fail resource with def opts', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.resource('unicorn')
+    }),
+    make([], [], {}, {})
+  )
+
+  t.throws(() => {
+    createRest(r => {
+      r.resource()
+    })
+  })
+})
