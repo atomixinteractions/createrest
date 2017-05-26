@@ -243,13 +243,11 @@ test('Simple resource with default options', t => {
       r.resource('unicorn', ObjectController)
     }),
     make([], [], {
-      unicorn: make([], [], {
-        ':unicornId': make([], [], {}, {
-          GET: [ObjectController.read],
-          POST: [ObjectController.create],
-          PUT: [ObjectController.update],
-          DELETE: [ObjectController.destroy],
-        }),
+      unicorn: make([], [], {}, {
+        GET: [ObjectController.read],
+        POST: [ObjectController.create],
+        PUT: [ObjectController.update],
+        DELETE: [ObjectController.destroy],
       }),
     }, {})
   )
@@ -265,12 +263,10 @@ test('resource with partial controller and before/after', t => {
       )
     }),
     make([], [], {
-      unicorn: make([before], [after], {
-        ':unicornId': make([], [], {}, {
-          GET: [ObjectController.read],
-          PUT: [ObjectController.update],
-          DELETE: [ObjectController.destroy],
-        })
+      unicorn: make([before], [after], {}, {
+        GET: [ObjectController.read],
+        PUT: [ObjectController.update],
+        DELETE: [ObjectController.destroy],
       }, {})
     }, {})
   )
@@ -298,10 +294,8 @@ test('Resource with options.only', t => {
       r.resource('unicorn', ObjectController, { only: ['create'] })
     }),
     make([], [], {
-      unicorn: make([], [], {
-        ':unicornId': make([], [], {}, {
-          POST: [ObjectController.create],
-        }),
+      unicorn: make([], [], {}, {
+        POST: [ObjectController.create],
       }),
     }, {})
   )
@@ -313,13 +307,31 @@ test('Resource with options.except', t => {
       r.resource('unicorn', ObjectController, { except: ['create'] })
     }),
     make([], [], {
-      unicorn: make([], [], {
-        ':unicornId': make([], [], {}, {
+      unicorn: make([], [], {}, {
+        GET: [ObjectController.read],
+        PUT: [ObjectController.update],
+        DELETE: [ObjectController.destroy],
+      }),
+    }, {})
+  )
+})
+
+
+test('resource in scope', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.scope('rainbow', r => {
+        r.resource('unicorn', ObjectController, { except: ['create'] })
+      })
+    }),
+    make([], [], {
+      rainbow: make([], [], {
+        unicorn: make([], [], {}, {
           GET: [ObjectController.read],
           PUT: [ObjectController.update],
           DELETE: [ObjectController.destroy],
         }),
-      }),
+      })
     }, {})
   )
 })

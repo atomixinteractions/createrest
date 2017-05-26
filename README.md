@@ -118,12 +118,13 @@ createRest(r => {
 
 ### get, post, put, patch, delete
 
-Simple handlers for general HTTP methods.
+Simple handlers for general HTTP methods. Handlers will be merged.
 
 ```js
 createRest(r => {
   r.get('name', () => console.log('named handler'))
   r.get(() => console.log('root handler'))
+  r.get(() => console.log('second root handler'))
   r.post('create',
     (req, res, next) => next(),
     authorize('user'),
@@ -159,4 +160,46 @@ GET /foo/bar
 3
 4
 5
+```
+
+### resource
+
+Create 4 handlers for single resource.
+
+```
+resource(name: string, controller: object, options?: { only?: string[], except?: string[] })
+```
+
+```js
+const Controller = {
+  read() {},
+  create() {},
+  update() {},
+  destroy() {},
+  beforeEach() {},
+  afterEach() {},
+}
+const SecondCtrl = {
+  read() {},
+  update() {},
+}
+const routes = createRest(r => {
+  r.resource('example', Controller)
+  r.resource('demo', Controller, { only: ['create', 'read'] })
+  r.resource('single', Controller, { except: ['destroy', 'create'] })
+})
+printRoutes(routes, true)
+```
+
+```
+GET /example/ -> beforeEach(), read(), afterEach()
+POST /example/ -> beforeEach(), create(), afterEach()
+PUT /example/ -> beforeEach(), update(), afterEach()
+DELETE /example/ -> beforeEach(), destroy(), afterEach()
+
+GET /demo/ -> beforeEach(), read(), afterEach()
+POST /demo/ -> beforeEach(), create(), afterEach()
+
+GET /single/ -> beforeEach(), read(), afterEach()
+PUT /single/ -> beforeEach(), update(), afterEach()
 ```
