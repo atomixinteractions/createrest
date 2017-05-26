@@ -18,11 +18,11 @@ const ObjectController = {
   destroy() {},
 }
 
-const make = (before = [], after = [], scoped = {}, local = {}) => ({
+const make = (before = [], after = [], local = {}, scoped = {}) => ({
   before,
   after,
-  scoped,
   local,
+  scoped,
 })
 
 test('Base structure', t => {
@@ -59,7 +59,7 @@ test('Methods', t => {
       r.patch('/', patch)
       r.delete('/', destroy)
     }),
-    make([], [], {}, {
+    make([], [], {
       POST: [post],
       GET: [get],
       PUT: [put],
@@ -80,7 +80,7 @@ test('Methods with before/after', t => {
       r.patch('/', patch)
       r.delete('/', destroy)
     }),
-    make([before], [after], {}, {
+    make([before], [after], {
       POST: [post],
       GET: [get],
       PUT: [put],
@@ -96,7 +96,7 @@ test('Simple scoping', t => {
       r.scope('demo', r => {
       })
     }),
-    make([], [], {
+    make([], [], {}, {
       demo: make(),
     })
   )
@@ -113,8 +113,8 @@ test('Scoped methods', t => {
         r.delete('/', destroy)
       })
     }),
-    make([], [], {
-      demo: make([], [], {}, {
+    make([], [], {}, {
+      demo: make([], [], {
         POST: [post],
         GET: [get],
         PUT: [put],
@@ -143,16 +143,16 @@ test('before/after in scope', t => {
     make(
       [before], [after],
       {
-        demo: make([before], [after], {}, {
+        PATCH: [patch],
+        DELETE: [destroy],
+      },
+      {
+        demo: make([before], [after], {
           POST: [post],
           GET: [get],
           PUT: [put],
         })
       },
-      {
-        PATCH: [patch],
-        DELETE: [destroy],
-      }
     )
   )
 })
@@ -166,10 +166,10 @@ test('Deep scope', t => {
         })
       })
     }),
-    make([], [],
+    make([], [], {},
       {
-        foo: make([], [], {
-          bar: make([], [], {}, {
+        foo: make([], [], {}, {
+          bar: make([], [], {
             GET: [get],
           })
         })
@@ -184,9 +184,9 @@ test('Create scoped by methods', t => {
       r.post('/foo', post, post)
       r.get('bar', get, get)
     }),
-    make([], [], {
-      foo: make([], [], {}, { POST: [post, post] }),
-      bar: make([], [], {}, { GET: [get, get] }),
+    make([], [], {}, {
+      foo: make([], [], { POST: [post, post] }),
+      bar: make([], [], { GET: [get, get] }),
     })
   )
 })
@@ -197,8 +197,8 @@ test('Local methods attach', t => {
       r.get('/bar', get)
       r.get('bar', get, get)
     }),
-    make([], [], {
-      bar: make([], [], {}, { GET: [get, get, get] }),
+    make([], [], {}, {
+      bar: make([], [],  { GET: [get, get, get] }),
     })
   )
 })
@@ -242,14 +242,14 @@ test('Simple resource with default options', t => {
     createRest(r => {
       r.resource('unicorn', ObjectController)
     }),
-    make([], [], {
-      unicorn: make([], [], {}, {
+    make([], [], {}, {
+      unicorn: make([], [], {
         GET: [ObjectController.read],
         POST: [ObjectController.create],
         PUT: [ObjectController.update],
         DELETE: [ObjectController.destroy],
       }),
-    }, {})
+    })
   )
 })
 
@@ -262,13 +262,13 @@ test('resource with partial controller and before/after', t => {
         })
       )
     }),
-    make([], [], {
-      unicorn: make([before], [after], {}, {
+    make([], [], {}, {
+      unicorn: make([before], [after], {
         GET: [ObjectController.read],
         PUT: [ObjectController.update],
         DELETE: [ObjectController.destroy],
-      }, {})
-    }, {})
+      })
+    })
   )
 })
 
@@ -278,7 +278,7 @@ test('Fail resource with def opts', t => {
     createRest(r => {
       r.resource('unicorn')
     }),
-    make([], [], {}, {})
+    make()
   )
 
   t.throws(() => {
@@ -293,11 +293,11 @@ test('Resource with options.only', t => {
     createRest(r => {
       r.resource('unicorn', ObjectController, { only: ['create'] })
     }),
-    make([], [], {
-      unicorn: make([], [], {}, {
+    make([], [], {}, {
+      unicorn: make([], [], {
         POST: [ObjectController.create],
       }),
-    }, {})
+    })
   )
 })
 
@@ -306,13 +306,13 @@ test('Resource with options.except', t => {
     createRest(r => {
       r.resource('unicorn', ObjectController, { except: ['create'] })
     }),
-    make([], [], {
-      unicorn: make([], [], {}, {
+    make([], [], {}, {
+      unicorn: make([], [], {
         GET: [ObjectController.read],
         PUT: [ObjectController.update],
         DELETE: [ObjectController.destroy],
       }),
-    }, {})
+    })
   )
 })
 
@@ -324,14 +324,14 @@ test('resource in scope', t => {
         r.resource('unicorn', ObjectController, { except: ['create'] })
       })
     }),
-    make([], [], {
-      rainbow: make([], [], {
-        unicorn: make([], [], {}, {
+    make([], [], {}, {
+      rainbow: make([], [], {}, {
+        unicorn: make([], [], {
           GET: [ObjectController.read],
           PUT: [ObjectController.update],
           DELETE: [ObjectController.destroy],
         }),
       })
-    }, {})
+    })
   )
 })
