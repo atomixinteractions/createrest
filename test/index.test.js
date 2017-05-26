@@ -255,6 +255,27 @@ test('Simple resource with default options', t => {
   )
 })
 
+test('resource with partial controller and before/after', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.resource( 'unicorn',
+        Object.assign({}, ObjectController, {
+          beforeEach: before, afterEach: after, create: undefined,
+        })
+      )
+    }),
+    make([], [], {
+      unicorn: make([before], [after], {
+        ':unicornId': make([], [], {}, {
+          GET: [ObjectController.read],
+          PUT: [ObjectController.update],
+          DELETE: [ObjectController.destroy],
+        })
+      }, {})
+    }, {})
+  )
+})
+
 
 test('Fail resource with def opts', t => {
   t.deepEqual(
