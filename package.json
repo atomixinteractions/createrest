@@ -7,13 +7,15 @@
     "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
     "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
     "build": "babel -d ./dist ./lib",
-    "test": "NODE_ENV=test nyc ava",
+    "test": "npm run test:lint && npm run test:code",
+    "test:lint": "eslint ./lib",
+    "test:code": "NODE_ENV=test nyc ava",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
     "report": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint ./lib",
     "docs": "documentation build -f html -o docs",
     "deploy:docs": "buildbranch gh-pages docs",
-    "postversion": "npm run lint && npm test && npm run build && npm publish  && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
+    "preversion": "npm test && npm run build",
+    "postversion": "npm publish && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
   },
   "bin": {
     "createrest": "./bin/createrest.js",
