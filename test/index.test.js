@@ -291,3 +291,35 @@ test('Fail resource with def opts', t => {
     })
   })
 })
+
+test('Resource with options.only', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.resource('unicorn', ObjectController, { only: ['create'] })
+    }),
+    make([], [], {
+      unicorn: make([], [], {
+        ':unicornId': make([], [], {}, {
+          POST: [ObjectController.create],
+        }),
+      }),
+    }, {})
+  )
+})
+
+test('Resource with options.except', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.resource('unicorn', ObjectController, { except: ['create'] })
+    }),
+    make([], [], {
+      unicorn: make([], [], {
+        ':unicornId': make([], [], {}, {
+          GET: [ObjectController.read],
+          PUT: [ObjectController.update],
+          DELETE: [ObjectController.destroy],
+        }),
+      }),
+    }, {})
+  )
+})

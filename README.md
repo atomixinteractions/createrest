@@ -79,3 +79,84 @@ rest routes        # Show routes
 ```
 
 or with alias: `createrest`
+
+## API
+
+### before
+
+Add before handlers to current scope.
+
+```js
+createRest(r => {
+  r.before(() => console.log(1))
+  r.before(() => console.log(2), () => console.log(3))
+})
+```
+
+```
+ 1
+ 2
+ 3
+```
+
+### after
+
+Add after handler to current scope.
+
+```js
+createRest(r => {
+  r.after(() => console.log(3))
+  r.after(() => console.log(2), () => console.log(1))
+})
+```
+
+```
+ 3
+ 2
+ 1
+```
+
+### get, post, put, patch, delete
+
+Simple handlers for general HTTP methods.
+
+```js
+createRest(r => {
+  r.get('name', () => console.log('named handler'))
+  r.get(() => console.log('root handler'))
+  r.post('create',
+    (req, res, next) => next(),
+    authorize('user'),
+    () => console.log('handle with middlewares')
+  )
+})
+```
+
+### scope
+
+Add scoped address, before/after handlers and simple handlers.
+Before/After handlers is inherits from parent scope.
+
+```js
+createRest(r => {
+  r.before(() => console.log(1))
+  r.after(() => console.log(4))
+
+  r.scope('foo', r => {
+    r.before(() => console.log(2))
+    r.after(() => console.log(5))
+
+    r.get('bar', () => console.log(3))
+  })
+})
+```
+
+```
+GET /foo/bar
+
+1
+2
+3
+4
+5
+```
