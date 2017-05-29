@@ -32,6 +32,30 @@ test('Base structure', t => {
   )
 })
 
+test('createRest fail if passed not func', t => {
+  t.throws(() => {
+    createRest(null)
+  })
+  t.throws(() => {
+    createRest({})
+  })
+  t.throws(() => {
+    createRest([])
+  })
+  t.throws(() => {
+    createRest(true)
+  })
+  t.throws(() => {
+    createRest(1)
+  })
+  t.throws(() => {
+    createRest('')
+  })
+  t.throws(() => {
+    createRest()
+  })
+})
+
 test('Before', t => {
   t.deepEqual(
     createRest(r => {

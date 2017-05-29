@@ -1,6 +1,10 @@
 {
-  "presets": ["latest"],
-  "plugins": ["transform-export-extensions", "syntax-trailing-function-commas"],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-export-extensions",
+    "transform-es2015-modules-commonjs",
+    "syntax-trailing-function-commas"
+  ],
   "env": {
     "test": {
       "presets": ["@ava/stage-4"],

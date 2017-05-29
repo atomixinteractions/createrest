@@ -20,12 +20,12 @@ Docs at https://atomixinteractions.github.io/createrest
 ## Usage example
 
 ```js
-import {
+const {
   createRest,
   printRoutes,
-} from 'createrest'
-import expressMiddleware from 'createrest-express'
-import express from 'express'
+} = require('createrest')
+const { expressMiddleware } = require('createrest-express')
+const express = require('express')
 
 const app = express()
 
