@@ -1,0 +1,10 @@
+{
+  "title": "createRest documentation",
+  "source": "./lib",
+  "destination": "./docs",
+  "experimentalProposal": {
+    "classProperties": true,
+    "objectRestSpread": true,
+    "exportExtensions": true
+  }
+}

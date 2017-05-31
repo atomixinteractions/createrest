@@ -12,10 +12,11 @@
     "test:code": "NODE_ENV=test nyc ava",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
     "report": "nyc report --reporter=text-lcov | coveralls",
-    "docs": "documentation build -f html -o docs",
-    "deploy:docs": "buildbranch gh-pages docs",
+    "docs": "esdoc",
+    "docs:deploy": "buildbranch gh-pages docs",
+    "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
     "preversion": "npm test && npm run build",
-    "postversion": "npm publish && npm run docs && git push --all origin && git push --tags origin &&  npm run deploy:docs"
+    "postversion": "npm publish && npm run docs && git push --all origin && git push --tags origin && npm run docs:cname && npm run docs:deploy"
   },
   "bin": {
     "createrest": "./bin/createrest.js",
@@ -51,7 +52,7 @@
     "babel-register": "^6.24.1",
     "buildbranch": "^2.0.0",
     "coveralls": "^2.13.1",
-    "documentation": "^4.0.0-beta.18",
+    "esdoc": "^0.5.2",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
