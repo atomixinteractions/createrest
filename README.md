@@ -20,7 +20,7 @@ const {
   createRest,
   printRoutes,
 } = require('createrest')
-const { expressMiddleware } = require('createrest-express')
+const { createRestExpress } = require('createrest-express')
 const express = require('express')
 
 const app = express()
@@ -58,7 +58,7 @@ const routes = createRest(e => {
   })
 })
 
-app.use(expressMiddleware(routes))
+app.use(createRestExpress(routes))
 
 app.listen(4001, () => {
   printRoutes(routes)
