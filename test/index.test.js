@@ -359,3 +359,21 @@ test('resource in scope', t => {
     })
   )
 })
+
+test('scopes not merging', t => {
+  t.deepEqual(
+    createRest(r => {
+      r.scope('foo', r => {
+        r.get('bar', get)
+      })
+      r.scope('foo', r => {
+        r.post('baz', post)
+      })
+    }),
+    make([], [], {}, {
+      foo: make([], [], {}, {
+        baz: make([], [], { POST: [post] })
+      })
+    })
+  )
+})
