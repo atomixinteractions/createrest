@@ -340,6 +340,29 @@ test('Resource with options.except', t => {
   )
 })
 
+test('Resource with options.methodNames', t => {
+  const RenamedController = {
+    first() {},
+    second() {},
+    third() {},
+    fourth() {},
+  }
+  t.deepEqual(
+    createRest(r => {
+      r.resource('unicorn', RenamedController, {
+        methodNames: { read: 'first', create: 'second', update: 'third', destroy: 'fourth' }
+      })
+    }),
+    make([], [], {}, {
+      unicorn: make([], [], {
+        GET: [RenamedController.first],
+        POST: [RenamedController.second],
+        PUT: [RenamedController.third],
+        DELETE: [RenamedController.fourth],
+      }),
+    })
+  )
+})
 
 test('resource in scope', t => {
   t.deepEqual(
