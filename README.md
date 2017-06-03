@@ -45,26 +45,26 @@ const ExampleController = {
   destroy () {},
 }
 
-const routes = createRest(e => {
-  e.before(before1)
-  e.after(after1)
+const routes = createRest(root => {
+  root.before(before1)
+  root.after(after1)
 
-  e.post('/', post1)
+  root.post('/', post1)
 
-  e.scope('demo', e => {
-    e.before(before2)
-    e.after(after2)
+  root.scope('demo', demoRoute => {
+    demoRoute.before(before2)
+    demoRoute.after(after2)
 
-    e.get('/', get1)
-    e.get('/foo', get2)
+    demoRoute.get('/', get1)
+    demoRoute.get('/foo', get2)
 
-    e.scope('bar', e => {
-      e.before(before3)
-      e.after(after3)
+    demoRoute.scope('bar', barRoute => {
+      barRoute.before(before3)
+      barRoute.after(after3)
 
-      e.put('/', put3)
+      barRoute.put('/', put3)
 
-      e.resource('example', ExampleController)
+      barRoute.resource('example', ExampleController)
     })
   })
 })
