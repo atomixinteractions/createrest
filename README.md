@@ -25,19 +25,19 @@ const express = require('express')
 
 const app = express()
 
-function before1() { console.log('before1()') }
-function before2() { console.log('before2()') }
-function before3() { console.log('before3()') }
-function after1() { console.log('after1()') }
-function after2() { console.log('after2()') }
-function after3() { console.log('after3()') }
-function post1() { console.log('post1()') }
-function get1() { console.log('get1()') }
-function get2() { console.log('get2()') }
-function put3() { console.log('put3()') }
+const before1 = () => { console.log('before1()') }
+const before2 = () => { console.log('before2()') }
+const before3 = () => { console.log('before3()') }
+const after1 = () => { console.log('after1()') }
+const after2 = () => { console.log('after2()') }
+const after3 = () => { console.log('after3()') }
+const post1 = () => { console.log('post1()') }
+const get1 = () => { console.log('get1()') }
+const get2 = () => { console.log('get2()') }
+const put3 = () => { console.log('put3()') }
 
 const ExampleController = {
-  beforeEach() {},
+  beforeEach() { console.log('Call before each handler') },
   afterEach() {},
   read() {},
   create() {},
