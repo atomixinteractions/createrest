@@ -36,6 +36,15 @@ function get1() { console.log('get1()') }
 function get2() { console.log('get2()') }
 function put3() { console.log('put3()') }
 
+const ExampleController = {
+  beforeEach() {},
+  afterEach() {},
+  read() {},
+  create() {},
+  update() {},
+  destroy () {},
+}
+
 const routes = createRest(e => {
   e.before(before1)
   e.after(after1)
@@ -54,6 +63,8 @@ const routes = createRest(e => {
       e.after(after3)
 
       e.put('/', put3)
+
+      e.resource('example', ExampleController)
     })
   })
 })
@@ -63,4 +74,19 @@ app.use(createRestExpress(routes))
 app.listen(4001, () => {
   printRoutes(routes)
 })
+
+```
+
+
+Output:
+
+```
+POST / -> before1(), post1(), after1()
+GET /demo/ -> before1(), before2(), get1(), after2(), after1()
+GET /demo/foo/ -> before1(), before2(), get2(), after2(), after1()
+PUT /demo/bar/ -> before1(), before2(), before3(), put3(), after3(), after2(), after1()
+GET /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), read(), afterEach(), after3(), after2(), after1()
+POST /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), create(), afterEach(), after3(), after2(), after1()
+PUT /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), update(), afterEach(), after3(), after2(), after1()
+DELETE /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), destroy(), afterEach(), after3(), after2(), after1()
 ```
