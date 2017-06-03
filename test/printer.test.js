@@ -1,8 +1,7 @@
-import test from 'ava'
+import avaTest from 'ava'
 import { createRest } from '../lib'
 import { printRoutes } from '../lib/printer'
 
-/* eslint-disable no-shadow */
 
 const get = () => {}
 const post = () => {}
@@ -16,13 +15,13 @@ const make = (method, listeners = []) => ({
   method, listeners,
 })
 
-test('Simple with before/after', t => {
-  t.deepEqual(
-    printRoutes(createRest(r => {
-      r.before(before)
-      r.after(after)
-      r.get(get)
-      r.post('foo', post)
+avaTest('Simple with before/after', test => {
+  test.deepEqual(
+    printRoutes(createRest(root => {
+      root.before(before)
+      root.after(after)
+      root.get(get)
+      root.post('foo', post)
     }), false),
     [
       'GET / -> before(), get(), after()',
@@ -31,18 +30,18 @@ test('Simple with before/after', t => {
   )
 })
 
-test('Scoped with before/after', t => {
-  t.deepEqual(
-    printRoutes(createRest(r => {
-      r.before(before)
-      r.after(after)
-      r.get(get)
-      r.post('foo', post)
-      r.scope('bar', r => {
-        r.before(before)
-        r.after(after)
-        r.put(() => {})
-        r.delete('baz', destroy)
+avaTest('Scoped with before/after', test => {
+  test.deepEqual(
+    printRoutes(createRest(root => {
+      root.before(before)
+      root.after(after)
+      root.get(get)
+      root.post('foo', post)
+      root.scope('bar', bar => {
+        bar.before(before)
+        bar.after(after)
+        bar.put(() => {})
+        bar.delete('baz', destroy)
       })
     }), false),
     [
@@ -54,14 +53,15 @@ test('Scoped with before/after', t => {
   )
 })
 
-test.todo('Real print to stdout')
+avaTest.todo('Real print to stdout')
 
-test('Real print to output', t => {
-  printRoutes(createRest(r => {
-    r.before(before)
-    r.after(after)
-    r.get(get)
-    r.post('foo', post)
+avaTest('Real print to output', test => {
+  printRoutes(createRest(root => {
+    root.before(before)
+    root.after(after)
+    root.get(get)
+    root.post('foo', post)
   }))
-  t.pass()
+  // TODO: check real print
+  test.pass()
 })

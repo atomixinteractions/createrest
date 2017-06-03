@@ -1,7 +1,6 @@
-import test from 'ava'
+import avaTest from 'ava'
 import { createRest, flattenRoutes } from '../lib'
 
-/* eslint-disable no-shadow */
 
 const get = () => {}
 const post = () => {}
@@ -15,23 +14,22 @@ const make = (method, listeners = []) => ({
   method, listeners,
 })
 
-test('Empty', t => {
-  t.deepEqual(
-    flattenRoutes(createRest(r => {
+avaTest('Empty', test => {
+  test.deepEqual(
+    flattenRoutes(createRest(root => {
     })),
-    {
-    }
+    {}
   )
 })
 
-test('Local methods', t => {
-  t.deepEqual(
-    flattenRoutes(createRest(r => {
-      r.get(get)
-      r.post(post)
-      r.put(put)
-      r.patch(patch)
-      r.delete(destroy)
+avaTest('Local methods', test => {
+  test.deepEqual(
+    flattenRoutes(createRest(root => {
+      root.get(get)
+      root.post(post)
+      root.put(put)
+      root.patch(patch)
+      root.delete(destroy)
     })),
     {
       '/': {
@@ -45,13 +43,13 @@ test('Local methods', t => {
   )
 })
 
-test('Local and scoped methods', t => {
-  t.deepEqual(
-    flattenRoutes(createRest(r => {
-      r.get(get)
-      r.post(post)
-      r.get('/name', get)
-      r.post('/name', post)
+avaTest('Local and scoped methods', test => {
+  test.deepEqual(
+    flattenRoutes(createRest(root => {
+      root.get(get)
+      root.post(post)
+      root.get('/name', get)
+      root.post('/name', post)
     })),
     {
       '/': {
@@ -66,19 +64,19 @@ test('Local and scoped methods', t => {
   )
 })
 
-test('Local, scoped methods and methods in scope', t => {
-  t.deepEqual(
-    flattenRoutes(createRest(r => {
-      r.get(get)
-      r.post(post)
-      r.get('/name', get)
-      r.post('name', post)
-      r.scope('foo', r => {
-        r.get(get)
-        r.post('bar', post)
+avaTest('Local, scoped methods and methods in scope', test => {
+  test.deepEqual(
+    flattenRoutes(createRest(root => {
+      root.get(get)
+      root.post(post)
+      root.get('/name', get)
+      root.post('name', post)
+      root.scope('foo', foo => {
+        foo.get(get)
+        foo.post('bar', post)
       })
-      r.get(get)
-      r.post('name', post)
+      root.get(get)
+      root.post('name', post)
     })),
     {
       '/': {

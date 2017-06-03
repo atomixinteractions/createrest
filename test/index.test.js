@@ -1,7 +1,6 @@
-import test from 'ava'
+import avaTest from 'ava'
 import { createRest } from '../lib'
 
-/* eslint-disable no-shadow */
 
 const get = () => {}
 const post = () => {}
@@ -25,63 +24,63 @@ const make = (before = [], after = [], local = {}, scoped = {}) => ({
   scoped,
 })
 
-test('Base structure', t => {
-  t.deepEqual(
+avaTest('Base structure', test => {
+  test.deepEqual(
     createRest(r => {}),
     make()
   )
 })
 
-test('createRest fail if passed not func', t => {
-  t.throws(() => {
+avaTest('createRest fail if passed not func', test => {
+  test.throws(() => {
     createRest(null)
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest({})
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest([])
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest(true)
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest(1)
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest('')
   })
-  t.throws(() => {
+  test.throws(() => {
     createRest()
   })
 })
 
-test('Before', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.before(before)
+avaTest('Before', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.before(before)
     }),
     make([before])
   )
 })
 
-test('After', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.after(after)
+avaTest('After', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.after(after)
     }),
     make([], [after])
   )
 })
 
-test('Methods', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.get(get)
-      r.post(post)
-      r.put(put)
-      r.patch('/', patch)
-      r.delete('/', destroy)
+avaTest('Methods', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.get(get)
+      root.post(post)
+      root.put(put)
+      root.patch('/', patch)
+      root.delete('/', destroy)
     }),
     make([], [], {
       POST: [post],
@@ -93,16 +92,16 @@ test('Methods', t => {
   )
 })
 
-test('Methods with before/after', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.before(before)
-      r.after(after)
-      r.get('/', get)
-      r.post('/', post)
-      r.put('/', put)
-      r.patch('/', patch)
-      r.delete('/', destroy)
+avaTest('Methods with before/after', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.before(before)
+      root.after(after)
+      root.get('/', get)
+      root.post('/', post)
+      root.put('/', put)
+      root.patch('/', patch)
+      root.delete('/', destroy)
     }),
     make([before], [after], {
       POST: [post],
@@ -114,10 +113,10 @@ test('Methods with before/after', t => {
   )
 })
 
-test('Simple scoping', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.scope('demo', r => {
+avaTest('Simple scoping', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.scope('demo', demo => {
       })
     }),
     make([], [], {}, {
@@ -126,15 +125,15 @@ test('Simple scoping', t => {
   )
 })
 
-test('Scoped methods', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.scope('demo', r => {
-        r.get('/', get)
-        r.post('/', post)
-        r.put('/', put)
-        r.patch('/', patch)
-        r.delete('/', destroy)
+avaTest('Scoped methods', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.scope('demo', demo => {
+        demo.get('/', get)
+        demo.post('/', post)
+        demo.put('/', put)
+        demo.patch('/', patch)
+        demo.delete('/', destroy)
       })
     }),
     make([], [], {}, {
@@ -149,20 +148,20 @@ test('Scoped methods', t => {
   )
 })
 
-test('before/after in scope', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.before(before)
-      r.after(after)
-      r.scope('demo', r => {
-        r.before(before)
-        r.after(after)
-        r.get('/', get)
-        r.post('/', post)
-        r.put('/', put)
+avaTest('before/after in scope', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.before(before)
+      root.after(after)
+      root.scope('demo', demo => {
+        demo.before(before)
+        demo.after(after)
+        demo.get('/', get)
+        demo.post('/', post)
+        demo.put('/', put)
       })
-      r.patch('/', patch)
-      r.delete('/', destroy)
+      root.patch('/', patch)
+      root.delete('/', destroy)
     }),
     make(
       [before], [after],
@@ -181,12 +180,12 @@ test('before/after in scope', t => {
   )
 })
 
-test('Deep scope', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.scope('foo', r => {
-        r.scope('bar', r => {
-          r.get('/', get)
+avaTest('Deep scope', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.scope('foo', foo => {
+        foo.scope('bar', bar => {
+          bar.get('/', get)
         })
       })
     }),
@@ -202,11 +201,11 @@ test('Deep scope', t => {
   )
 })
 
-test('Create scoped by methods', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.post('/foo', post, post)
-      r.get('bar', get, get)
+avaTest('Create scoped by methods', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.post('/foo', post, post)
+      root.get('bar', get, get)
     }),
     make([], [], {}, {
       foo: make([], [], { POST: [post, post] }),
@@ -215,11 +214,11 @@ test('Create scoped by methods', t => {
   )
 })
 
-test('Local methods attach', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.get('/bar', get)
-      r.get('bar', get, get)
+avaTest('Local methods attach', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.get('/bar', get)
+      root.get('bar', get, get)
     }),
     make([], [], {}, {
       bar: make([], [],  { GET: [get, get, get] }),
@@ -227,44 +226,44 @@ test('Local methods attach', t => {
   )
 })
 
-test('Fail for wrong scope name', t => {
-  t.throws(() => {
-    createRest(r => {
-      r.scope('', () => {})
+avaTest('Fail for wrong scope name', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.scope('', () => {})
     })
   })
-  t.throws(() => {
-    createRest(r => {
-      r.scope(null, () => {})
+  test.throws(() => {
+    createRest(root => {
+      root.scope(null, () => {})
     })
   })
-  t.throws(() => {
-    createRest(r => {
-      r.scope('/', () => {})
-    })
-  })
-})
-
-test('Fail if passed deep path to method', t => {
-  t.throws(() => {
-    createRest(r => {
-      r.post('foo/bar', post)
+  test.throws(() => {
+    createRest(root => {
+      root.scope('/', () => {})
     })
   })
 })
 
-test('Fail if no listeners passed to method', t => {
-  t.throws(() => {
-    createRest(r => {
-      r.put('demo')
+avaTest('Fail if passed deep path to method', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.post('foo/bar', post)
     })
   })
 })
 
-test('Simple resource with default options', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.resource('unicorn', ObjectController)
+avaTest('Fail if no listeners passed to method', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.put('demo')
+    })
+  })
+})
+
+avaTest('Simple resource with default options', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resource('unicorn', ObjectController)
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -277,14 +276,15 @@ test('Simple resource with default options', t => {
   )
 })
 
-test('resource with partial controller and before/after', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.resource( 'unicorn',
-        Object.assign({}, ObjectController, {
-          beforeEach: before, afterEach: after, create: undefined,
-        })
-      )
+avaTest('resource with partial controller and before/after', test => {
+  const Controller = Object.assign({}, ObjectController, {
+    beforeEach: before,
+    afterEach: after,
+    create: undefined,
+  })
+  test.deepEqual(
+    createRest(root => {
+      root.resource( 'unicorn', Controller)
     }),
     make([], [], {}, {
       unicorn: make([before], [after], {
@@ -297,25 +297,25 @@ test('resource with partial controller and before/after', t => {
 })
 
 
-test('Fail resource with def opts', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.resource('unicorn')
+avaTest('Fail resource with def opts', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resource('unicorn')
     }),
     make()
   )
 
-  t.throws(() => {
-    createRest(r => {
-      r.resource()
+  test.throws(() => {
+    createRest(root => {
+      root.resource()
     })
   })
 })
 
-test('Resource with options.only', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.resource('unicorn', ObjectController, { only: ['create'] })
+avaTest('Resource with options.only', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resource('unicorn', ObjectController, { only: ['create'] })
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -325,10 +325,10 @@ test('Resource with options.only', t => {
   )
 })
 
-test('Resource with options.except', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.resource('unicorn', ObjectController, { except: ['create'] })
+avaTest('Resource with options.except', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resource('unicorn', ObjectController, { except: ['create'] })
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -340,16 +340,16 @@ test('Resource with options.except', t => {
   )
 })
 
-test('Resource with options.methodNames', t => {
+avaTest('Resource with options.methodNames', test => {
   const RenamedController = {
     first() {},
     second() {},
     third() {},
     fourth() {},
   }
-  t.deepEqual(
-    createRest(r => {
-      r.resource('unicorn', RenamedController, {
+  test.deepEqual(
+    createRest(root => {
+      root.resource('unicorn', RenamedController, {
         methodNames: { read: 'first', create: 'second', update: 'third', destroy: 'fourth' }
       })
     }),
@@ -364,11 +364,11 @@ test('Resource with options.methodNames', t => {
   )
 })
 
-test('resource in scope', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.scope('rainbow', r => {
-        r.resource('unicorn', ObjectController, { except: ['create'] })
+avaTest('resource in scope', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.scope('rainbow', rainbow => {
+        rainbow.resource('unicorn', ObjectController, { except: ['create'] })
       })
     }),
     make([], [], {}, {
@@ -383,14 +383,14 @@ test('resource in scope', t => {
   )
 })
 
-test('scopes not merging', t => {
-  t.deepEqual(
-    createRest(r => {
-      r.scope('foo', r => {
-        r.get('bar', get)
+avaTest('scopes with same name overwrites', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.scope('foo', foo => {
+        foo.get('bar', get)
       })
-      r.scope('foo', r => {
-        r.post('baz', post)
+      root.scope('foo', foo => {
+        foo.post('baz', post)
       })
     }),
     make([], [], {}, {
