@@ -24,14 +24,14 @@ const make = (before = [], after = [], local = {}, scoped = {}) => ({
   scoped,
 })
 
-avaTest('Base structure', test => {
+avaTest('Creates base structure', test => {
   test.deepEqual(
     createRest(r => {}),
     make()
   )
 })
 
-avaTest('createRest fail if passed not func', test => {
+avaTest('createRest fails if a function is not passed', test => {
   test.throws(() => {
     createRest(null)
   })
@@ -55,7 +55,7 @@ avaTest('createRest fail if passed not func', test => {
   })
 })
 
-avaTest('Before', test => {
+avaTest('Creates before', test => {
   test.deepEqual(
     createRest(root => {
       root.before(before)
@@ -64,7 +64,7 @@ avaTest('Before', test => {
   )
 })
 
-avaTest('After', test => {
+avaTest('Creates after', test => {
   test.deepEqual(
     createRest(root => {
       root.after(after)
@@ -73,7 +73,7 @@ avaTest('After', test => {
   )
 })
 
-avaTest('Methods', test => {
+avaTest('Creates methods', test => {
   test.deepEqual(
     createRest(root => {
       root.get(get)
@@ -92,7 +92,7 @@ avaTest('Methods', test => {
   )
 })
 
-avaTest('Methods with before/after', test => {
+avaTest('Creates methods with before/after', test => {
   test.deepEqual(
     createRest(root => {
       root.before(before)
@@ -113,7 +113,7 @@ avaTest('Methods with before/after', test => {
   )
 })
 
-avaTest('Simple scoping', test => {
+avaTest('Creates simple scoping', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('demo', demo => {
@@ -125,7 +125,7 @@ avaTest('Simple scoping', test => {
   )
 })
 
-avaTest('Scoped methods', test => {
+avaTest('Creates scoped methods', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('demo', demo => {
@@ -148,7 +148,7 @@ avaTest('Scoped methods', test => {
   )
 })
 
-avaTest('before/after in scope', test => {
+avaTest('Creates before/after in a scope', test => {
   test.deepEqual(
     createRest(root => {
       root.before(before)
@@ -180,7 +180,7 @@ avaTest('before/after in scope', test => {
   )
 })
 
-avaTest('Deep scope', test => {
+avaTest('Creates deep scope', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('foo', foo => {
@@ -201,7 +201,7 @@ avaTest('Deep scope', test => {
   )
 })
 
-avaTest('Create scoped by methods', test => {
+avaTest('Creates scoped by methods', test => {
   test.deepEqual(
     createRest(root => {
       root.post('/foo', post, post)
@@ -214,7 +214,7 @@ avaTest('Create scoped by methods', test => {
   )
 })
 
-avaTest('Local methods attach', test => {
+avaTest('Attaches local methods', test => {
   test.deepEqual(
     createRest(root => {
       root.get('/bar', get)
@@ -226,7 +226,7 @@ avaTest('Local methods attach', test => {
   )
 })
 
-avaTest('Fail for wrong scope name', test => {
+avaTest('Fails for wrong scope name', test => {
   test.throws(() => {
     createRest(root => {
       root.scope('', () => {})
@@ -244,7 +244,7 @@ avaTest('Fail for wrong scope name', test => {
   })
 })
 
-avaTest('Fail if passed deep path to method', test => {
+avaTest('Fails if deep path to a method is passed', test => {
   test.throws(() => {
     createRest(root => {
       root.post('foo/bar', post)
@@ -252,7 +252,7 @@ avaTest('Fail if passed deep path to method', test => {
   })
 })
 
-avaTest('Fail if no listeners passed to method', test => {
+avaTest('Fails if no listeners are passed to a method', test => {
   test.throws(() => {
     createRest(root => {
       root.put('demo')
@@ -260,7 +260,7 @@ avaTest('Fail if no listeners passed to method', test => {
   })
 })
 
-avaTest('Simple resource with default options', test => {
+avaTest('Creates simple resource with default options', test => {
   test.deepEqual(
     createRest(root => {
       root.resource('unicorn', ObjectController)
@@ -276,7 +276,7 @@ avaTest('Simple resource with default options', test => {
   )
 })
 
-avaTest('resource with partial controller and before/after', test => {
+avaTest('Creates resource with partial controller and before/after', test => {
   const Controller = Object.assign({}, ObjectController, {
     beforeEach: before,
     afterEach: after,
@@ -297,7 +297,7 @@ avaTest('resource with partial controller and before/after', test => {
 })
 
 
-avaTest('Fail resource with def opts', test => {
+avaTest('Fails for resource with default options', test => {
   test.deepEqual(
     createRest(root => {
       root.resource('unicorn')
@@ -312,7 +312,7 @@ avaTest('Fail resource with def opts', test => {
   })
 })
 
-avaTest('Resource with options.only', test => {
+avaTest('Creaets resource with options.only', test => {
   test.deepEqual(
     createRest(root => {
       root.resource('unicorn', ObjectController, { only: ['create'] })
@@ -325,7 +325,7 @@ avaTest('Resource with options.only', test => {
   )
 })
 
-avaTest('Resource with options.except', test => {
+avaTest('Creates resource with options.except', test => {
   test.deepEqual(
     createRest(root => {
       root.resource('unicorn', ObjectController, { except: ['create'] })
@@ -340,7 +340,7 @@ avaTest('Resource with options.except', test => {
   )
 })
 
-avaTest('Resource with options.methodNames', test => {
+avaTest('Creates resource with options.methodNames', test => {
   const RenamedController = {
     first() {},
     second() {},
@@ -364,7 +364,7 @@ avaTest('Resource with options.methodNames', test => {
   )
 })
 
-avaTest('resource in scope', test => {
+avaTest('Creates resource in scope', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('rainbow', rainbow => {
@@ -383,7 +383,7 @@ avaTest('resource in scope', test => {
   )
 })
 
-avaTest('scopes with same name overwrites', test => {
+avaTest('Overrides scopes with the same name', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('foo', foo => {
