@@ -14,7 +14,7 @@ const make = (method, listeners = []) => ({
   method, listeners,
 })
 
-avaTest('Empty', test => {
+avaTest('Creates empty routes', test => {
   test.deepEqual(
     flattenRoutes(createRest(root => {
     })),
@@ -22,7 +22,7 @@ avaTest('Empty', test => {
   )
 })
 
-avaTest('Local methods', test => {
+avaTest('Creates local methods', test => {
   test.deepEqual(
     flattenRoutes(createRest(root => {
       root.get(get)
@@ -43,7 +43,7 @@ avaTest('Local methods', test => {
   )
 })
 
-avaTest('Local and scoped methods', test => {
+avaTest('Creates local and scoped methods', test => {
   test.deepEqual(
     flattenRoutes(createRest(root => {
       root.get(get)
@@ -64,7 +64,7 @@ avaTest('Local and scoped methods', test => {
   )
 })
 
-avaTest('Local, scoped methods and methods in scope', test => {
+avaTest('Creates local, scoped methods and methods in scope', test => {
   test.deepEqual(
     flattenRoutes(createRest(root => {
       root.get(get)

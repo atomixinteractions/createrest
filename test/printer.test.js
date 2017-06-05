@@ -15,7 +15,7 @@ const make = (method, listeners = []) => ({
   method, listeners,
 })
 
-avaTest('Simple with before/after', test => {
+avaTest('Outputs before/after', test => {
   test.deepEqual(
     printRoutes(createRest(root => {
       root.before(before)
@@ -30,7 +30,7 @@ avaTest('Simple with before/after', test => {
   )
 })
 
-avaTest('Scoped with before/after', test => {
+avaTest('Outputs scoped routes with before/after', test => {
   test.deepEqual(
     printRoutes(createRest(root => {
       root.before(before)
