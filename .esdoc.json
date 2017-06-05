@@ -6,5 +6,6 @@
     "classProperties": true,
     "objectRestSpread": true,
     "exportExtensions": true
-  }
+  },
+  "styles": ["./esdocs/styles.css"]
 }

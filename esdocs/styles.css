@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+body, html {
+  background-color: #0f1419;
+  color: #c5c5c5;
+}
+
+.layout-container > header {
+  background-color: #0f1419;
+  border-color: #5c6773;
+}
+
+.layout-container > header > a {
+  color: #ff7733;
+}
+
+.layout-container > header > a.repo-url-github {
+  filter: invert();
+}
+
+a {
+  color: #0096cf;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code, pre {
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, Inconsolata, monospace;
+  white-space: pre-wrap;
+}
+
+pre {
+  background-color: #191f26;
+  border-radius: 4px;
+  color: #e6e1cf;
+}
+
+code {
+  color: #ffb454;
+}
+
+pre > code {
+  background: none;
+}
+
+pre.source-code {
+  background: none;
+  background-color: #191f26;
+}
+
+.import-path pre.prettyprint,
+.import-path pre.prettyprint code {
+  background-color: #191f26;
+  padding: 2px 4px;
+  font-size: 13px;
+}
+
+code, kbd, pre, samp {
+}
+
+h1 {
+  border-bottom: 1px dashed #D5D5D5;
+  font-size: 24px;
+}
+
+h2 {
+  border-bottom: 1px solid #5c6773;
+  font-size: 22px;
+}
+
+h1, h2 {
+  color: white;
+  margin: 20px 0 15px 0;
+  padding-bottom: 6px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 20px;
+  background-color: transparent;
+  color: inherit;
+}
+
+h3 .right-info {
+  line-height: 24px;
+}
+
+.content .detail > h3 {
+  color: inherit;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, Inconsolata, monospace;
+}
+
+.content .detail > h3 .access {
+  color: #ffa0a5;
+}
+
+.content .detail > h3 [data-ice="name"] {
+  color: #fdd687;
+}
+
+.content .detail > h3 [data-ice="source"]::before { content: "[" }
+.content .detail > h3 [data-ice="source"]::after { content: "]" }
+
+.content .detail h4 {
+  color: #6a6b75;
+  font-size: 16px;
+}
+
+.inner-link-active, :target {
+  background: rgba(255, 52, 52, 0.33);
+  border-right: 3px solid #ffb44c;
+}
+
+.navigation {
+  border: none;
+}
+
+.navigation li {
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  padding: 7px 5px;
+}
+
+.navigation li:hover {
+  background-color: rgba(70, 70, 70, 0.33);
+}
+
+.navigation li a {
+  display: inline-block;
+  color: #5c6773 !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 0 5px;
+}
+
+.kind-class,
+.kind-function,
+.kind-interface,
+.kind-typedef,
+.kind-variable,
+.kind-external {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent !important;
+  margin-right: 0;
+}
+
+table,
+table.params td, table.summary td,
+table.params th, table.summary th
+{
+  border-color: #4E4C4C;
+}
+
+table.params thead td, table.summary thead td {
+  background-color: #28282d;
+  color: #e6e1cf;
+}
+
+.footer, .file-footer {
+  border-top: 1px solid #5c6773;
+}
+
+.kwd { color: #ffa0a5 }
+.pun { color: #8959a8 }
+.pln { color: #e6e1cf }
+.str { color: #b8cc52 }
+
+.search-input {
+  color: #e6e1cf;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, Inconsolata, monospace;
+}
+
+.search-result {
+  background-color: #141920;
+  border: 1px solid #4E4C4C;
+}
+
+.search-result li.search-separator {
+  background-color: transparent;
+  margin-top: 10px;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, Inconsolata, monospace;
+}
+
+.search-result li.search-separator
+
+.search-result li.selected {
+  background: rgba(255, 52, 52, 0.33);
+}
