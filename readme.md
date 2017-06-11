@@ -16,14 +16,11 @@ Docs at https://atomixinteractions.github.io/createrest
 ## Usage example
 
 ```js
+// routes.js
 const {
   createRest,
   printRoutes,
 } = require('createrest')
-const { createRestExpress } = require('createrest-express')
-const express = require('express')
-
-const app = express()
 
 const before1 = () => { console.log('before1()') }
 const before2 = () => { console.log('before2()') }
@@ -69,14 +66,47 @@ const routes = createRest(root => {
   })
 })
 
+module.exports = routes
+```
+
+### Express
+
+More in it's repo [createrest-express](https://atmx.in/rest-ex)
+
+```js
+const { createRestExpress } = require('createrest-express')
+const express = require('express')
+const routes = require('./routes')
+
+const app = express()
+
 app.use(createRestExpress(routes))
 
 app.listen(4001, () => {
   printRoutes(routes)
 })
-
 ```
 
+### Koa
+
+More in it's repo [createrest-koa](https://atmx.in/rest-koa)
+
+```js
+const Koa = require('koa')
+const { createKoaRouter } = require('createrest-koa')
+const routes = require('./routes')
+
+const app = new Koa()
+const router = createKoaRouter(routes)
+
+app.use(router.routes(), router.allowedMethods())
+
+app.listen(3000, () => {
+  printRoutes(routes)
+})
+```
+
+---
 
 Output:
 
