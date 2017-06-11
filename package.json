@@ -1,6 +1,6 @@
 {
   "name": "createrest",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
