@@ -1,5 +1,5 @@
 import avaTest from 'ava'
-import { createRest } from '../lib'
+import { createRest, isCreateRestInstance } from '../lib'
 
 
 const get = () => {}
@@ -22,6 +22,7 @@ const make = (before = [], after = [], local = {}, scoped = {}) => ({
   after,
   local,
   scoped,
+  [isCreateRestInstance]: true,
 })
 
 avaTest('Creates base structure', test => {
