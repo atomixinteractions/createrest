@@ -96,3 +96,9 @@ avaTest('Creates local, scoped methods and methods in scope', test => {
     }
   )
 })
+
+avaTest('Fail if passed not routes', test => {
+  test.throws(() => {
+    flattenRoutes({})
+  })
+})

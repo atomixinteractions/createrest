@@ -1,5 +1,6 @@
 import avaTest from 'ava'
-import { createRest, isCreateRestInstance } from '../lib'
+import { createRest } from '../lib'
+import { createRestInstanceSymbol } from '../lib/symbol'
 
 
 const get = () => {}
@@ -22,7 +23,7 @@ const make = (before = [], after = [], local = {}, scoped = {}) => ({
   after,
   local,
   scoped,
-  [isCreateRestInstance]: true,
+  [createRestInstanceSymbol]: true,
 })
 
 avaTest('Creates base structure', test => {
