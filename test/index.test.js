@@ -153,11 +153,11 @@ avaTest('Creates scoped methods', test => {
 avaTest('Creates before/after in a scope', test => {
   test.deepEqual(
     createRest(root => {
-      root.before(before)
-      root.after(after)
+      root.beforeEach(before)
+      root.afterEach(after)
       root.scope('demo', demo => {
-        demo.before(before)
-        demo.after(after)
+        demo.beforeEach(before)
+        demo.afterEach(after)
         demo.get('/', get)
         demo.post('/', post)
         demo.put('/', put)
