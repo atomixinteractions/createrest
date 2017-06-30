@@ -66,26 +66,26 @@ const put3 = function put3() {
   console.log('put3()')
 }
 
-const routes = createRest(e => {
-  e.before(before1)
-  e.after(after1)
+const routes = createRest(root => {
+  root.before(before1)
+  root.after(after1)
 
-  e.post('/', post1)
+  // root.post('/', post1)
 
-  e.scope('demo', e => {
-    e.before(before2)
-    e.after(after2)
+  // root.scope('demo', demo => {
+  //   demo.before(before2)
+  //   demo.after(after2)
 
-    e.get('/', get1)
-    e.get('/foo', get2)
+  //   demo.get('/', get1)
+  //   demo.get('/foo', get2)
 
-    e.scope('bar', e => {
-      e.before(before3)
-      e.after(after3)
+  //   demo.scope('bar', bar => {
+  //     bar.before(before3)
+  //     bar.after(after3)
 
-      e.put('/', put3)
-    })
-  })
+  //     bar.put('/', put3)
+  //   })
+  // })
 })
 
 const strf = (data, indent = '  ') => stringify(data, {
