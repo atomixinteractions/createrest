@@ -9,7 +9,7 @@
 
 Declare your routes
 
-Docs at https://atomixinteractions.github.io/createrest
+Docs at https://createrest.js.org
 
 
 
