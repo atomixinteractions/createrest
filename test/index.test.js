@@ -402,3 +402,170 @@ avaTest('Overrides scopes with the same name', test => {
     })
   )
 })
+
+const DefaultController = {
+  beforeEach() {},
+  afterEach() {},
+  index() {},
+  create () {},
+  read() {},
+  update() {},
+  patch() {},
+  destroy() {},
+}
+
+avaTest('Resources with default', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', DefaultController)
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create]
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+            PUT: [DefaultController.update],
+            PATCH: [DefaultController.patch],
+            DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resource with empty controller', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', {})
+    }),
+    make([], [], {}, {
+      books: make([], [], {}, {
+        ':bookId': make()
+      })
+    })
+  )
+})
+
+avaTest('Resources with only', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', DefaultController, { only: ['index', 'read'] })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index],
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with except', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', DefaultController, { except: ['index', 'read', 'update'] })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          POST: [DefaultController.create]
+        },
+        {
+          ':bookId': make([], [], {
+            PATCH: [DefaultController.patch],
+            DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with patch/update case', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', Object.assign({}, DefaultController, { patch: undefined }))
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create]
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+            PUT: [DefaultController.update],
+            PATCH: [DefaultController.update],
+            DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with patch/update case w/o update()', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', Object.assign({}, DefaultController, { patch: undefined, update: undefined }))
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create]
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+            DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with memberId option', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources('books', DefaultController, { memberId: 'demoId' })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create]
+        },
+        {
+          ':demoId': make([], [], {
+            GET: [DefaultController.read],
+            PUT: [DefaultController.update],
+            PATCH: [DefaultController.patch],
+            DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
