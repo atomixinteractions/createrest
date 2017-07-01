@@ -61,7 +61,7 @@ const routes = createRest(root => {
 
       barRoute.put('/', put3)
 
-      barRoute.resource('example', ExampleController)
+      barRoute.crud('example', ExampleController)
     })
   })
 })

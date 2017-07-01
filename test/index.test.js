@@ -262,10 +262,10 @@ avaTest('Fails if no listeners are passed to a method', test => {
   })
 })
 
-avaTest('Creates simple resource with default options', test => {
+avaTest('Creates simple crud with default options', test => {
   test.deepEqual(
     createRest(root => {
-      root.resource('unicorn', ObjectController)
+      root.crud('unicorn', ObjectController)
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -278,7 +278,7 @@ avaTest('Creates simple resource with default options', test => {
   )
 })
 
-avaTest('Creates resource with partial controller and before/after', test => {
+avaTest('Creates crud with partial controller and before/after', test => {
   const Controller = Object.assign({}, ObjectController, {
     beforeEach: before,
     afterEach: after,
@@ -286,7 +286,7 @@ avaTest('Creates resource with partial controller and before/after', test => {
   })
   test.deepEqual(
     createRest(root => {
-      root.resource( 'unicorn', Controller)
+      root.crud( 'unicorn', Controller)
     }),
     make([], [], {}, {
       unicorn: make([before], [after], {
@@ -299,25 +299,25 @@ avaTest('Creates resource with partial controller and before/after', test => {
 })
 
 
-avaTest('Fails for resource with default options', test => {
+avaTest('Fails for crud with default options', test => {
   test.deepEqual(
     createRest(root => {
-      root.resource('unicorn')
+      root.crud('unicorn')
     }),
     make()
   )
 
   test.throws(() => {
     createRest(root => {
-      root.resource()
+      root.crud()
     })
   })
 })
 
-avaTest('Creaets resource with options.only', test => {
+avaTest('Creaets crud with options.only', test => {
   test.deepEqual(
     createRest(root => {
-      root.resource('unicorn', ObjectController, { only: ['create'] })
+      root.crud('unicorn', ObjectController, { only: ['create'] })
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -327,10 +327,10 @@ avaTest('Creaets resource with options.only', test => {
   )
 })
 
-avaTest('Creates resource with options.except', test => {
+avaTest('Creates crud with options.except', test => {
   test.deepEqual(
     createRest(root => {
-      root.resource('unicorn', ObjectController, { except: ['create'] })
+      root.crud('unicorn', ObjectController, { except: ['create'] })
     }),
     make([], [], {}, {
       unicorn: make([], [], {
@@ -342,7 +342,7 @@ avaTest('Creates resource with options.except', test => {
   )
 })
 
-avaTest('Creates resource with options.methodNames', test => {
+avaTest('Creates crud with options.methodNames', test => {
   const RenamedController = {
     first() {},
     second() {},
@@ -351,7 +351,7 @@ avaTest('Creates resource with options.methodNames', test => {
   }
   test.deepEqual(
     createRest(root => {
-      root.resource('unicorn', RenamedController, {
+      root.crud('unicorn', RenamedController, {
         methodNames: { read: 'first', create: 'second', update: 'third', destroy: 'fourth' }
       })
     }),
@@ -366,11 +366,11 @@ avaTest('Creates resource with options.methodNames', test => {
   )
 })
 
-avaTest('Creates resource in scope', test => {
+avaTest('Creates crud in scope', test => {
   test.deepEqual(
     createRest(root => {
       root.scope('rainbow', rainbow => {
-        rainbow.resource('unicorn', ObjectController, { except: ['create'] })
+        rainbow.crud('unicorn', ObjectController, { except: ['create'] })
       })
     }),
     make([], [], {}, {

@@ -35,6 +35,16 @@ const exampleAT = {
 // ========================================================================= //
 // ========================================================================= //
 
+const TestsController = {
+  beforeEach() {},
+  afterEach() {},
+  index() {},
+  create() {},
+  update() {},
+  patch() {},
+  destroy() {},
+}
+
 const before1 = function before1() {
   console.log('before1()')
 }
@@ -70,9 +80,11 @@ const routes = createRest(root => {
   root.before(before1)
   root.after(after1)
 
+
+
   // root.post('/', post1)
 
-  // root.scope('demo', demo => {
+  root.scope('demo', demo => {
   //   demo.before(before2)
   //   demo.after(after2)
 
@@ -85,7 +97,8 @@ const routes = createRest(root => {
 
   //     bar.put('/', put3)
   //   })
-  // })
+  })
+  root.crud('tests', TestsController)
 })
 
 const strf = (data, indent = '  ') => stringify(data, {
