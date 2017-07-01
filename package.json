@@ -4,7 +4,7 @@
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/printers.js\"",
     "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
     "build": "babel -d ./dist ./lib",
     "test": "npm run test:lint && npm run test:code",

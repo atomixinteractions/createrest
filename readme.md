@@ -42,6 +42,17 @@ const ExampleController = {
   destroy () {},
 }
 
+const BooksController = {
+  beforeEach() { console.log('Call before each handler') },
+  afterEach() {},
+  index() {},
+  create() {},
+  read() {},
+  update() {},
+  patch() {},
+  destroy () {},
+}
+
 const routes = createRest(root => {
   root.beforeEach(before1)
   root.afterEach(after1)
@@ -64,6 +75,8 @@ const routes = createRest(root => {
       barRoute.crud('example', ExampleController)
     })
   })
+
+  root.resources('books', BooksController)
 })
 
 module.exports = routes
@@ -119,4 +132,10 @@ GET /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), read(),
 POST /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), create(), afterEach(), after3(), after2(), after1()
 PUT /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), update(), afterEach(), after3(), after2(), after1()
 DELETE /demo/bar/example/ -> before1(), before2(), before3(), beforeEach(), destroy(), afterEach(), after3(), after2(), after1()
+GET /books/ -> before1(), beforeEach(), index(), afterEach(), after1()
+POST /books/ -> before1(), beforeEach(), create(), afterEach(), after1()
+GET /books/:bookId/ -> before1(), beforeEach(), read(), afterEach(), after1()
+PUT /books/:bookId/ -> before1(), beforeEach(), update(), afterEach(), after1()
+PATCH /books/:bookId/ -> before1(), beforeEach(), patch(), afterEach(), after1()
+DELETE /books/:bookId/ -> before1(), beforeEach(), destroy(), afterEach(), after1()
 ```

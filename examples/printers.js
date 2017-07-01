@@ -80,25 +80,23 @@ const routes = createRest(root => {
   root.beforeEach(before1)
   root.afterEach(after1)
 
-
-
-  // root.post('/', post1)
+  root.post('/', post1)
 
   root.scope('demo', demo => {
-  //   demo.beforeEach(before2)
-  //   demo.afterEach(after2)
+    demo.beforeEach(before2)
+    demo.afterEach(after2)
 
-  //   demo.get('/', get1)
-  //   demo.get('/foo', get2)
+    demo.get('/', get1)
+    demo.get('/foo', get2)
 
-  //   demo.scope('bar', bar => {
-  //     bar.beforeEach(before3)
-  //     bar.afterEach(after3)
+    demo.scope('bar', bar => {
+      bar.beforeEach(before3)
+      bar.afterEach(after3)
 
-  //     bar.put('/', put3)
-  //   })
+      bar.put('/', put3)
+    })
   })
-  root.crud('tests', TestsController)
+  root.resources('tests', TestsController)
 })
 
 const strf = (data, indent = '  ') => stringify(data, {
@@ -125,9 +123,12 @@ Object.keys(flat).forEach(path => {
   Object.keys(mt).forEach(method => {
     console.log(
       chalk.green(`${method} ${path}`),
-      mt[method].map(fn => `${fn.name}()`).join(', ')
+      ' >> ',
+      mt[method].map(fn => `${chalk.yellow(fn.name)}()`).join(', ')
     )
   })
 })
+
+console.log('\n---\n')
 
 printRoutes(routes)
