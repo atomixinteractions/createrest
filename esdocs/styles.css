@@ -12,7 +12,7 @@ body, html {
 }
 
 .layout-container > header > a {
-  color: #ff7733;
+  color: #68afca;
 }
 
 .layout-container > header > a.repo-url-github {
@@ -89,6 +89,7 @@ table.summary [data-ice="name"], table.summary [data-ice="signature"], table.sum
   padding: 2px 4px;
   font-size: 13px;
 }
+.source-code { padding: 0 }
 .import-path .typ:before, .import-path .typ:after {
   content: ' '
 }
@@ -232,6 +233,7 @@ table.params thead td, table.summary thead td, table.files-summary thead td {
   color: #e6e1cf;
 }
 
+table.files-summary tbody tr:hover,
 table.params tbody tr:hover td {
   background-color: #191f26;
 }
