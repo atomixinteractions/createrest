@@ -60,7 +60,7 @@ avaTest('createRest fails if a function is not passed', test => {
 avaTest('Creates before', test => {
   test.deepEqual(
     createRest(root => {
-      root.before(before)
+      root.beforeEach(before)
     }),
     make([before])
   )
@@ -69,7 +69,7 @@ avaTest('Creates before', test => {
 avaTest('Creates after', test => {
   test.deepEqual(
     createRest(root => {
-      root.after(after)
+      root.afterEach(after)
     }),
     make([], [after])
   )
@@ -97,8 +97,8 @@ avaTest('Creates methods', test => {
 avaTest('Creates methods with before/after', test => {
   test.deepEqual(
     createRest(root => {
-      root.before(before)
-      root.after(after)
+      root.beforeEach(before)
+      root.afterEach(after)
       root.get('/', get)
       root.post('/', post)
       root.put('/', put)

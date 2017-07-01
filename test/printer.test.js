@@ -8,47 +8,47 @@ const post = () => {}
 const put = () => {}
 const patch = () => {}
 const destroy = () => {}
-const before = () => {}
-const after = () => {}
+const beforeEach = () => {}
+const afterEach = () => {}
 
 const make = (method, listeners = []) => ({
   method, listeners,
 })
 
-avaTest('Outputs before/after', test => {
+avaTest('Outputs beforeEach/afterEach', test => {
   test.deepEqual(
     printRoutes(createRest(root => {
-      root.before(before)
-      root.after(after)
+      root.beforeEach(beforeEach)
+      root.afterEach(afterEach)
       root.get(get)
       root.post('foo', post)
     }), false),
     [
-      'GET / -> before(), get(), after()',
-      'POST /foo/ -> before(), post(), after()',
+      'GET / -> beforeEach(), get(), afterEach()',
+      'POST /foo/ -> beforeEach(), post(), afterEach()',
     ]
   )
 })
 
-avaTest('Outputs scoped routes with before/after', test => {
+avaTest('Outputs scoped routes with beforeEach/afterEach', test => {
   test.deepEqual(
     printRoutes(createRest(root => {
-      root.before(before)
-      root.after(after)
+      root.beforeEach(beforeEach)
+      root.afterEach(afterEach)
       root.get(get)
       root.post('foo', post)
       root.scope('bar', bar => {
-        bar.before(before)
-        bar.after(after)
+        bar.beforeEach(beforeEach)
+        bar.afterEach(afterEach)
         bar.put(() => {})
         bar.delete('baz', destroy)
       })
     }), false),
     [
-      'GET / -> before(), get(), after()',
-      'POST /foo/ -> before(), post(), after()',
-      'PUT /bar/ -> before(), before(), <function>(), after(), after()',
-      'DELETE /bar/baz/ -> before(), before(), destroy(), after(), after()'
+      'GET / -> beforeEach(), get(), afterEach()',
+      'POST /foo/ -> beforeEach(), post(), afterEach()',
+      'PUT /bar/ -> beforeEach(), beforeEach(), <function>(), afterEach(), afterEach()',
+      'DELETE /bar/baz/ -> beforeEach(), beforeEach(), destroy(), afterEach(), afterEach()'
     ]
   )
 })
@@ -57,8 +57,8 @@ avaTest.todo('Real print to stdout')
 
 avaTest('Real print to output', test => {
   printRoutes(createRest(root => {
-    root.before(before)
-    root.after(after)
+    root.beforeEach(beforeEach)
+    root.afterEach(afterEach)
     root.get(get)
     root.post('foo', post)
   }))

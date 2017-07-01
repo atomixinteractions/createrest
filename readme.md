@@ -43,21 +43,21 @@ const ExampleController = {
 }
 
 const routes = createRest(root => {
-  root.before(before1)
-  root.after(after1)
+  root.beforeEach(before1)
+  root.afterEach(after1)
 
   root.post('/', post1)
 
   root.scope('demo', demoRoute => {
-    demoRoute.before(before2)
-    demoRoute.after(after2)
+    demoRoute.beforeEach(before2)
+    demoRoute.afterEach(after2)
 
     demoRoute.get('/', get1)
     demoRoute.get('/foo', get2)
 
     demoRoute.scope('bar', barRoute => {
-      barRoute.before(before3)
-      barRoute.after(after3)
+      barRoute.beforeEach(before3)
+      barRoute.afterEach(after3)
 
       barRoute.put('/', put3)
 

@@ -77,23 +77,23 @@ const put3 = function put3() {
 }
 
 const routes = createRest(root => {
-  root.before(before1)
-  root.after(after1)
+  root.beforeEach(before1)
+  root.afterEach(after1)
 
 
 
   // root.post('/', post1)
 
   root.scope('demo', demo => {
-  //   demo.before(before2)
-  //   demo.after(after2)
+  //   demo.beforeEach(before2)
+  //   demo.afterEach(after2)
 
   //   demo.get('/', get1)
   //   demo.get('/foo', get2)
 
   //   demo.scope('bar', bar => {
-  //     bar.before(before3)
-  //     bar.after(after3)
+  //     bar.beforeEach(before3)
+  //     bar.afterEach(after3)
 
   //     bar.put('/', put3)
   //   })
