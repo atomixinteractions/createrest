@@ -12,6 +12,7 @@
     "test:code": "NODE_ENV=test nyc ava",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
     "report": "nyc report --reporter=text-lcov | coveralls",
+    "report:user": "nyc report --reporter=html",
     "docs": "esdoc",
     "docs:deploy": "buildbranch gh-pages docs",
     "docs:cname": "echo 'createrest.js.org' > docs/CNAME",

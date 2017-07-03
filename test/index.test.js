@@ -569,3 +569,37 @@ avaTest('Resources with memberId option', test => {
     })
   )
 })
+
+avaTest('Resources should be named', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.resources()
+    }, /Resources should be named/, 'unnamed resources not throws')
+  })
+})
+
+avaTest('Resources controller should be object', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.resources('ex', null)
+    })
+  }, /Controller should be object/, 'null not throws')
+  test.throws(() => {
+    createRest(root => {
+      root.resources('ex', function(){})
+    })
+  }, /Controller should be object/, 'function not throws')
+  test.throws(() => {
+    createRest(root => {
+      root.resources('ex', 1)
+    })
+  }, /Controller should be object/, 'number not throws')
+})
+
+avaTest('Resources cannot use only and expect at the same time', test => {
+  test.throws(() => {
+    createRest(root => {
+      root.resources('demo', {}, { only: [], except: [] })
+    })
+  }, /You can't use/, 'except and only not throws')
+})
