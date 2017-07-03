@@ -403,6 +403,33 @@ avaTest('Overrides scopes with the same name', test => {
   )
 })
 
+avaTest('Crud with child scope', test => {
+  const spy = () => {}
+  test.deepEqual(
+    createRest(root => {
+      root.scope('rainbow', rainbow => {
+        rainbow.crud('unicorn', ObjectController, {}, unicorn => {
+          unicorn.get('excellent', spy)
+        })
+      })
+    }),
+    make([], [], {}, {
+      rainbow: make([], [], {}, {
+        unicorn: make([], [], {
+          POST: [ObjectController.create],
+          GET: [ObjectController.read],
+          PUT: [ObjectController.update],
+          DELETE: [ObjectController.destroy],
+        },{
+          excellent: make([], [], {
+            GET: [spy],
+          })
+        }),
+      })
+    })
+  )
+})
+
 const DefaultController = {
   beforeEach() {},
   afterEach() {},
@@ -563,6 +590,31 @@ avaTest('Resources with memberId option', test => {
             PUT: [DefaultController.update],
             PATCH: [DefaultController.patch],
             DELETE: [DefaultController.destroy],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+
+avaTest('Resources with patch in only and w/o patch(), update() methods', test => {
+  test.deepEqual(
+    createRest(root => {
+      root.resources(
+        'books',
+        Object.assign({}, DefaultController, { patch: undefined, update: undefined }),
+        { only: ['patch'] }
+      )
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+        },
+        {
+          ':bookId': make([], [], {
           }),
         }
       ),
