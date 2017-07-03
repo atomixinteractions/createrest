@@ -39,6 +39,7 @@ const TestsController = {
   beforeEach() {},
   afterEach() {},
   index() {},
+  read() {},
   create() {},
   update() {},
   patch() {},
@@ -72,6 +73,9 @@ const get1 = function get1() {
 const get2 = function get2() {
   console.log('get2()')
 }
+const get3 = function get3() {
+  console.log('get3()')
+}
 const put3 = function put3() {
   console.log('put3()')
 }
@@ -89,11 +93,14 @@ const routes = createRest(root => {
     demo.get('/', get1)
     demo.get('/foo', get2)
 
-    demo.scope('bar', bar => {
-      bar.beforeEach(before3)
-      bar.afterEach(after3)
+    // demo.scope('bar', bar => {
+    //   bar.beforeEach(before3)
+    //   bar.afterEach(after3)
 
-      bar.put('/', put3)
+    //   bar.put('/', put3)
+    // })
+    demo.crud('bar', TestsController, {}, bar => {
+      bar.get('baz', get3)
     })
   })
   root.resources('tests', TestsController)
