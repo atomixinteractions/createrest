@@ -90,7 +90,7 @@ export class Maker {
    */
   build() {
     const scoped = {}
-    Object.keys(this.ctx.scoped).forEach(name => {
+    Object.keys(this.ctx.scoped).forEach((name) => {
       scoped[name] = this.ctx.scoped[name].build()
     })
     return Object.assign({}, this.ctx, { scoped, [createRestInstanceSymbol]: true })
@@ -492,7 +492,8 @@ export class Maker {
     }
     const methodsList = Object.keys(methods)
 
-    const resolveMethodName = (handler, currentController) => options.methodNames && options.methodNames[handler]
+    const resolveMethodName = (handler, currentController) =>
+    options.methodNames && options.methodNames[handler]
       ? currentController[options.methodNames[handler]]
       : currentController[handler]
 
@@ -512,7 +513,7 @@ export class Maker {
       usedList = methodsList
     }
 
-    this.scope(name, scope => {
+    this.scope(name, (scope) => {
       scope.beforeEach(controller.beforeEach)
       scope.afterEach(controller.afterEach)
 
@@ -532,8 +533,9 @@ export class Maker {
   /**
    * Configure your `resources('name', controller, options)`
    * <br/> You can't use `except` and `only` at the same time
+   * <br/> Available handlers: `index`, `read`, `create`, `update`, `patch`, `destroy`
    * @typedef {object} resourcesOptions
-   * @property {string[]} [only] Keep only that handlers: `index`, `read`, `create`, `update`, `patch`, `destroy`
+   * @property {string[]} [only] Keep only that handlers
    * @property {string[]} [except] Keep all except that handlers
    * @property {string} [memberId] Change :memberId in the URI
    * @since 0.9.0
@@ -621,7 +623,7 @@ export class Maker {
     }
 
     if (options.only && options.except) {
-      throw new Error(`You can't use 'except' and 'only' options at the same time`)
+      throw new Error('You can\'t use \'except\' and \'only\' options at the same time')
     }
 
     const noMethodsSlicingOption = (!options.only || options.only.length === 0)
@@ -639,7 +641,7 @@ export class Maker {
 
     const memberId = options.memberId || `${pluralize.singular(name)}Id`
 
-    this.scope(name, scope => {
+    this.scope(name, (scope) => {
       scope.beforeEach(controller.beforeEach)
       scope.afterEach(controller.afterEach)
 
@@ -651,7 +653,7 @@ export class Maker {
         scope.post('/', controller.create)
       }
 
-      scope.scope(`:${memberId}`, member => {
+      scope.scope(`:${memberId}`, (member) => {
         if (checkMethod('read')) {
           member.get('/', controller.read)
         }

@@ -1,10 +1,5 @@
 {
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-export-extensions",
-    "transform-es2015-modules-commonjs",
-    "syntax-trailing-function-commas"
-  ],
+  "presets": ["node8"],
   "env": {
     "test": {
       "presets": ["@ava/stage-4"],

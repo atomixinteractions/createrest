@@ -10,7 +10,7 @@ import { isCreateRestInstance } from './index'
 function flattenize(routes, prefix, parent) {
   const list = {}
 
-  Object.keys(routes.local).forEach(method => {
+  Object.keys(routes.local).forEach((method) => {
     const localName = prefix === '' ? '/' : `${prefix}/`
 
     if (!list[localName]) {
@@ -25,7 +25,7 @@ function flattenize(routes, prefix, parent) {
     )
   })
 
-  Object.keys(routes.scoped).forEach(scope => {
+  Object.keys(routes.scoped).forEach((scope) => {
     const scoped = routes.scoped[scope]
     const listeners = flattenize(scoped, `${prefix}/${scope}`, {
       before: parent.before.concat(routes.before),

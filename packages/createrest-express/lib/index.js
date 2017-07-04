@@ -8,10 +8,10 @@ export function createExpressMiddleware(routing) {
   const router = Router()
 
   const flat = flattenRoutes(routing)
-  Object.keys(flat).forEach(path => {
+  Object.keys(flat).forEach((path) => {
     const methods = flat[path]
 
-    Object.keys(methods).forEach(method => {
+    Object.keys(methods).forEach((method) => {
       router[method.toLowerCase()](path, ...methods[method])
     })
   })
