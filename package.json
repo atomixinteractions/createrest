@@ -1,18 +1,48 @@
 {
   "name": "createrest",
-  "private": true,
+  "version": "0.10.4",
+  "description": "REST routes constructor for express and koa",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "lerna run build --stream",
-    "clean": "lerna run clean --stream",
-    "coverage": "lerna run coverage --stream",
-    "docs": "lerna run docs --scope createrest",
-    "metapak": "metapak || echo 'Please `npm install --save-dev metapak`' && exit 0",
-    "postinstall": "lerna bootstrap; npm run metapak --silent",
-    "postpublish": "git push --all origin && git push --tags origin && lerna run docs:publish",
-    "prepublish": "lerna run test --stream && lerna run build --stream",
-    "publish": "lerna publish",
-    "report": "lerna run report --stream",
-    "test": "lerna run test"
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/resources.js\"",
+    "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
+    "build": "babel -d ./dist ./lib",
+    "test": "npm run test:lint && npm run test:code",
+    "test:lint": "eslint ./lib",
+    "test:code": "NODE_ENV=test nyc ava",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "report:user": "nyc report --reporter=html",
+    "docs": "esdoc",
+    "docs:dev": "nodemon -w lib -w esdocs -e js,css -x 'npm run docs'",
+    "docs:deploy": "gh-pages -d ./docs",
+    "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
+    "docs:publish": "npm run docs && npm run docs:cname && npm run docs:deploy"
+  },
+  "bin": {
+    "createrest": "./bin/createrest.js",
+    "rest": "./bin/createrest.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/createrest.git"
+  },
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/createrest/issues"
+  },
+  "homepage": "https://github.com/atomixinteractions/createrest#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "pluralize": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=7.0.0"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
@@ -25,16 +55,22 @@
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-register": "^6.24.1",
-    "buildbranch": "^2.0.0",
     "coveralls": "^2.13.1",
     "esdoc": "^0.5.2",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
-    "lerna": "^2.0.0-rc.5",
-    "metapak": "0.0.20",
+    "gh-pages": "^1.0.0",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.2",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "stringify-object": "^3.2.0"
+  },
+  "ava": {
+    "require": "babel-register",
+    "concurrency": 4,
+    "files": [
+      "test/*.test.js"
+    ]
   }
 }
