@@ -13,7 +13,7 @@
     "test": "lerna run test",
     "prepublish": "lerna run preversion",
     "publish": "lerna publish",
-    "postpublish": "lerna run postversiond"
+    "postpublish": "lerna run postversion"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
