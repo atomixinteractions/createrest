@@ -1,10 +1,8 @@
-# createrest-koa
-
-[![npm](https://img.shields.io/npm/v/createrest-koa.svg)](https://npmjs.com/createrest-koa)
+# createrest-koa [![npm](https://img.shields.io/npm/v/createrest-koa.svg)](https://npmjs.com/createrest-koa)
 
 ## Readme
 
-Koa middleware for [createrest](https://github.com/atomixinteractions/createrest)
+[createRest](/packages/createrest) generator for Koa2
 
 ## Usage example
 

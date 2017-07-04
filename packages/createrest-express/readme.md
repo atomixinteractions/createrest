@@ -1,11 +1,9 @@
-# createrest-express
-
-[![npm](https://img.shields.io/npm/v/createrest-express.svg)](https://npmjs.com/createrest-express)
+# createrest-express [![npm](https://img.shields.io/npm/v/createrest-express.svg)](https://npmjs.com/createrest-express)
 
 
 ## Readme
 
-Express middleware for [createrest](https://github.com/atomixinteractions/createrest)
+[createRest](/packages/createrest) generator for Express
 
 ## Usage example
 
