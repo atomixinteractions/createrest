@@ -1,5 +1,6 @@
 {
   "name": "createrest",
+  "version": "0.10.1",
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",
@@ -11,7 +12,8 @@
     "report": "lerna run report --stream",
     "test": "lerna run test",
     "prepublish": "lerna run preversion",
-    "postpublish": "lerna run postversion"
+    "publish": "lerna publish",
+    "postpublish": "lerna run postversiond"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
