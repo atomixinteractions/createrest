@@ -17,8 +17,7 @@
     "docs:dev": "nodemon -w lib -w esdocs -e js,css -x 'npm run docs'",
     "docs:deploy": "buildbranch gh-pages docs",
     "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
-    "preversion": "npm test && npm run build",
-    "postversion": "npm run docs && npm run docs:cname && npm run docs:deploy"
+    "docs:publish": "npm run docs && npm run docs:cname && npm run docs:deploy"
   },
   "bin": {
     "createrest": "./bin/createrest.js",
