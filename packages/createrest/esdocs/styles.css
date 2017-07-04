@@ -45,6 +45,10 @@ pre > code {
   background: none;
 }
 
+hr {
+  border-color: #5c6773;
+}
+
 pre.source-code,
 pre.source-code ol,
 pre.source-code ol li
