@@ -1,0 +1,37 @@
+{
+  "name": "createrest",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build --stream",
+    "clean": "lerna run clean --stream && lerna clean --stream",
+    "coverage": "lerna run coverage --stream",
+    "docs": "lerna run docs --scope createrest",
+    "metapak": "metapak || echo 'Please `npm install --save-dev metapak`' && exit 0",
+    "postinstall": "lerna bootstrap; npm run metapak --silent",
+    "report": "lerna run report --stream",
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "@ava/babel-preset-stage-4": "^1.1.0",
+    "ava": "^0.20.0",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "buildbranch": "^2.0.0",
+    "coveralls": "^2.13.1",
+    "esdoc": "^0.5.2",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "lerna": "^2.0.0-rc.5",
+    "metapak": "0.0.20",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.0.2",
+    "rimraf": "^2.6.1"
+  }
+}
