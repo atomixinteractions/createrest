@@ -1,6 +1,6 @@
 {
   "name": "createrest-express",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Express middleware for generate routes from createrest",
   "main": "dist/index.js",
   "scripts": {
@@ -50,8 +50,8 @@
     "rimraf": "^2.6.1"
   },
   "peerDependencies": {
-    "express": "4.*",
-    "createrest": "0.8.*"
+    "createrest": "0.8.*",
+    "express": "4.*"
   },
   "ava": {
     "require": "babel-register",
