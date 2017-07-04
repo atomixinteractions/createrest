@@ -4,7 +4,7 @@
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/printers.js\"",
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/resources.js\"",
     "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
     "build": "babel -d ./dist ./lib",
     "test": "npm run test:lint && npm run test:code",
@@ -14,6 +14,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls",
     "report:user": "nyc report --reporter=html",
     "docs": "esdoc",
+    "docs:dev": "nodemon -w lib -w esdocs -e js,css -x 'npm run docs'",
     "docs:deploy": "buildbranch gh-pages docs",
     "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
     "preversion": "npm test && npm run build",
