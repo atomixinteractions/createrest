@@ -1,10 +1,6 @@
 # createrest-express
 
-[![Travis](https://img.shields.io/travis/atomixinteractions/createrest-express.svg)](https://travis-ci.org/atomixinteractions/createrest-express)
-[![Coverage Status](https://coveralls.io/repos/github/atomixinteractions/createrest-express/badge.svg?branch=master)](https://coveralls.io/github/atomixinteractions/createrest-express?branch=master)
 [![npm](https://img.shields.io/npm/v/createrest-express.svg)](https://npmjs.com/createrest-express)
-[![GitHub tag](https://img.shields.io/github/tag/atomixinteractions/createrest-express.svg)](https://github.com/atomixinteractions/createrest-express)
-[![license](https://img.shields.io/github/license/atomixinteractions/createrest-express.svg)](https://github.com/atomixinteractions/createrest-express)
 
 
 ## Readme

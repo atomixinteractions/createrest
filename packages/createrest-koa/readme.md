@@ -1,11 +1,6 @@
 # createrest-koa
 
-[![Travis](https://img.shields.io/travis/atomixinteractions/createrest-koa.svg)](https://travis-ci.org/atomixinteractions/createrest-koa)
-[![Coverage Status](https://coveralls.io/repos/github/atomixinteractions/createrest-koa/badge.svg?branch=master)](https://coveralls.io/github/atomixinteractions/createrest-koa?branch=master)
 [![npm](https://img.shields.io/npm/v/createrest-koa.svg)](https://npmjs.com/createrest-koa)
-[![GitHub tag](https://img.shields.io/github/tag/atomixinteractions/createrest-koa.svg)](https://github.com/atomixinteractions/createrest-koa)
-[![license](https://img.shields.io/github/license/atomixinteractions/createrest-koa.svg)](https://github.com/atomixinteractions/createrest-koa)
-
 
 ## Readme
 
@@ -14,7 +9,7 @@ Koa middleware for [createrest](https://github.com/atomixinteractions/createrest
 ## Usage example
 
 ```js
-const { createRest, printRoutes } = require('createrest)
+const { createRest, printRoutes } = require('createrest')
 const { createKoaRouter } = require('createrest-koa')
 const Koa = require('koa')
 
