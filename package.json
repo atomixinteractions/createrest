@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",
-    "clean": "lerna run clean --stream && lerna clean --stream",
+    "clean": "lerna run clean --stream",
     "coverage": "lerna run coverage --stream",
     "docs": "lerna run docs --scope createrest",
     "metapak": "metapak || echo 'Please `npm install --save-dev metapak`' && exit 0",
