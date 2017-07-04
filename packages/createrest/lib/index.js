@@ -291,10 +291,10 @@ export class Maker {
    * @throws {Error} Path should not be deep
    * @throws {TypeError} Maybe you forget to add listener?
    * @example
-   * createRest(r => {
-   *   r.post('name', () => console.log('Handled post /name request'))
-   *   r.post(() => console.log('Handled post / request'))
-   *   r.post('create',
+   * createRest(root => {
+   *   root.post('name', () => console.log('Handled post /name request'))
+   *   root.post(() => console.log('Handled post / request'))
+   *   root.post('create',
    *     (req, res, next) => next(),
    *     authorize('user'),
    *     () => console.log('Handled post /create with middlewares')
