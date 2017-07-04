@@ -41,9 +41,8 @@
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-register": "^6.24.1",
-    "buildbranch": "^2.0.0",
     "coveralls": "^2.13.1",
-    "createrest": "^0.8.3",
+    "createrest": "^0.10.4",
     "documentation": "^4.0.0-beta.18",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
@@ -54,7 +53,7 @@
     "rimraf": "^2.6.1"
   },
   "peerDependencies": {
-    "createrest": "0.8.*",
+    "createrest": "^0.10.4",
     "express": "4.*"
   },
   "ava": {
