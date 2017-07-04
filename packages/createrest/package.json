@@ -1,6 +1,6 @@
 {
   "name": "createrest",
-  "version": "0.10.1",
+  "version": "0.10.0",
   "description": "REST routes constructor for express and koa",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "docs:deploy": "buildbranch gh-pages docs",
     "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
     "preversion": "npm test && npm run build",
-    "postversion": "npm publish && npm run docs && git push --all origin && git push --tags origin && npm run docs:cname && npm run docs:deploy"
+    "postversion": "npm run docs && npm run docs:cname && npm run docs:deploy"
   },
   "bin": {
     "createrest": "./bin/createrest.js",

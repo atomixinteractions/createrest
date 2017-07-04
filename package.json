@@ -1,6 +1,5 @@
 {
   "name": "createrest",
-  "version": "0.10.1",
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",
@@ -9,11 +8,11 @@
     "docs": "lerna run docs --scope createrest",
     "metapak": "metapak || echo 'Please `npm install --save-dev metapak`' && exit 0",
     "postinstall": "lerna bootstrap; npm run metapak --silent",
-    "report": "lerna run report --stream",
-    "test": "lerna run test",
+    "postpublish": "git push --all origin && git push --tags origin && lerna run postversion",
     "prepublish": "lerna run preversion",
     "publish": "lerna publish",
-    "postpublish": "lerna run postversion"
+    "report": "lerna run report --stream",
+    "test": "lerna run test"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
