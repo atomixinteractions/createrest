@@ -1,0 +1,76 @@
+{
+  "name": "createrest",
+  "version": "0.10.4",
+  "description": "REST routes constructor for express and koa",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/resources.js\"",
+    "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
+    "build": "babel -d ./dist ./lib",
+    "test": "npm run test:lint && npm run test:code",
+    "test:lint": "eslint ./lib",
+    "test:code": "NODE_ENV=test nyc ava",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "report:user": "nyc report --reporter=html",
+    "docs": "esdoc",
+    "docs:dev": "nodemon -w lib -w esdocs -e js,css -x 'npm run docs'",
+    "docs:deploy": "buildbranch gh-pages docs",
+    "docs:cname": "echo 'createrest.js.org' > docs/CNAME",
+    "docs:publish": "npm run docs && npm run docs:cname && npm run docs:deploy"
+  },
+  "bin": {
+    "createrest": "./bin/createrest.js",
+    "rest": "./bin/createrest.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/createrest.git"
+  },
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/createrest/issues"
+  },
+  "homepage": "https://github.com/atomixinteractions/createrest#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "pluralize": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "devDependencies": {
+    "@ava/babel-preset-stage-4": "^1.1.0",
+    "ava": "^0.20.0",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "buildbranch": "^2.0.0",
+    "coveralls": "^2.13.1",
+    "esdoc": "^0.5.2",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.0.2",
+    "rimraf": "^2.6.1",
+    "stringify-object": "^3.2.0"
+  },
+  "ava": {
+    "require": "babel-register",
+    "concurrency": 4,
+    "files": [
+      "test/*.test.js"
+    ]
+  }
+}

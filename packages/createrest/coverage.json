@@ -1,0 +1,22 @@
+{
+  "coverage": "100%",
+  "expectCount": 15,
+  "actualCount": 15,
+  "files": {
+    "lib/index.js": {
+      "expectCount": 13,
+      "actualCount": 13,
+      "undocumentLines": []
+    },
+    "lib/flatten.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/printer.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/index.js | createRest documentation API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-styles.css">
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/atomixinteractions/createrest" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/index.js~Maker.html">Maker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-flattenRoutes">flattenRoutes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createRest">createRest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isCreateRestInstance">isCreateRestInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-printRoutes">printRoutes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CrudController">CrudController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-crudOptions">crudOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-resourcesOptions">resourcesOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ResourcesController">ResourcesController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RestRoutes">RestRoutes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import pluralize from &apos;pluralize&apos;
+import { createRestInstanceSymbol } from &apos;./symbol&apos;
+
+/**
+ * @desc Controller object for `crud()` method {@link RestRoutes}
+ * @since 0.9.0
+ * @typedef {object} CrudController
+ * @property {function} [beforeEach] Called before each request
+ * @property {function} [afterEach] Called after each request
+ * @property {function} [read] Handle GET /name
+ * @property {function} [create] Handle POST /name
+ * @property {function} [update] Handle PUT /name
+ * @property {function} [destroy] handle DELETE /name
+ * @example
+ * const DemoController = {
+ *   beforeEach(req, res, next) {
+ *     // any checks here
+ *     next()
+ *   },
+ *   create(req, res, next) {
+ *     context.makeDemo.create(req.params)
+ *     res.json({ complete: true })
+ *     next()
+ *   },
+ *   afterEach(req, res, next) {
+ *     // close your resources here
+ *     context.db.close()
+ *   }
+ * }
+ */
+
+/**
+ * @desc Controller object for `resources()` method. See {@link Maker.resources}
+ * @since 0.9.0
+ * @typedef {object} ResourcesController
+ * @property {function} [beforeEach]  Hook will invoke before each handler in controller
+ * @property {function} [afterEach]  Hook will invoke before after handler in controller
+ * @property {function} [index]
+ * @property {function} [create]
+ * @property {function} [read]
+ * @property {function} [update]
+ * @property {function} [patch]
+ * @property {function} [destroy]
+ */
+
+/**
+ * Check is correct routes passed
+ * @public
+ * @since 0.7.0
+ * @function
+ * @param {RestRoutes} routes
+ * @return {boolean}
+ */
+export const isCreateRestInstance = routes =&gt; routes[createRestInstanceSymbol] === true
+
+/**
+ * @desc Routes object
+ * @protected
+ * @typedef {object} RestRoutes
+ * @property {Symbol} Symbol(createRestInstanceSymbol)
+ * @property {object[]} before
+ * @property {object[]} after
+ * @property {object} scoped
+ * @property {object} local
+ */
+
+/**
+ * @class Maker
+ * @protected
+ */
+export class Maker {
+  /**
+   * @private
+   */
+  constructor() {
+    /**
+     * @ignore
+     */
+    this.ctx = {
+      before: [],
+      after: [],
+      scoped: {},
+      local: {},
+    }
+  }
+
+  /**
+   * @private
+   * Build routes ast
+   */
+  build() {
+    const scoped = {}
+    Object.keys(this.ctx.scoped).forEach(name =&gt; {
+      scoped[name] = this.ctx.scoped[name].build()
+    })
+    return Object.assign({}, this.ctx, { scoped, [createRestInstanceSymbol]: true })
+  }
+
+  /**
+   * Add middlewares before request handler to current scope and all child scope
+   * @param {...function} list List of the middlewares
+   *
+   * @example
+   * const beforeHandler = () =&gt; console.log(&apos;before&apos;)
+   * const getHandler = () =&gt; console.log(&apos;get&apos;)
+   *
+   * createRest(root =&gt; {
+   *   root.beforeEach(beforeHandler)
+   *   // GET /demo    beforeHandler(); getHandler()
+   *   root.get(&apos;/demo&apos;, getHandler)
+   * })
+   * // Output:
+   * // &gt; before
+   * // &gt; get
+   * @example &lt;caption&gt;With variable count&lt;/caption&gt;
+   * const handle1 = () =&gt; console.log(&apos;handle1&apos;)
+   * const handle2 = () =&gt; console.log(&apos;handle2&apos;)
+   *
+   * createRest(root =&gt; {
+   *   root.beforeEach(handle1, handle2)
+   *   // same as
+   *   root.beforeEach(handle1)
+   *   root.beforeEach(handle2)
+   * })
+   */
+  beforeEach(...list) {
+    this.ctx.before = this.ctx.before.concat(list.filter(ln =&gt; !!ln))
+  }
+
+  /**
+   * Add middlewares after request handler to current scope and all child scope
+   * @param {...function} list List of the middlewares
+   * @example
+   * const getHandler = () =&gt; console.log(&apos;get&apos;)
+   * const afterHandler = () =&gt; console.log(&apos;after&apos;)
+   *
+   * createRest(root =&gt; {
+   *   root.afterEach(afterHandler)
+   *   // GET /demo    getHandler(); afterHandler()
+   *   root.get(&apos;/demo&apos;, getHandler)
+   * })
+   * // Output:
+   * // &gt; get
+   * // &gt; after
+   * @example &lt;caption&gt;You can combine beforeEach and afterEach&lt;/caption&gt;
+   * const getHandler = () =&gt; console.log(&apos;get foo&apos;)
+   * const deleteHandler = () =&gt; console.log(&apos;DELETE requested&apos;)
+   * const before1 = () =&gt; console.log(&apos;That is before 1&apos;)
+   * const before2 = () =&gt; console.log(&apos;Second before&apos;)
+   * const after = () =&gt; console.log(&apos;Just after request&apos;)
+   *
+   * const routes = createRest(root =&gt; {
+   *   root.beforeEach(before1, before2)
+   *   root.afterEach(after)
+   *
+   *   // GET /foo    before1(); before2(); getHandler(); after()
+   *   root.get(&apos;/foo&apos;, getHandler)
+   *
+   *   root.scope(&apos;bar&apos;, bar =&gt; {
+   *     // DELETE /bar/baz    before1(); before2(); deleteHandler(); after()
+   *     bar.delete(&apos;/baz&apos;, deleteHandler)
+   *   })
+   * })
+   * // Output on GET /foo request:
+   * // &gt; That is before 1
+   * // &gt; Second before
+   * // &gt; get foo
+   * // &gt; Just after request
+   *
+   * // Output on DELETE /bar/baz
+   * // &gt; That is before 1
+   * // &gt; Second before
+   * // &gt; DELETE requested
+   * // &gt; Just after request
+   */
+  afterEach(...list) {
+    this.ctx.after = this.ctx.after.concat(list.filter(ln =&gt; !!ln))
+  }
+
+  /**
+   * Add scoped address, before/after handlers and simple handlers.&lt;br/&gt;
+   * Before/After handlers is inherits from parent scope.&lt;br/&gt;
+   * Scopes don&apos;t merging. Use only one scope for unique path.
+   *
+   * @param {string} name Name of the scope
+   * @param {function(scope: Maker): void} creator
+   * @throws {Error} &quot;Name of the scope should be a word&quot;
+   * @throws {TypeError} &quot;Name of the scope should be string!&quot;
+   * @return {void}
+   * @since 0.2.0
+   * @example
+   * const before1 = () =&gt; console.log(&apos;before1&apos;)
+   * const before2 = () =&gt; console.log(&apos;before2&apos;)
+   * const after1 = () =&gt; console.log(&apos;after1&apos;)
+   * const after2 = () =&gt; console.log(&apos;after2&apos;)
+   * const bazHandler = () =&gt; console.log(&apos;baz&apos;)
+   * const barHandler = () =&gt; console.log(&apos;bar&apos;)
+   *
+   * createRest(root =&gt; {
+   *   root.beforeEach(before1)
+   *   root.afterEach(after1)
+   *
+   *   // POST /baz   before1(); bazHandler(); after1()
+   *   root.post(&apos;baz&apos;, bazHandler)
+   *
+   *   root.scope(&apos;foo&apos;, foo =&gt; {
+   *     foo.beforeEach(before2)
+   *     foo.afterEach(after2)
+   *
+   *     // GET /foo/bar   before1(); before2(); barHandler(); after2(); after1()
+   *     foo.get(&apos;bar&apos;, barHandler)
+   *   })
+   * })
+   */
+  scope(name, creator) {
+    if (typeof name !== &apos;string&apos;) {
+      throw new TypeError(&apos;Name of the scope should be string!&apos;)
+    }
+    if (name.length === 0 || name.indexOf(&apos;/&apos;) !== -1) {
+      throw new Error(&apos;Name of the scope should be a word&apos;)
+    }
+
+    const scopedCtx = new Maker()
+    creator(scopedCtx)
+    this.ctx.scoped[name] = scopedCtx
+  }
+
+  /**
+   * Add HTTP method listeners to local
+   *
+   * @private
+   * @param {string} method
+   * @param {function[]} listeners
+   */
+  local(method, listeners) {
+    // if listeners for that methods exists, simple merge
+    if (this.ctx.local[method]) {
+      this.ctx.local[method] = this.ctx.local[method].concat(listeners)
+    }
+    else {
+      this.ctx.local[method] = listeners
+    }
+  }
+
+  /**
+   * Handle method creator
+   *
+   * @ignore
+   * @param {string} name
+   * @param {string} method
+   * @param {function[]} listeners
+   */
+  method(method, _listeners) {
+    let name = &apos;&apos;
+    let listeners = _listeners
+    if (typeof listeners[0] === &apos;string&apos;) {
+      name = listeners.splice(0, 1)[0]
+    }
+    name = name.replace(/^\//gm, &apos;&apos;)
+
+    if (name.indexOf(&apos;/&apos;) !== -1) {
+      throw new Error(&apos;Path should not be deep&apos;)
+    }
+    if (listeners.length === 0) {
+      throw new TypeError(&apos;Maybe you forget to add listener?&apos;)
+    }
+
+    listeners = listeners.filter(e =&gt; typeof e === &apos;function&apos;)
+
+    // if added undefined listeners
+    if (listeners.length === 0) return
+
+    if (name !== &apos;&apos;) {
+      let scoped = this.ctx.scoped[name]
+      if (!scoped) {
+        scoped = new Maker()
+        this.ctx.scoped[name] = scoped
+      }
+
+      scoped.local(method, listeners)
+    }
+    else {
+      this.local(method, listeners)
+    }
+  }
+
+  /**
+   * Handle POST HTTP method with single or many handlers
+   * @param {string} [name] Route path. Default is current scope
+   * @param {...function} handlers List of http-handlers
+   * @throws {Error} Path should not be deep
+   * @throws {TypeError} Maybe you forget to add listener?
+   * @example
+   * createRest(root =&gt; {
+   *   root.post(&apos;name&apos;, () =&gt; console.log(&apos;Handled post /name request&apos;))
+   *   root.post(() =&gt; console.log(&apos;Handled post / request&apos;))
+   *   root.post(&apos;create&apos;,
+   *     (req, res, next) =&gt; next(),
+   *     authorize(&apos;user&apos;),
+   *     () =&gt; console.log(&apos;Handled post /create with middlewares&apos;)
+   *   )
+   * })
+   */
+  post(name, ...handlers) {
+    this.method(&apos;POST&apos;, [name, ...handlers])
+  }
+
+  /**
+   * Handle GET HTTP method with single or many handlers
+   * @param {string} [name] Route path. Default is current scope
+   * @param {...function} handlers List of http-handlers
+   * @throws {Error} Path should not be deep
+   * @throws {TypeError} Maybe you forget to add listener?
+   * @example
+   * createRest(root =&gt; {
+   *   root.get(&apos;name&apos;, () =&gt; console.log(&apos;Handled get /name request&apos;))
+   *   root.get(() =&gt; console.log(&apos;Handled get / request&apos;))
+   *   root.get(&apos;create&apos;,
+   *     (req, res, next) =&gt; next(),
+   *     authorize(&apos;user&apos;),
+   *     () =&gt; console.log(&apos;Handled get /create with middlewares&apos;)
+   *   )
+   * })
+   */
+  get(name, ...handlers) {
+    this.method(&apos;GET&apos;, [name, ...handlers])
+  }
+
+  /**
+   * Handle PUT HTTP method with single or many handlers
+   * @param {string} [name] Route path. Default is current scope
+   * @param {...function} handlers List of http-handlers
+   * @throws {Error} Path should not be deep
+   * @throws {TypeError} Maybe you forget to add listener?
+   * @example
+   * createRest(root =&gt; {
+   *   root.put(&apos;name&apos;, () =&gt; console.log(&apos;Handled put /name request&apos;))
+   *   root.put(() =&gt; console.log(&apos;Handled put / request&apos;))
+   *   root.put(&apos;create&apos;,
+   *     (req, res, next) =&gt; next(),
+   *     authorize(&apos;user&apos;),
+   *     () =&gt; console.log(&apos;Handled put /create with middlewares&apos;)
+   *   )
+   * })
+   */
+  put(name, ...handlers) {
+    this.method(&apos;PUT&apos;, [name, ...handlers])
+  }
+
+  /**
+   * Handle DELETE HTTP method with single or many handlers
+   * @param {string} [name] Route path. Default is current scope
+   * @param {...function} handlers List of http-handlers
+   * @throws {Error} Path should not be deep
+   * @throws {TypeError} Maybe you forget to add listener?
+   * @example
+   * createRest(root =&gt; {
+   *   root.delete(&apos;name&apos;, () =&gt; console.log(&apos;Handled delete /name request&apos;))
+   *   root.delete(() =&gt; console.log(&apos;Handled delete / request&apos;))
+   *   root.delete(&apos;create&apos;,
+   *     (req, res, next) =&gt; next(),
+   *     authorize(&apos;user&apos;),
+   *     () =&gt; console.log(&apos;Handled delete /create with middlewares&apos;)
+   *   )
+   * })
+   */
+  delete(name, ...handlers) {
+    this.method(&apos;DELETE&apos;, [name, ...handlers])
+  }
+
+  /**
+   * Handle PATCH HTTP method with single or many handlers
+   * @param {string} [name] Route path. Default is current scope
+   * @param {...function} handlers List of http-handlers
+   * @throws {Error} Path should not be deep
+   * @throws {TypeError} Maybe you forget to add listener?
+   * @example
+   * createRest(root =&gt; {
+   *   root.patch(&apos;name&apos;, () =&gt; console.log(&apos;Handled patch /name request&apos;))
+   *   root.patch(() =&gt; console.log(&apos;Handled patch / request&apos;))
+   *   root.patch(&apos;create&apos;,
+   *     (req, res, next) =&gt; next(),
+   *     authorize(&apos;user&apos;),
+   *     () =&gt; console.log(&apos;Handled patch /create with middlewares&apos;)
+   *   )
+   * })
+   */
+  patch(name, ...handlers) {
+    this.method(&apos;PATCH&apos;, [name, ...handlers])
+  }
+
+  /**
+   * @desc Configure your `crud(&apos;name&apos;, controller, options)` &lt;br /&gt; See {@link Maker.crud}
+   * @typedef {object} crudOptions
+   * @property {string[]} [only] Keep only that handlers: `read`, `create`, `update`, `destroy`
+   * @property {string[]} [except] Keep all except that handlers
+   * @property {object} [methodNames] Change method names
+   * @since 0.9.0
+   *
+   * @example &lt;caption&gt;Usage with `only`&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   root.crud(&apos;foo&apos;, FooController, { only: [&apos;read&apos;] })
+   * })
+   *
+   * @example &lt;caption&gt;Usage with `except`&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   root.crud(&apos;bar&apos;, BarController, { except: [&apos;destroy&apos;, &apos;update&apos;] })
+   * })
+   *
+   * @example &lt;caption&gt;Method names&lt;/caption&gt;
+   * const Controller = {
+   *   createDemo() {},
+   *   updateMe() {},
+   *   justExample() {},
+   *   youDontNeedThis() {},
+   * }
+   * createRest(root =&gt; {
+   *   root.crud(&apos;demo&apos;, Controller, { methodNames: {
+   *     read: &apos;justExample&apos;, create: &apos;createDemo&apos;, update: &apos;updateMe&apos;, destroy: &apos;youDontNeedThis&apos;,
+   *   }})
+   * })
+   */
+
+  /**
+   * Add CRUD methods for single resource. &lt;br/&gt;
+   * CRUD methods not merging. __Use only one crud for path.__
+   * @param {string} name Name of the resource. Create route path from
+   * @param {CrudController} controller Object with methods
+   * @param {crudOptions} [options={}] Options object
+   * @param {function(scope: Maker): void} [creator=null] Scoped creator function
+   * @since 0.9.0
+   * @example &lt;caption&gt;Simple&lt;/caption&gt;
+   * const Controller = {
+   *   read() {},
+   *   create() {},
+   *   update() {},
+   *   destroy() {},
+   *   beforeEach() {},
+   *   afterEach() {},
+   * }
+   * const routes = createRest(root =&gt; {
+   *   // GET /example     read()
+   *   // POST /example    create()
+   *   // PUT /example     update()
+   *   // DELETE /example  destroy()
+   *   root.crud(&apos;example&apos;, Controller)
+   * })
+   * @example &lt;caption&gt;Only/Except option&lt;/caption&gt;
+   * const Controller = {
+   *   read() {},
+   *   create() {},
+   *   update() {},
+   *   destroy() {},
+   *   beforeEach() {},
+   *   afterEach() {},
+   * }
+   * const routes = createRest(root =&gt; {
+   *   // GET /demo    read()
+   *   // POST /demo   create()
+   *   root.crud(&apos;demo&apos;, Controller, { only: [&apos;create&apos;, &apos;read&apos;] })
+   *
+   *   // GET /single     read()
+   *   // PUT /single     update()
+   *   root.crud(&apos;single&apos;, Controller, { except: [&apos;destroy&apos;, &apos;create&apos;] })
+   * })
+   * @example &lt;caption&gt;With scope&lt;/caption&gt;
+   * const routes = createRest(root =&gt; {
+   *   // GET /example
+   *   // POST /example
+   *   // PUT /example
+   *   // DELETE /example
+   *   root.crud(&apos;example&apos;, Controller, {}, example =&gt; {
+   *     // GET /example/demo
+   *     example.get(&apos;/demo&apos;, () =&gt; {})
+   *   })
+   * })
+   */
+  crud(name, controller, options = {}, creator = null) {
+    if (!name || name.length === 0) {
+      throw new Error(&apos;Resource should be named&apos;)
+    }
+
+    if (typeof controller === &apos;undefined&apos;) {
+      return
+    }
+
+    const methods = {
+      read: &apos;get&apos;,
+      create: &apos;post&apos;,
+      update: &apos;put&apos;,
+      destroy: &apos;delete&apos;,
+    }
+    const methodsList = Object.keys(methods)
+
+    const resolveMethodName = (handler, currentController) =&gt; options.methodNames &amp;&amp; options.methodNames[handler]
+      ? currentController[options.methodNames[handler]]
+      : currentController[handler]
+
+    /**
+     * @var {Array&lt;[string, string]&gt;} usedList [[handlerName, httpMethod], ...]
+     */
+    let usedList = []
+
+    if (Array.isArray(options.only)) {
+      usedList = options.only
+    }
+    else if (Array.isArray(options.except)) {
+      usedList = methodsList
+        .filter(handlerName =&gt; !options.except.includes(handlerName))
+    }
+    else {
+      usedList = methodsList
+    }
+
+    this.scope(name, scope =&gt; {
+      scope.beforeEach(controller.beforeEach)
+      scope.afterEach(controller.afterEach)
+
+      usedList
+        .filter(handler =&gt; methodsList.includes(handler))
+        .map(handler =&gt; [handler, methods[handler]])
+        .forEach(([handler, httpMethod]) =&gt; {
+          scope[httpMethod](resolveMethodName(handler, controller))
+        })
+
+      if (creator) {
+        creator(scope)
+      }
+    })
+  }
+
+  /**
+   * Configure your `resources(&apos;name&apos;, controller, options)`
+   * &lt;br/&gt; You can&apos;t use `except` and `only` at the same time
+   * @typedef {object} resourcesOptions
+   * @property {string[]} [only] Keep only that handlers: `index`, `read`, `create`, `update`, `patch`, `destroy`
+   * @property {string[]} [except] Keep all except that handlers
+   * @property {string} [memberId] Change :memberId in the URI
+   * @since 0.9.0
+   *
+   * @example &lt;caption&gt;Usage with `only`&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   // GET /books          -&gt; index()
+   *   // GET /books/:bookId  -&gt; read()
+   *   root.resources(&apos;books&apos;, BooksController, { only: [&apos;read&apos;, &apos;index&apos;] })
+   * })
+   *
+   * @example &lt;caption&gt;Usage with `except`&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   // GET /songs              -&gt; index()
+   *   // POST /songs             -&gt; create()
+   *   // GET /songs/:songId      -&gt; read()
+   *   // PATCH /songs/:songId    -&gt; patch()
+   *   root.resources(&apos;songs&apos;, SongsController, { except: [&apos;destroy&apos;, &apos;update&apos;] })
+   * })
+   *
+   * @example &lt;caption&gt;With beforeEach afterEach methods&lt;/caption&gt;
+   * const Controller = {
+   *   beforeEach() {},
+   *   afterEach() {},
+   *   create() {},
+   *   read() {},
+   * }
+   * // If controller no methods, no handlers creates
+   *
+   * createRest(root =&gt; {
+   *   // GET /demo   beforeEach(); read(); afterEach()
+   *   // POST /demo  beforeEach(); create(); afterEach()
+   *   root.crud(&apos;demo&apos;, Controller)
+   * })
+   *
+   * @example &lt;caption&gt;Member ID renaming&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   // GET /images            -&gt; index()
+   *   // POST /images           -&gt; create()
+   *   // GET /images/:imgid     -&gt; read()
+   *   // PUT /images/:imgid     -&gt; update()
+   *   // PATCH /images/:imgid   -&gt; patch()
+   *   // DELETE /images/:imgid  -&gt; destroy()
+   *   root.resources(&apos;images&apos;, ImagesController, { memberId: &apos;imgid&apos; })
+   * })
+   */
+
+  /**
+   * Add index, create, read, update, patch, remove methods to manage resource &lt;br/&gt;
+   * See {@link ResourcesController} and {@link resourcesOptions}
+   * @param {string} name Name of the resources. Path created from. Example: `books`
+   * @param {ResourcesController} controller Object with methods
+   * @param {resourcesOptions} [options={}] Options for resources
+   * @return {void}
+   * @throws {Error} &quot;Resources should be named&quot;
+   * @throws {Error} &quot;You can&apos;t use &apos;except&apos; and &apos;only&apos; options at the same time&quot;
+   * @throws {TypeError} &quot;Controller should be object&quot;
+   *
+   * @example &lt;caption&gt;Full example&lt;/caption&gt;
+   * createRest(root =&gt; {
+   *   // GET /users             -&gt; index()
+   *   // POST /users            -&gt; create()
+   *   // GET /users/:userId     -&gt; read()
+   *   // PUT /users/:userId     -&gt; update()
+   *   // PATCH /users/:userId   -&gt; patch()
+   *   // DELETE /users/:userId  -&gt; destroy()
+   *   root.resources(&apos;users&apos;, UsersController)
+   * })
+   */
+  resources(name, controller, options = {}) {
+    /**
+     * index : get /
+     * create : post /
+     * read : get /:id
+     * update : put /:id
+     * patch : patch /:id
+     * remove : delete /:id
+     */
+    if (!name || name.length === 0) {
+      throw new Error(&apos;Resources should be named&apos;)
+    }
+
+    if (!controller || typeof controller !== &apos;object&apos;) {
+      throw new TypeError(&apos;Controller should be object&apos;)
+    }
+
+    if (options.only &amp;&amp; options.except) {
+      throw new Error(`You can&apos;t use &apos;except&apos; and &apos;only&apos; options at the same time`)
+    }
+
+    const noMethodsSlicingOption = (!options.only || options.only.length === 0)
+      &amp;&amp; (!options.except || options.except.length === 0)
+
+    /**
+     * Check method existing in options `only` or `except`
+     * @param {string} methodName
+     * @private
+     */
+    const checkMethod = methodName =&gt;
+      noMethodsSlicingOption
+      || (options.only &amp;&amp; options.only.length &amp;&amp; options.only.includes(methodName))
+      || (options.except &amp;&amp; options.except.length &amp;&amp; !options.except.includes(methodName))
+
+    const memberId = options.memberId || `${pluralize.singular(name)}Id`
+
+    this.scope(name, scope =&gt; {
+      scope.beforeEach(controller.beforeEach)
+      scope.afterEach(controller.afterEach)
+
+      if (checkMethod(&apos;index&apos;)) {
+        scope.get(&apos;/&apos;, controller.index)
+      }
+
+      if (checkMethod(&apos;create&apos;)) {
+        scope.post(&apos;/&apos;, controller.create)
+      }
+
+      scope.scope(`:${memberId}`, member =&gt; {
+        if (checkMethod(&apos;read&apos;)) {
+          member.get(&apos;/&apos;, controller.read)
+        }
+
+        if (checkMethod(&apos;update&apos;)) {
+          member.put(&apos;/&apos;, controller.update)
+        }
+
+        if (checkMethod(&apos;patch&apos;)) {
+          if (controller.patch) {
+            member.patch(&apos;/&apos;, controller.patch)
+          }
+          else if (checkMethod(&apos;update&apos;)) {
+            member.patch(&apos;/&apos;, controller.update)
+          }
+          else {
+            // no PATCH /:id add
+          }
+        }
+
+        if (checkMethod(&apos;destroy&apos;)) {
+          member.delete(&apos;/&apos;, controller.destroy)
+        }
+      })
+    })
+  }
+}
+
+/**
+ * Create routes by sync callback
+ * @param {function(r: Maker): null} creator Callback
+ * @return {RestRoutes} Routes object
+ */
+export function createRest(creator) {
+  if (typeof creator !== &apos;function&apos;) {
+    throw new TypeError(&apos;Creator should be a function&apos;)
+  }
+
+  const ctx = new Maker(&apos;&apos;)
+  creator(ctx)
+  return ctx.build()
+}
+
+export { flattenRoutes } from &apos;./flatten&apos;
+export { printRoutes } from &apos;./printer&apos;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

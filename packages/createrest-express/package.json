@@ -1,0 +1,67 @@
+{
+  "name": "createrest-express",
+  "version": "0.10.5",
+  "description": "Express middleware for generate routes from createrest",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
+    "clean": "rimraf ./dist ./.nyc_output ./coverage",
+    "build": "babel -d ./dist ./lib",
+    "test": "npm run test:lint && npm run test:code",
+    "test:code": "NODE_ENV=test nyc ava",
+    "test:lint": "eslint ./lib",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "report:user": "nyc report --reporter=html"
+  },
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/createrest-express.git"
+  },
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/createrest-express/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/atomixinteractions/createrest-express#readme",
+  "devDependencies": {
+    "@ava/babel-preset-stage-4": "^1.1.0",
+    "ava": "^0.19.1",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "buildbranch": "^2.0.0",
+    "coveralls": "^2.13.1",
+    "createrest": "^0.8.3",
+    "documentation": "^4.0.0-beta.18",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.3.0",
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.0.2",
+    "rimraf": "^2.6.1"
+  },
+  "peerDependencies": {
+    "createrest": "0.8.*",
+    "express": "4.*"
+  },
+  "ava": {
+    "require": "babel-register",
+    "concurrency": 4,
+    "files": [
+      "test/*.test.js"
+    ]
+  }
+}
