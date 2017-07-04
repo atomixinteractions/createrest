@@ -84,7 +84,7 @@ module.exports = routes
 
 ### Express
 
-More in its repo [createrest-express](https://atmx.in/rest-ex)
+More in it's repo [createrest-express](/packages/createrest-koa)
 
 ```js
 const { createRestExpress } = require('createrest-express')
@@ -102,7 +102,7 @@ app.listen(4001, () => {
 
 ### Koa
 
-More in its repo [createrest-koa](https://atmx.in/rest-koa)
+More in it's repo [createrest-koa](/packages/createrest-koa)
 
 ```js
 const Koa = require('koa')
