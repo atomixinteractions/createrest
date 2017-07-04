@@ -1,6 +1,6 @@
 {
   "name": "createrest-koa",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "Koa2 middleware to generate routes by createRest",
   "main": "dist/index.js",
   "scripts": {
