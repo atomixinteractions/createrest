@@ -1,7 +1,1 @@
 !dist
-lib
-examples
-docs
-.github
-.nyc_output
-coverage

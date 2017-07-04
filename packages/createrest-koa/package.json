@@ -24,6 +24,9 @@
       "test/*.test.js"
     ]
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "koa-router": "^7.2.0"
   },

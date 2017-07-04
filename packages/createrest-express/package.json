@@ -26,6 +26,9 @@
   "bugs": {
     "url": "https://github.com/atomixinteractions/createrest-express/issues"
   },
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/atomixinteractions/createrest-express#readme",
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
