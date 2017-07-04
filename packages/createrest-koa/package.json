@@ -1,0 +1,54 @@
+{
+  "name": "createrest-koa",
+  "version": "0.2.1",
+  "description": "Koa2 middleware to generate routes by createRest",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
+    "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
+    "build": "babel -d ./dist ./lib",
+    "test": "NODE_ENV=test nyc ava",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint ./lib",
+    "postversion": "npm run lint && npm test && npm run build && npm publish && git push --all origin && git push --tags origin"
+  },
+  "keywords": [],
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "ava": {
+    "require": "babel-register",
+    "concurrency": 4,
+    "files": [
+      "test/*.test.js"
+    ]
+  },
+  "dependencies": {
+    "koa-router": "^7.2.0"
+  },
+  "peerDependencies": {
+    "createrest": "0.8.*"
+  },
+  "devDependencies": {
+    "@ava/babel-preset-stage-4": "^1.0.0",
+    "ava": "^0.19.1",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "buildbranch": "^2.0.0",
+    "coveralls": "^2.13.1",
+    "createrest": "^0.8.3",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "koa": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.3.2",
+    "rimraf": "^2.6.1"
+  }
+}
