@@ -53,10 +53,10 @@
     "rimraf": "^2.6.1"
   },
   "dependencies": {
-    "createrest": "^0.10.4"
   },
   "peerDependencies": {
-    "express": "4.*"
+    "express": "4.*",
+    "createrest": "^0.10.4"
   },
   "ava": {
     "require": "babel-register",
