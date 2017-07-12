@@ -9,10 +9,10 @@
     "metapak": "metapak || echo 'Please `npm install --save-dev metapak`' && exit 0",
     "postinstall": "lerna bootstrap; npm run metapak --silent",
     "postpublish": "git push --all origin && git push --tags origin && lerna run docs:publish",
-    "prepublish": "lerna run test --stream && lerna run build --stream",
+    "prepublish": "lerna run build --stream && lerna run test --stream",
     "publish": "lerna publish",
     "report": "lerna run report --stream",
-    "test": "lerna run test"
+    "test": "lerna run build && lerna run test"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
