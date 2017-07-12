@@ -1,6 +1,6 @@
 {
   "name": "createrest-koa",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "Koa2 middleware to generate routes by createRest",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "koa-router": "^7.2.0"
   },
   "peerDependencies": {
-    "createrest": "^0.10.4"
+    "createrest": "^0.10.6"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.0.0",
@@ -45,7 +45,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-register": "^6.24.1",
     "coveralls": "^2.13.1",
-    "createrest": "^0.10.4",
+    "createrest": "^0.10.6",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
