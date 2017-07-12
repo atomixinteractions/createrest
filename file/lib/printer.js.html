@@ -78,10 +78,10 @@ export function printRoutes(routes, realPrint = true) {
   const lines = []
 
   Object.keys(flat)
-    .forEach(path =&gt; {
+    .forEach((path) =&gt; {
       const methods = flat[path]
 
-      Object.keys(methods).forEach(method =&gt; {
+      Object.keys(methods).forEach((method) =&gt; {
         lines.push(print(path, method, methods[method]))
       })
     })

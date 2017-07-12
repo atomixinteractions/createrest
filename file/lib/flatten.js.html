@@ -60,7 +60,7 @@
 function flattenize(routes, prefix, parent) {
   const list = {}
 
-  Object.keys(routes.local).forEach(method =&gt; {
+  Object.keys(routes.local).forEach((method) =&gt; {
     const localName = prefix === &apos;&apos; ? &apos;/&apos; : `${prefix}/`
 
     if (!list[localName]) {
@@ -75,7 +75,7 @@ function flattenize(routes, prefix, parent) {
     )
   })
 
-  Object.keys(routes.scoped).forEach(scope =&gt; {
+  Object.keys(routes.scoped).forEach((scope) =&gt; {
     const scoped = routes.scoped[scope]
     const listeners = flattenize(scoped, `${prefix}/${scope}`, {
       before: parent.before.concat(routes.before),

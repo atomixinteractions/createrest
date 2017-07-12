@@ -140,7 +140,7 @@ export class Maker {
    */
   build() {
     const scoped = {}
-    Object.keys(this.ctx.scoped).forEach(name =&gt; {
+    Object.keys(this.ctx.scoped).forEach((name) =&gt; {
       scoped[name] = this.ctx.scoped[name].build()
     })
     return Object.assign({}, this.ctx, { scoped, [createRestInstanceSymbol]: true })
@@ -542,7 +542,8 @@ export class Maker {
     }
     const methodsList = Object.keys(methods)
 
-    const resolveMethodName = (handler, currentController) =&gt; options.methodNames &amp;&amp; options.methodNames[handler]
+    const resolveMethodName = (handler, currentController) =&gt;
+    options.methodNames &amp;&amp; options.methodNames[handler]
       ? currentController[options.methodNames[handler]]
       : currentController[handler]
 
@@ -562,7 +563,7 @@ export class Maker {
       usedList = methodsList
     }
 
-    this.scope(name, scope =&gt; {
+    this.scope(name, (scope) =&gt; {
       scope.beforeEach(controller.beforeEach)
       scope.afterEach(controller.afterEach)
 
@@ -582,8 +583,9 @@ export class Maker {
   /**
    * Configure your `resources(&apos;name&apos;, controller, options)`
    * &lt;br/&gt; You can&apos;t use `except` and `only` at the same time
+   * &lt;br/&gt; Available handlers: `index`, `read`, `create`, `update`, `patch`, `destroy`
    * @typedef {object} resourcesOptions
-   * @property {string[]} [only] Keep only that handlers: `index`, `read`, `create`, `update`, `patch`, `destroy`
+   * @property {string[]} [only] Keep only that handlers
    * @property {string[]} [except] Keep all except that handlers
    * @property {string} [memberId] Change :memberId in the URI
    * @since 0.9.0
@@ -671,7 +673,7 @@ export class Maker {
     }
 
     if (options.only &amp;&amp; options.except) {
-      throw new Error(`You can&apos;t use &apos;except&apos; and &apos;only&apos; options at the same time`)
+      throw new Error(&apos;You can\&apos;t use \&apos;except\&apos; and \&apos;only\&apos; options at the same time&apos;)
     }
 
     const noMethodsSlicingOption = (!options.only || options.only.length === 0)
@@ -689,7 +691,7 @@ export class Maker {
 
     const memberId = options.memberId || `${pluralize.singular(name)}Id`
 
-    this.scope(name, scope =&gt; {
+    this.scope(name, (scope) =&gt; {
       scope.beforeEach(controller.beforeEach)
       scope.afterEach(controller.afterEach)
 
@@ -701,7 +703,7 @@ export class Maker {
         scope.post(&apos;/&apos;, controller.create)
       }
 
-      scope.scope(`:${memberId}`, member =&gt; {
+      scope.scope(`:${memberId}`, (member) =&gt; {
         if (checkMethod(&apos;read&apos;)) {
           member.get(&apos;/&apos;, controller.read)
         }
