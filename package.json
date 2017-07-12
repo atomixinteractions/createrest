@@ -1,5 +1,5 @@
 {
-  "name": "createrest",
+  "name": "createrest-lerna",
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",

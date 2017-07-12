@@ -52,8 +52,10 @@
     "nyc": "^11.0.2",
     "rimraf": "^2.6.1"
   },
+  "dependencies": {
+    "createrest": "^0.10.4"
+  },
   "peerDependencies": {
-    "createrest": "^0.10.4",
     "express": "4.*"
   },
   "ava": {

@@ -28,10 +28,10 @@
     "dist"
   ],
   "dependencies": {
-    "koa-router": "^7.2.0"
+    "koa-router": "^7.2.0",
+    "createrest": "^0.10.4"
   },
   "peerDependencies": {
-    "createrest": "^0.10.4"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.0.0",
