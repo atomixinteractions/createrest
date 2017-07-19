@@ -1,6 +1,6 @@
 {
   "name": "createrest-express",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Express middleware for generate routes from createrest",
   "main": "dist/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-register": "^6.24.1",
     "coveralls": "^2.13.1",
-    "createrest": "^0.11.0",
+    "createrest": "^0.12.0",
     "documentation": "^4.0.0-beta.18",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
@@ -53,7 +53,7 @@
     "rimraf": "^2.6.1"
   },
   "peerDependencies": {
-    "createrest": "^0.11.0",
+    "createrest": "^0.12.0",
     "express": "4.*"
   },
   "ava": {
