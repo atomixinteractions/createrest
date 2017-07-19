@@ -270,7 +270,7 @@ export class Maker {
       throw new Error(&apos;Name of the scope should be a word&apos;)
     }
 
-    const scopedCtx = new Maker()
+    const scopedCtx = this.ctx.scoped[name] || new Maker()
     creator(scopedCtx)
     this.ctx.scoped[name] = scopedCtx
   }
