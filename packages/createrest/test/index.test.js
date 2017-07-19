@@ -656,3 +656,139 @@ avaTest('Resources cannot use only and expect at the same time', (test) => {
     })
   }, /You can't use/, 'except and only not throws')
 })
+
+avaTest('Resources with shallow creator with empty options', (test) => {
+  test.deepEqual(
+    createRest((root) => {
+      root.resources('books', DefaultController, {}, (books) => {
+        books.get('status', get)
+      })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create],
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+            PUT: [DefaultController.update],
+            PATCH: [DefaultController.patch],
+            DELETE: [DefaultController.destroy],
+          }),
+          status: make([], [], {
+            GET: [get],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with shallow creator instead of options', (test) => {
+  test.deepEqual(
+    createRest((root) => {
+      root.resources('books', DefaultController, (books) => {
+        books.get('status', get)
+      })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create],
+        },
+        {
+          ':bookId': make([], [], {
+            GET: [DefaultController.read],
+            PUT: [DefaultController.update],
+            PATCH: [DefaultController.patch],
+            DELETE: [DefaultController.destroy],
+          }),
+          status: make([], [], {
+            GET: [get],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with scope:memberId creator', (test) => {
+  test.deepEqual(
+    createRest((root) => {
+      root.resources('books', DefaultController, {}, (books) => {
+        books.get('status', get)
+        books.scope(':bookId', (bookId) => {
+          bookId.get('details', get)
+        })
+      })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create],
+        },
+        {
+          ':bookId': make([], [],
+            {
+              GET: [DefaultController.read],
+              PUT: [DefaultController.update],
+              PATCH: [DefaultController.patch],
+              DELETE: [DefaultController.destroy],
+            },
+            {
+              details: make([], [], { GET: [get] }),
+            }
+          ),
+          status: make([], [], {
+            GET: [get],
+          }),
+        }
+      ),
+    })
+  )
+})
+
+avaTest('Resources with memberId creator with renamed memberId', (test) => {
+  test.deepEqual(
+    createRest((root) => {
+      root.resources('books', DefaultController, { memberId: 'demoId' }, (books) => {
+        books.get('status', get)
+        books.scope(':demoId', (bookId) => {
+          bookId.get('details', get)
+        })
+      })
+    }),
+    make([], [], {}, {
+      books: make(
+        [DefaultController.beforeEach],
+        [DefaultController.afterEach],
+        {
+          GET: [DefaultController.index], POST: [DefaultController.create],
+        },
+        {
+          ':demoId': make([], [],
+            {
+              GET: [DefaultController.read],
+              PUT: [DefaultController.update],
+              PATCH: [DefaultController.patch],
+              DELETE: [DefaultController.destroy],
+            },
+            {
+              details: make([], [], { GET: [get] }),
+            }
+          ),
+          status: make([], [], {
+            GET: [get],
+          }),
+        }
+      ),
+    })
+  )
+})

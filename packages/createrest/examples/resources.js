@@ -80,22 +80,28 @@ const put3 = function put3() {
   console.log('put3()')
 }
 
-const routes = createRest(root => {
+const routes = createRest((root) => {
   // root.beforeEach(before1)
   // root.afterEach(after1)
 
-  root.post('/', post1)
+  // root.post('/', post1)
 
-  root.scope('demo', demo => {
+  // root.scope('demo', (demo) => {
     // demo.crud('bar', TestsController, {}, bar => {
     //   bar.get('baz', get3)
     // })
-    demo.get('bar', get3)
+    // demo.get('bar', get3)
+  // })
+  // root.scope('demo', (demo) => {
+  //   demo.get('baz', get2)
+  // })
+  root.resources('tests', TestsController, (tests) => {
+    tests.get('/status', get1)
+
+    tests.scope(':testId', (testId) => {
+      testId.get('description', get2)
+    })
   })
-  root.scope('demo', demo => {
-    demo.get('baz', get2)
-  })
-  // root.resources('tests', TestsController)
 })
 
 const strf = (data, indent = '  ') => stringify(data, {
@@ -106,7 +112,7 @@ const strf = (data, indent = '  ') => stringify(data, {
         original
           .replace(/\n+/mg, '')
           .replace(/\s+/mg, ' ')
-          .replace(/^\w+\s+(\w+)\(\).*/mg, `$1()`)
+          .replace(/^\w+\s+(\w+)\(\).*/mg, '$1()')
       )
     }
 
@@ -117,9 +123,9 @@ const strf = (data, indent = '  ') => stringify(data, {
 console.log(strf(routes))
 
 const flat = flattenRoutes(routes)
-Object.keys(flat).forEach(path => {
+Object.keys(flat).forEach((path) => {
   const mt = flat[path]
-  Object.keys(mt).forEach(method => {
+  Object.keys(mt).forEach((method) => {
     console.log(
       chalk.green(`${method} ${path}`),
       ' >> ',

@@ -180,7 +180,7 @@ export class Maker {
   /**
    * Add scoped address, before/after handlers and simple handlers.<br/>
    * Before/After handlers is inherits from parent scope.<br/>
-   * Scopes don't merging. Use only one scope for unique path.
+   * Scopes with the same name will be merged
    *
    * @param {string} name Name of the scope
    * @param {function(scope: Maker): void} creator
@@ -589,6 +589,7 @@ export class Maker {
    * @param {string} name Name of the resources. Path created from. Example: `books`
    * @param {ResourcesController} controller Object with methods
    * @param {resourcesOptions} [options={}] Options for resources
+   * @param {function(scope: Maker): void} [creator=null] Scoped creator function
    * @return {void}
    * @throws {Error} "Resources should be named"
    * @throws {Error} "You can't use 'except' and 'only' options at the same time"
@@ -605,7 +606,7 @@ export class Maker {
    *   root.resources('users', UsersController)
    * })
    */
-  resources(name, controller, options = {}) {
+  resources(name, controller, options = {}, creator = null) {
     /**
      * index : get /
      * create : post /
@@ -620,6 +621,13 @@ export class Maker {
 
     if (!controller || typeof controller !== 'object') {
       throw new TypeError('Controller should be object')
+    }
+
+    if (typeof options === 'function') {
+      /* eslint-disable no-param-reassign */
+      creator = options
+      options = {}
+      /* eslint-enable no-param-reassign */
     }
 
     if (options.only && options.except) {
@@ -678,6 +686,10 @@ export class Maker {
           member.delete('/', controller.destroy)
         }
       })
+
+      if (creator) {
+        creator(scope)
+      }
     })
   }
 }
