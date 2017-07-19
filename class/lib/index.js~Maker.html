@@ -331,7 +331,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/index.js~Maker.html#instance-method-resources">resources</a></span></span><span data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, controller: <span><a href="typedef/index.html#static-typedef-ResourcesController">ResourcesController</a></span>, options: <span><a href="typedef/index.html#static-typedef-resourcesOptions">resourcesOptions</a></span>): <span>void</span></span>
+          <span data-ice="name"><span><a href="class/lib/index.js~Maker.html#instance-method-resources">resources</a></span></span><span data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, controller: <span><a href="typedef/index.html#static-typedef-ResourcesController">ResourcesController</a></span>, options: <span><a href="typedef/index.html#static-typedef-resourcesOptions">resourcesOptions</a></span>, creator: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(scope: <span><a href="class/lib/index.js~Maker.html">Maker</a></span>)</span>: <span>void</span></span>): <span>void</span></span>
         </p>
       </div>
       <div>
@@ -1234,11 +1234,11 @@ const routes = createRest(root =&gt; {
     
     
     
-    <span data-ice="name">resources</span><span data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, controller: <span><a href="typedef/index.html#static-typedef-ResourcesController">ResourcesController</a></span>, options: <span><a href="typedef/index.html#static-typedef-resourcesOptions">resourcesOptions</a></span>): <span>void</span></span>
+    <span data-ice="name">resources</span><span data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, controller: <span><a href="typedef/index.html#static-typedef-ResourcesController">ResourcesController</a></span>, options: <span><a href="typedef/index.html#static-typedef-resourcesOptions">resourcesOptions</a></span>, creator: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(scope: <span><a href="class/lib/index.js~Maker.html">Maker</a></span>)</span>: <span>void</span></span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber608">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber609">source</a></span></span>
     </span>
   </h3>
 
@@ -1279,6 +1279,14 @@ See <span><a href="typedef/index.html#static-typedef-ResourcesController">Resour
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: {}</li></ul></td>
       <td data-ice="description"><p>Options for resources</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">creator</td>
+      <td data-ice="type"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(scope: <span><a href="class/lib/index.js~Maker.html">Maker</a></span>)</span>: <span>void</span></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>Scoped creator function</p>
 </td>
     </tr>
 </tbody>
@@ -1373,7 +1381,7 @@ See <span><a href="typedef/index.html#static-typedef-ResourcesController">Resour
   
   <div data-ice="description"><p>Add scoped address, before/after handlers and simple handlers.<br>
 Before/After handlers is inherits from parent scope.<br>
-Scopes don&apos;t merging. Use only one scope for unique path.</p>
+Scopes with the same name will be merged</p>
 </div>
 
   
