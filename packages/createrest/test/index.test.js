@@ -26,14 +26,14 @@ const make = (before = [], after = [], local = {}, scoped = {}) => ({
   [createRestInstanceSymbol]: true,
 })
 
-avaTest('Creates base structure', test => {
+avaTest('Creates base structure', (test) => {
   test.deepEqual(
-    createRest(r => {}),
+    createRest((r) => {}),
     make()
   )
 })
 
-avaTest('createRest fails if a function is not passed', test => {
+avaTest('createRest fails if a function is not passed', (test) => {
   test.throws(() => {
     createRest(null)
   })
@@ -57,27 +57,27 @@ avaTest('createRest fails if a function is not passed', test => {
   })
 })
 
-avaTest('Creates before', test => {
+avaTest('Creates before', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.beforeEach(before)
     }),
     make([before])
   )
 })
 
-avaTest('Creates after', test => {
+avaTest('Creates after', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.afterEach(after)
     }),
     make([], [after])
   )
 })
 
-avaTest('Creates methods', test => {
+avaTest('Creates methods', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.get(get)
       root.post(post)
       root.put(put)
@@ -94,9 +94,9 @@ avaTest('Creates methods', test => {
   )
 })
 
-avaTest('Creates methods with before/after', test => {
+avaTest('Creates methods with before/after', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.beforeEach(before)
       root.afterEach(after)
       root.get('/', get)
@@ -115,10 +115,10 @@ avaTest('Creates methods with before/after', test => {
   )
 })
 
-avaTest('Creates simple scoping', test => {
+avaTest('Creates simple scoping', (test) => {
   test.deepEqual(
-    createRest(root => {
-      root.scope('demo', demo => {
+    createRest((root) => {
+      root.scope('demo', (demo) => {
       })
     }),
     make([], [], {}, {
@@ -127,10 +127,10 @@ avaTest('Creates simple scoping', test => {
   )
 })
 
-avaTest('Creates scoped methods', test => {
+avaTest('Creates scoped methods', (test) => {
   test.deepEqual(
-    createRest(root => {
-      root.scope('demo', demo => {
+    createRest((root) => {
+      root.scope('demo', (demo) => {
         demo.get('/', get)
         demo.post('/', post)
         demo.put('/', put)
@@ -145,17 +145,17 @@ avaTest('Creates scoped methods', test => {
         PUT: [put],
         PATCH: [patch],
         DELETE: [destroy],
-      })
+      }),
     })
   )
 })
 
-avaTest('Creates before/after in a scope', test => {
+avaTest('Creates before/after in a scope', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.beforeEach(before)
       root.afterEach(after)
-      root.scope('demo', demo => {
+      root.scope('demo', (demo) => {
         demo.beforeEach(before)
         demo.afterEach(after)
         demo.get('/', get)
@@ -176,17 +176,17 @@ avaTest('Creates before/after in a scope', test => {
           POST: [post],
           GET: [get],
           PUT: [put],
-        })
-      },
+        }),
+      }
     )
   )
 })
 
-avaTest('Creates deep scope', test => {
+avaTest('Creates deep scope', (test) => {
   test.deepEqual(
-    createRest(root => {
-      root.scope('foo', foo => {
-        foo.scope('bar', bar => {
+    createRest((root) => {
+      root.scope('foo', (foo) => {
+        foo.scope('bar', (bar) => {
           bar.get('/', get)
         })
       })
@@ -196,16 +196,16 @@ avaTest('Creates deep scope', test => {
         foo: make([], [], {}, {
           bar: make([], [], {
             GET: [get],
-          })
-        })
+          }),
+        }),
       }
     )
   )
 })
 
-avaTest('Creates scoped by methods', test => {
+avaTest('Creates scoped by methods', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.post('/foo', post, post)
       root.get('bar', get, get)
     }),
@@ -216,55 +216,55 @@ avaTest('Creates scoped by methods', test => {
   )
 })
 
-avaTest('Attaches local methods', test => {
+avaTest('Attaches local methods', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.get('/bar', get)
       root.get('bar', get, get)
     }),
     make([], [], {}, {
-      bar: make([], [],  { GET: [get, get, get] }),
+      bar: make([], [], { GET: [get, get, get] }),
     })
   )
 })
 
-avaTest('Fails for wrong scope name', test => {
+avaTest('Fails for wrong scope name', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.scope('', () => {})
     })
   })
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.scope(null, () => {})
     })
   })
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.scope('/', () => {})
     })
   })
 })
 
-avaTest('Fails if deep path to a method is passed', test => {
+avaTest('Fails if deep path to a method is passed', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.post('foo/bar', post)
     })
   })
 })
 
-avaTest('Fails if no listeners are passed to a method', test => {
+avaTest('Fails if no listeners are passed to a method', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.put('demo')
     })
   })
 })
 
-avaTest('Creates simple crud with default options', test => {
+avaTest('Creates simple crud with default options', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.crud('unicorn', ObjectController)
     }),
     make([], [], {}, {
@@ -278,45 +278,45 @@ avaTest('Creates simple crud with default options', test => {
   )
 })
 
-avaTest('Creates crud with partial controller and before/after', test => {
+avaTest('Creates crud with partial controller and before/after', (test) => {
   const Controller = Object.assign({}, ObjectController, {
     beforeEach: before,
     afterEach: after,
     create: undefined,
   })
   test.deepEqual(
-    createRest(root => {
-      root.crud( 'unicorn', Controller)
+    createRest((root) => {
+      root.crud('unicorn', Controller)
     }),
     make([], [], {}, {
       unicorn: make([before], [after], {
         GET: [ObjectController.read],
         PUT: [ObjectController.update],
         DELETE: [ObjectController.destroy],
-      })
+      }),
     })
   )
 })
 
 
-avaTest('Fails for crud with default options', test => {
+avaTest('Fails for crud with default options', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.crud('unicorn')
     }),
     make()
   )
 
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.crud()
     })
   })
 })
 
-avaTest('Creaets crud with options.only', test => {
+avaTest('Creaets crud with options.only', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.crud('unicorn', ObjectController, { only: ['create'] })
     }),
     make([], [], {}, {
@@ -327,9 +327,9 @@ avaTest('Creaets crud with options.only', test => {
   )
 })
 
-avaTest('Creates crud with options.except', test => {
+avaTest('Creates crud with options.except', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.crud('unicorn', ObjectController, { except: ['create'] })
     }),
     make([], [], {}, {
@@ -342,7 +342,7 @@ avaTest('Creates crud with options.except', test => {
   )
 })
 
-avaTest('Creates crud with options.methodNames', test => {
+avaTest('Creates crud with options.methodNames', (test) => {
   const RenamedController = {
     first() {},
     second() {},
@@ -350,9 +350,9 @@ avaTest('Creates crud with options.methodNames', test => {
     fourth() {},
   }
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.crud('unicorn', RenamedController, {
-        methodNames: { read: 'first', create: 'second', update: 'third', destroy: 'fourth' }
+        methodNames: { read: 'first', create: 'second', update: 'third', destroy: 'fourth' },
       })
     }),
     make([], [], {}, {
@@ -366,10 +366,10 @@ avaTest('Creates crud with options.methodNames', test => {
   )
 })
 
-avaTest('Creates crud in scope', test => {
+avaTest('Creates crud in scope', (test) => {
   test.deepEqual(
-    createRest(root => {
-      root.scope('rainbow', rainbow => {
+    createRest((root) => {
+      root.scope('rainbow', (rainbow) => {
         rainbow.crud('unicorn', ObjectController, { except: ['create'] })
       })
     }),
@@ -380,35 +380,36 @@ avaTest('Creates crud in scope', test => {
           PUT: [ObjectController.update],
           DELETE: [ObjectController.destroy],
         }),
-      })
+      }),
     })
   )
 })
 
-avaTest('Overrides scopes with the same name', test => {
+avaTest('Merge scopes with the same name', (test) => {
   test.deepEqual(
-    createRest(root => {
-      root.scope('foo', foo => {
+    createRest((root) => {
+      root.scope('foo', (foo) => {
         foo.get('bar', get)
       })
-      root.scope('foo', foo => {
+      root.scope('foo', (foo) => {
         foo.post('baz', post)
       })
     }),
     make([], [], {}, {
       foo: make([], [], {}, {
-        baz: make([], [], { POST: [post] })
-      })
+        baz: make([], [], { POST: [post] }),
+        bar: make([], [], { GET: [get] }),
+      }),
     })
   )
 })
 
-avaTest('Crud with child scope', test => {
+avaTest('Crud with child scope', (test) => {
   const spy = () => {}
   test.deepEqual(
-    createRest(root => {
-      root.scope('rainbow', rainbow => {
-        rainbow.crud('unicorn', ObjectController, {}, unicorn => {
+    createRest((root) => {
+      root.scope('rainbow', (rainbow) => {
+        rainbow.crud('unicorn', ObjectController, {}, (unicorn) => {
           unicorn.get('excellent', spy)
         })
       })
@@ -420,12 +421,12 @@ avaTest('Crud with child scope', test => {
           GET: [ObjectController.read],
           PUT: [ObjectController.update],
           DELETE: [ObjectController.destroy],
-        },{
+        }, {
           excellent: make([], [], {
             GET: [spy],
-          })
+          }),
         }),
-      })
+      }),
     })
   )
 })
@@ -434,16 +435,16 @@ const DefaultController = {
   beforeEach() {},
   afterEach() {},
   index() {},
-  create () {},
+  create() {},
   read() {},
   update() {},
   patch() {},
   destroy() {},
 }
 
-avaTest('Resources with default', test => {
+avaTest('Resources with default', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', DefaultController)
     }),
     make([], [], {}, {
@@ -451,7 +452,7 @@ avaTest('Resources with default', test => {
         [DefaultController.beforeEach],
         [DefaultController.afterEach],
         {
-          GET: [DefaultController.index], POST: [DefaultController.create]
+          GET: [DefaultController.index], POST: [DefaultController.create],
         },
         {
           ':bookId': make([], [], {
@@ -466,22 +467,22 @@ avaTest('Resources with default', test => {
   )
 })
 
-avaTest('Resource with empty controller', test => {
+avaTest('Resource with empty controller', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', {})
     }),
     make([], [], {}, {
       books: make([], [], {}, {
-        ':bookId': make()
-      })
+        ':bookId': make(),
+      }),
     })
   )
 })
 
-avaTest('Resources with only', test => {
+avaTest('Resources with only', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', DefaultController, { only: ['index', 'read'] })
     }),
     make([], [], {}, {
@@ -501,9 +502,9 @@ avaTest('Resources with only', test => {
   )
 })
 
-avaTest('Resources with except', test => {
+avaTest('Resources with except', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', DefaultController, { except: ['index', 'read', 'update'] })
     }),
     make([], [], {}, {
@@ -511,7 +512,7 @@ avaTest('Resources with except', test => {
         [DefaultController.beforeEach],
         [DefaultController.afterEach],
         {
-          POST: [DefaultController.create]
+          POST: [DefaultController.create],
         },
         {
           ':bookId': make([], [], {
@@ -524,9 +525,9 @@ avaTest('Resources with except', test => {
   )
 })
 
-avaTest('Resources with patch/update case', test => {
+avaTest('Resources with patch/update case', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', Object.assign({}, DefaultController, { patch: undefined }))
     }),
     make([], [], {}, {
@@ -534,7 +535,7 @@ avaTest('Resources with patch/update case', test => {
         [DefaultController.beforeEach],
         [DefaultController.afterEach],
         {
-          GET: [DefaultController.index], POST: [DefaultController.create]
+          GET: [DefaultController.index], POST: [DefaultController.create],
         },
         {
           ':bookId': make([], [], {
@@ -549,9 +550,9 @@ avaTest('Resources with patch/update case', test => {
   )
 })
 
-avaTest('Resources with patch/update case w/o update()', test => {
+avaTest('Resources with patch/update case w/o update()', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', Object.assign({}, DefaultController, { patch: undefined, update: undefined }))
     }),
     make([], [], {}, {
@@ -559,7 +560,7 @@ avaTest('Resources with patch/update case w/o update()', test => {
         [DefaultController.beforeEach],
         [DefaultController.afterEach],
         {
-          GET: [DefaultController.index], POST: [DefaultController.create]
+          GET: [DefaultController.index], POST: [DefaultController.create],
         },
         {
           ':bookId': make([], [], {
@@ -572,9 +573,9 @@ avaTest('Resources with patch/update case w/o update()', test => {
   )
 })
 
-avaTest('Resources with memberId option', test => {
+avaTest('Resources with memberId option', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources('books', DefaultController, { memberId: 'demoId' })
     }),
     make([], [], {}, {
@@ -582,7 +583,7 @@ avaTest('Resources with memberId option', test => {
         [DefaultController.beforeEach],
         [DefaultController.afterEach],
         {
-          GET: [DefaultController.index], POST: [DefaultController.create]
+          GET: [DefaultController.index], POST: [DefaultController.create],
         },
         {
           ':demoId': make([], [], {
@@ -598,9 +599,9 @@ avaTest('Resources with memberId option', test => {
 })
 
 
-avaTest('Resources with patch in only and w/o patch(), update() methods', test => {
+avaTest('Resources with patch in only and w/o patch(), update() methods', (test) => {
   test.deepEqual(
-    createRest(root => {
+    createRest((root) => {
       root.resources(
         'books',
         Object.assign({}, DefaultController, { patch: undefined, update: undefined }),
@@ -622,35 +623,35 @@ avaTest('Resources with patch in only and w/o patch(), update() methods', test =
   )
 })
 
-avaTest('Resources should be named', test => {
+avaTest('Resources should be named', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.resources()
     }, /Resources should be named/, 'unnamed resources not throws')
   })
 })
 
-avaTest('Resources controller should be object', test => {
+avaTest('Resources controller should be object', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.resources('ex', null)
     })
   }, /Controller should be object/, 'null not throws')
   test.throws(() => {
-    createRest(root => {
-      root.resources('ex', function(){})
+    createRest((root) => {
+      root.resources('ex', () => {})
     })
   }, /Controller should be object/, 'function not throws')
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.resources('ex', 1)
     })
   }, /Controller should be object/, 'number not throws')
 })
 
-avaTest('Resources cannot use only and expect at the same time', test => {
+avaTest('Resources cannot use only and expect at the same time', (test) => {
   test.throws(() => {
-    createRest(root => {
+    createRest((root) => {
       root.resources('demo', {}, { only: [], except: [] })
     })
   }, /You can't use/, 'except and only not throws')
