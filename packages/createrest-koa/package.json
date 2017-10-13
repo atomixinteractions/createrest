@@ -4,53 +4,42 @@
   "description": "Koa2 middleware to generate routes by createRest",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
-    "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
     "build": "babel -d ./dist ./lib",
+    "clean": "rimraf ./dist ./docs ./.nyc_output ./coverage",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
+    "dev": "nodemon -w lib -w examples -x \"npm run build && node examples/test.js\"",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "report:user": "nyc report --reporter=html",
     "test": "npm run test:lint && npm run test:code",
     "test:code": "NODE_ENV=test nyc ava",
-    "test:lint": "eslint ./lib",
-    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov",
-    "report": "nyc report --reporter=text-lcov | coveralls",
-    "report:user": "nyc report --reporter=html"
+    "test:lint": "eslint ./lib"
   },
   "keywords": [],
   "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/createrest-express.git"
+  },
+  "dependencies": {
+    "koa-router": "^7.2.0"
+  },
+  "peerDependencies": {
+    "createrest": "^0.12.0",
+    "koa": "2.*"
+  },
+  "devDependencies": {
+    "createrest": "^0.12.0",
+    "koa": "^2.3.0"
+  },
   "ava": {
     "require": "babel-register",
     "concurrency": 4,
     "files": [
       "test/*.test.js"
     ]
-  },
-  "files": [
-    "dist"
-  ],
-  "dependencies": {
-    "koa-router": "^7.2.0"
-  },
-  "peerDependencies": {
-    "createrest": "^0.12.0"
-  },
-  "devDependencies": {
-    "@ava/babel-preset-stage-4": "^1.0.0",
-    "ava": "^0.22.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-register": "^6.26.0",
-    "coveralls": "^3.0.0",
-    "createrest": "^0.12.0",
-    "eslint": "^4.8.0",
-    "eslint-plugin-import": "^2.2.0",
-    "koa": "^2.2.0",
-    "nodemon": "^1.12.1",
-    "nyc": "^11.2.1",
-    "rimraf": "^2.6.2"
   }
 }
