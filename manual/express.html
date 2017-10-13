@@ -2,14 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="./">
+  <base data-ice="baseUrl" href="../">
   <title data-ice="title">Manual | createRest documentation</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
 <link rel="stylesheet" href="./inject/css/0-styles.css"><meta name="description" content="REST routes constructor for express and koa"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="createRest documentation"><meta property="twitter:description" content="REST routes constructor for express and koa"></head>
-<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+<body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
   <a href="./">Home</a>
@@ -54,53 +54,9 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown">
-  <div class="manual-user-index" data-ice="manualUserIndex"><h1 id="createrest">createRest</h1><p><code>createRest</code> is a node.js library for <a href="https://expressjs.com">Express</a> and <a href="http://koajs.com">koa</a> designed to build REST API routing scheme.</p>
-<h2 id="routing-sample">Routing sample</h2><blockquote>
-<p>Example for express</p>
-</blockquote>
-<pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
-const { createExpressMiddleware } = require(&apos;createrest-express&apos;)
-const { createRest } = require(&apos;createrest&apos;)
-
-const routes = createRest(root =&gt; {
-  root.get(&apos;/&apos;, handleIndexRequest)
-})
-
-function handleIndexRequest(req, res) {
-  console.log(&apos;Handled GET /&apos;)
-  res.send(&apos;Hello!&apos;).status(200)
-}
-
-module.exports = createExpressMiddleware(routes)</code>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="express-example">Express example</h1><h2 id="installation">Installation</h2><pre><code class="lang-shell"><code class="source-code prettyprint">npm install express createrest createrest-express</code>
 </code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">// app.js
-const Express = require(&apos;express&apos;)
-const routes = require(&apos;./routes&apos;)
-
-const app = Express()
-
-app.use(routes)
-app.listen(8000)</code>
-</code></pre>
-</div>
-
-  
-
-  <div class="manual-cards">
-    
-  <div class="manual-card-wrap" data-ice="cards">
-      <div class="manual-card">
-        <div data-ice="card"><h1>Installation</h1><h2>Import functions</h2><p>If you use babel or latest build of node.js:</p><pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>
-</code></pre><p>For commonjs based modules:</p><pre><code class="lang-js"><code class="source-code prettyprint">const { createRest, flattenRoutes, printRoutes } = require(&apos;createrest&apos;)</code>
-</code></pre></div>
-        <a data-ice="link" href="manual/installation.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <div class="manual-card">
-        <div data-ice="card"><h1>Express example</h1><h2>Installation</h2><pre><code class="lang-shell"><code class="source-code prettyprint">npm install express createrest createrest-express</code>
-</code></pre><h2>Source code</h2><pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
+<h2 id="source-code">Source code</h2><pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
 const { createRest } = require(&apos;createrest&apos;)
 
 
@@ -128,7 +84,8 @@ function handleScopedRequest(req, res) {
   console.log(&apos;Handled GET /scoped/example&apos;)
   res.send(&apos;That\&apos;s scoped example&apos;)
 }</code>
-</code></pre><pre><code class="lang-js"><code class="source-code prettyprint">// app.js
+</code></pre>
+<pre><code class="lang-js"><code class="source-code prettyprint">// app.js
 const Express = require(&apos;express&apos;)
 const { printRoutes } = require(&apos;createrest&apos;)
 const { createExpressMiddleware } = require(&apos;createrest-express&apos;)
@@ -144,64 +101,7 @@ app.listen(PORT, () =&gt; {
   printRoutes(routes)
   console.log(`Listening port ${PORT}...`)
 })</code>
-</code></pre></div>
-        <a data-ice="link" href="manual/express.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <div class="manual-card">
-        <div data-ice="card"><h1>koa example</h1><h2>Installation</h2><pre><code class="lang-shell"><code class="source-code prettyprint">npm install koa createrest createrest-koa</code>
-</code></pre><h2>Source code</h2><pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
-const { createRest } = require(&apos;createrest&apos;)
-
-
-module.exports.routes = createRest(root =&gt; {
-  root.beforeEach(beforeEachRequest)
-
-  root.get(&apos;/&apos;, handleIndexRequest)
-
-  root.scope(&apos;scoped&apos;, scoped =&gt; {
-    scoped.get(&apos;/example&apos;, handleScopedRequest)
-  })
-})
-
-function beforeEachRequest(ctx, next) {
-  console.log(&apos;Request&apos;)
-  next()
-}
-
-function handleIndexRequest(ctx) {
-  console.log(&apos;Handled GET /&apos;)
-  ctx.body = &apos;Hello!&apos;
-  ctx.status = 200
-}
-
-function handleScopedRequest(ctx) {
-  console.log(&apos;Handled GET /scoped/example&apos;)
-  ctx.body = &apos;That\&apos;s scoped example&apos;&apos;
-}</code>
-</code></pre><pre><code class="lang-js"><code class="source-code prettyprint">// app.js
-const Express = require(&apos;express&apos;)
-const { printRoutes } = require(&apos;createrest&apos;)
-const { createKoaRouter } = require(&apos;createrest-koa&apos;)
-
-const { routes } = require(&apos;./routes&apos;)
-
-const PORT = 8000
-const app = Express()
-const router = createKoaRouter(routes)
-
-app.use(router.routes(), router.allowedMethods())
-
-app.listen(PORT, () =&gt; {
-  printRoutes(routes)
-  console.log(`Listening port ${PORT}...`)
-})</code>
-</code></pre></div>
-        <a data-ice="link" href="manual/koa.html"></a>
-      </div>
-    </div>
-</div>
+</code></pre>
 </div>
 </div>
 
