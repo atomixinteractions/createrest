@@ -1,11 +1,41 @@
 {
-  "title": "createRest documentation",
   "source": "./lib",
   "destination": "./docs",
-  "experimentalProposal": {
-    "classProperties": true,
-    "objectRestSpread": true,
-    "exportExtensions": true
-  },
-  "styles": ["./esdocs/styles.css"]
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "undocumentIdentifier": { "enable": true },
+        "typeInference": { "enable": true },
+        "brand": {
+          "title": "createRest documentation",
+          "description": "REST routes constructor for express and koa",
+          "site": "https://createrest.js.org",
+          "author": "https://lestad.top"
+        }
+      }
+    },
+    {
+      "name": "esdoc-inject-style-plugin",
+      "option": {
+        "enable": false,
+        "styles": [
+          "./esdocs/styles.css"
+        ]
+      }
+    },
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "stripPackageName": false,
+        "replaces": [
+          { "from": ".js", "to": "" },
+          { "from": "/index", "to": "" }
+        ]
+      }
+    },
+    { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true } },
+    { "name": "esdoc-external-ecmascript-plugin", "option": { "enable": true } },
+    { "name": "esdoc-external-nodejs-plugin", "option": { "enable": true } }
+  ]
 }

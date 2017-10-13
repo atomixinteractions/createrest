@@ -43,6 +43,12 @@
   },
   "devDependencies": {
     "esdoc": "^1.0.3",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-external-ecmascript-plugin": "^1.0.0",
+    "esdoc-external-nodejs-plugin": "^1.0.0",
+    "esdoc-importpath-plugin": "^1.0.1",
+    "esdoc-inject-style-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "gh-pages": "^1.0.0",
     "stringify-object": "^3.2.1"
   },

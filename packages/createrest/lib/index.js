@@ -248,7 +248,7 @@ export class Maker {
    * @ignore
    * @param {string} name
    * @param {string} method
-   * @param {function[]} listeners
+   * @param {Function[]} listeners
    */
   method(method, _listeners) {
     let name = ''
