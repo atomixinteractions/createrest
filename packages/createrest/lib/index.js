@@ -254,7 +254,7 @@ export class Maker {
     let name = ''
     let listeners = _listeners
     if (typeof listeners[0] === 'string') {
-      name = listeners.splice(0, 1)[0]
+      [name] = listeners.splice(0, 1)
     }
     name = name.replace(/^\//gm, '')
 
@@ -493,9 +493,9 @@ export class Maker {
     const methodsList = Object.keys(methods)
 
     const resolveMethodName = (handler, currentController) =>
-    options.methodNames && options.methodNames[handler]
-      ? currentController[options.methodNames[handler]]
-      : currentController[handler]
+      options.methodNames && options.methodNames[handler]
+        ? currentController[options.methodNames[handler]]
+        : currentController[handler]
 
     /**
      * @var {Array<[string, string]>} usedList [[handlerName, httpMethod], ...]
