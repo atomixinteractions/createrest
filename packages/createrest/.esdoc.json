@@ -12,13 +12,22 @@
           "description": "REST routes constructor for express and koa",
           "site": "https://createrest.js.org",
           "author": "https://lestad.top"
+        },
+        "manual": {
+          "index": "./esdocs/index.md",
+          "globalIndex": true,
+          "files": [
+            "./esdocs/installation.md",
+            "./esdocs/express.md",
+            "./esdocs/koa.md"
+          ]
         }
       }
     },
     {
       "name": "esdoc-inject-style-plugin",
       "option": {
-        "enable": false,
+        "enable": true,
         "styles": [
           "./esdocs/styles.css"
         ]
