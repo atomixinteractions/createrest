@@ -1,19 +1,24 @@
 {
   "coverage": "100%",
-  "expectCount": 15,
-  "actualCount": 15,
+  "expectCount": 23,
+  "actualCount": 23,
   "files": {
-    "lib/index.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+    "lib/flatten.js": {
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
-    "lib/flatten.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+    "lib/index.js": {
+      "expectCount": 18,
+      "actualCount": 18,
       "undocumentLines": []
     },
     "lib/printer.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/symbol.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

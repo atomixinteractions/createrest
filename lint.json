@@ -1,0 +1,53 @@
+[
+  {
+    "name": "Maker#method",
+    "filePath": "lib/index.js",
+    "lines": [
+      {
+        "lineNumber": 244,
+        "line": "  /**"
+      },
+      {
+        "lineNumber": 245,
+        "line": "   * Handle method creator"
+      },
+      {
+        "lineNumber": 246,
+        "line": "   *"
+      },
+      {
+        "lineNumber": 247,
+        "line": "   * @ignore"
+      },
+      {
+        "lineNumber": 248,
+        "line": "   * @param {string} name"
+      },
+      {
+        "lineNumber": 249,
+        "line": "   * @param {string} method"
+      },
+      {
+        "lineNumber": 250,
+        "line": "   * @param {Function[]} listeners"
+      },
+      {
+        "lineNumber": 251,
+        "line": "   */"
+      },
+      {
+        "lineNumber": 252,
+        "line": "  method(method, _listeners) {"
+      }
+    ],
+    "codeParams": [
+      "method",
+      "_listeners"
+    ],
+    "docParams": [
+      "name",
+      "method",
+      "listeners"
+    ]
+  }
+]

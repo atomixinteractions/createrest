@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/printer.js | createRest documentation</title>
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Variable | createRest documentation</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -44,54 +44,88 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/printer.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { flattenRoutes } from &apos;./flatten&apos;
+<div class="content" data-ice="content"><h1 data-ice="title">Variable</h1>
+<div data-ice="summaries"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Private Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-createRestInstanceSymbol">createRestInstanceSymbol</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="details"><h2 data-ice="title">Static Private </h2>
 
-/**
- * @namespace printer
- */
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-createRestInstanceSymbol">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">createRestInstanceSymbol</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/symbol.js.html#lineNumber4">source</a></span></span>
+    </span>
+  </h3>
 
-/**
- * @private
- * @param {string} path
- * @param {string} method
- * @param {Function[]} handlers
- * @return {string}
- */
-function print(path, method, handlers) {
-  const handlersNames = handlers.map(handler =&gt; `${handler.displayName || handler.name || &apos;&lt;function&gt;&apos;}()`).join(&apos;, &apos;)
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {createRestInstanceSymbol} from &apos;<span><a href="file/lib/symbol.js.html#lineNumber4">createrest/lib/symbol</a></span>&apos;</code></pre></div>
+  
+  
+  
 
-  return `${method.toUpperCase()} ${path} -&gt; ${handlersNames}`
-}
+  
 
-/**
- * Print routes to console and string
- * @param {RestRoutes} routes
- * @param {boolean} realPrint
- * @return {string[]} Lines of the printed routes
- */
-export function printRoutes(routes, realPrint = true) {
-  const flat = flattenRoutes(routes)
-  const lines = []
+  <div data-ice="properties">
+</div>
 
-  Object.keys(flat)
-    .forEach((path) =&gt; {
-      const methods = flat[path]
+  
 
-      Object.keys(methods).forEach((method) =&gt; {
-        lines.push(print(path, method, methods[method]))
-      })
-    })
+  
 
-  if (realPrint) {
-    // eslint-disable-next-line no-console
-    console.log(lines.join(&apos;\n&apos;))
-  }
+  
 
-  return lines
-}
-</code></pre>
+  
 
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 </div>
 
 <footer class="footer">
