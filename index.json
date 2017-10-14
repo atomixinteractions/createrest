@@ -2000,7 +2000,7 @@
     "kind": "manual",
     "longname": "/Users/lestad/Projects/createrest/packages/createrest/esdocs/installation.md",
     "name": "./esdocs/installation.md",
-    "content": "# Installation\n\n## Import functions\n\nIf you use babel or latest build of node.js:\n\n```js\nimport { createRest, flattenRoutes, printRoutes } from 'createrest'\n```\n\nFor commonjs based modules:\n\n```js\nconst { createRest, flattenRoutes, printRoutes } = require('createrest')\n```\n",
+    "content": "# Installation\n\n## NPM packages\n\n[createrest](https://npmjs.com/createrest)\n\n```shell\nnpm install --save createrest\n```\n\n## Import functions\n\nIf you use babel or latest build of node.js:\n\n```js\nimport { createRest, flattenRoutes, printRoutes } from 'createrest'\n```\n\nFor commonjs based modules:\n\n```js\nconst { createRest, flattenRoutes, printRoutes } = require('createrest')\n```\n\n## Express\n\n[createrest-express](https://npmjs.com/createrest-express)\n\n```shell\nnpm install --save createrest createrest-express express\n```\n\n```js\nconst Express = require('express')\nconst { createExpressMiddleware } = require('createrest-express')\nconst routes = require('./routes')\n\nconst app = Express()\n\napp.use(createExpressMiddleware(routes))\n\napp.listen(8000)\n```\n\n## Koa2\n\n[createrest-koa](https://npmjs.com/createrest-koa)\n\n```shell\nnpm install --save createrest createrest-koa koa@2\n```\n```js\nconst Express = require('koa')\nconst { createKoaRouter } = require('createrest-express')\nconst routes = require('./routes')\n\nconst app = new Koa()\nconst router = createKoaRouter(routes)\n\napp.use(router.routes(), router.allowedMethods())\n\napp.listen(8000)\n```\n\n",
     "static": true,
     "access": "public"
   },
@@ -2008,7 +2008,7 @@
     "kind": "manual",
     "longname": "/Users/lestad/Projects/createrest/packages/createrest/esdocs/express.md",
     "name": "./esdocs/express.md",
-    "content": "# Express example\n\n## Installation\n\n```shell\nnpm install express createrest createrest-express\n```\n\n## Source code\n\n```js\n// routes.js\nconst { createRest } = require('createrest')\n\n\nmodule.exports.routes = createRest(root => {\n  root.beforeEach(beforeEachRequest)\n\n  root.get('/', handleIndexRequest)\n\n  root.scope('scoped', scoped => {\n    scoped.get('/example', handleScopedRequest)\n  })\n})\n\nfunction beforeEachRequest(req, res, next) {\n  console.log('Request')\n  next()\n}\n\nfunction handleIndexRequest(req, res) {\n  console.log('Handled GET /')\n  res.send('Hello!').status(200)\n}\n\nfunction handleScopedRequest(req, res) {\n  console.log('Handled GET /scoped/example')\n  res.send('That\\'s scoped example')\n}\n```\n\n```js\n// app.js\nconst Express = require('express')\nconst { printRoutes } = require('createrest')\nconst { createExpressMiddleware } = require('createrest-express')\n\nconst { routes } = require('./routes')\n\nconst PORT = 8000\nconst app = Express()\n\napp.use(createExpressMiddleware(routes))\n\napp.listen(PORT, () => {\n  printRoutes(routes)\n  console.log(`Listening port ${PORT}...`)\n})\n```\n",
+    "content": "# Express example\n\n## Installation\n\n```shell\nnpm install express createrest createrest-express\n```\n\nInstallation manual for Express [here](http://expressjs.com/starter/installing.html)\n\n\n## Source code\n\n```js\n// routes.js\nconst { createRest } = require('createrest')\n\n\nmodule.exports.routes = createRest(root => {\n  root.beforeEach(beforeEachRequest)\n\n  root.get('/', handleIndexRequest)\n\n  root.scope('scoped', scoped => {\n    scoped.get('/example', handleScopedRequest)\n  })\n})\n\nfunction beforeEachRequest(req, res, next) {\n  console.log('Request')\n  next()\n}\n\nfunction handleIndexRequest(req, res) {\n  console.log('Handled GET /')\n  res.send('Hello!').status(200)\n}\n\nfunction handleScopedRequest(req, res) {\n  console.log('Handled GET /scoped/example')\n  res.send('That\\'s scoped example')\n}\n```\n\n```js\n// app.js\nconst Express = require('express')\nconst { printRoutes } = require('createrest')\nconst { createExpressMiddleware } = require('createrest-express')\n\nconst { routes } = require('./routes')\n\nconst PORT = 8000\nconst app = Express()\n\napp.use(createExpressMiddleware(routes))\n\napp.listen(PORT, () => {\n  printRoutes(routes)\n  console.log(`Listening port ${PORT}...`)\n})\n```\n",
     "static": true,
     "access": "public"
   },
@@ -2017,6 +2017,14 @@
     "longname": "/Users/lestad/Projects/createrest/packages/createrest/esdocs/koa.md",
     "name": "./esdocs/koa.md",
     "content": "# koa example\n\n## Installation\n\n```shell\nnpm install koa createrest createrest-koa\n```\n\n## Source code\n\n```js\n// routes.js\nconst { createRest } = require('createrest')\n\n\nmodule.exports.routes = createRest(root => {\n  root.beforeEach(beforeEachRequest)\n\n  root.get('/', handleIndexRequest)\n\n  root.scope('scoped', scoped => {\n    scoped.get('/example', handleScopedRequest)\n  })\n})\n\nfunction beforeEachRequest(ctx, next) {\n  console.log('Request')\n  next()\n}\n\nfunction handleIndexRequest(ctx) {\n  console.log('Handled GET /')\n  ctx.body = 'Hello!'\n  ctx.status = 200\n}\n\nfunction handleScopedRequest(ctx) {\n  console.log('Handled GET /scoped/example')\n  ctx.body = 'That\\'s scoped example''\n}\n```\n\n```js\n// app.js\nconst Express = require('express')\nconst { printRoutes } = require('createrest')\nconst { createKoaRouter } = require('createrest-koa')\n\nconst { routes } = require('./routes')\n\nconst PORT = 8000\nconst app = Express()\nconst router = createKoaRouter(routes)\n\napp.use(router.routes(), router.allowedMethods())\n\napp.listen(PORT, () => {\n  printRoutes(routes)\n  console.log(`Listening port ${PORT}...`)\n})\n```\n",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "manual",
+    "longname": "/Users/lestad/Projects/createrest/packages/createrest/esdocs/handlers.md",
+    "name": "./esdocs/handlers.md",
+    "content": "# Handlers\n\n## [get](/class/lib/index.js~Maker.html#instance-method-get)\n\nAdd handler for GET route.\n\n```js\ncreateRest(root => {\n  root.get('/', () => console.log('Handle GET /'))\n\n  root.scope('demo', demo => {\n    demo.get('/', () => console.log('Handle GET /demo'))\n  })\n})\n```\n",
     "static": true,
     "access": "public"
   }

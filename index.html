@@ -32,7 +32,10 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/installation.html"><a href="manual/installation.html" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#npm-packages" data-ice="link">NPM packages</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#import-functions" data-ice="link">Import functions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#express" data-ice="link">Express</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#koa2" data-ice="link">Koa2</a></li>
 </ul>
   </div>
 <div data-ice="manual">
@@ -49,6 +52,13 @@
     <li data-ice="manualNav" class="indent-h1" data-link="manual/koa.html"><a href="manual/koa.html" data-ice="link">koa example</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/koa.html"><a href="manual/koa.html#installation" data-ice="link">Installation</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/koa.html"><a href="manual/koa.html#source-code" data-ice="link">Source code</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/handlers.html"><a href="manual/handlers.html" data-ice="link">Handlers</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/handlers.html"><a href="manual/handlers.html#-a-href---class-lib-index-js-maker-html-instance-method-get--get--a-" data-ice="link">get</a></li>
 </ul>
   </div>
 </div>
@@ -91,8 +101,30 @@ app.listen(8000)</code>
     
   <div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
-        <div data-ice="card"><h1>Installation</h1><h2>Import functions</h2><p>If you use babel or latest build of node.js:</p><pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>
+        <div data-ice="card"><h1>Installation</h1><h2>NPM packages</h2><p><a href="https://npmjs.com/createrest">createrest</a></p><pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest</code>
+</code></pre><h2>Import functions</h2><p>If you use babel or latest build of node.js:</p><pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>
 </code></pre><p>For commonjs based modules:</p><pre><code class="lang-js"><code class="source-code prettyprint">const { createRest, flattenRoutes, printRoutes } = require(&apos;createrest&apos;)</code>
+</code></pre><h2>Express</h2><p><a href="https://npmjs.com/createrest-express">createrest-express</a></p><pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-express express</code>
+</code></pre><pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;express&apos;)
+const { createExpressMiddleware } = require(&apos;createrest-express&apos;)
+const routes = require(&apos;./routes&apos;)
+
+const app = Express()
+
+app.use(createExpressMiddleware(routes))
+
+app.listen(8000)</code>
+</code></pre><h2>Koa2</h2><p><a href="https://npmjs.com/createrest-koa">createrest-koa</a></p><pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-koa koa@2</code>
+</code></pre><pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;koa&apos;)
+const { createKoaRouter } = require(&apos;createrest-express&apos;)
+const routes = require(&apos;./routes&apos;)
+
+const app = new Koa()
+const router = createKoaRouter(routes)
+
+app.use(router.routes(), router.allowedMethods())
+
+app.listen(8000)</code>
 </code></pre></div>
         <a data-ice="link" href="manual/installation.html"></a>
       </div>
@@ -100,7 +132,7 @@ app.listen(8000)</code>
 <div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
         <div data-ice="card"><h1>Express example</h1><h2>Installation</h2><pre><code class="lang-shell"><code class="source-code prettyprint">npm install express createrest createrest-express</code>
-</code></pre><h2>Source code</h2><pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
+</code></pre><p>Installation manual for Express <a href="http://expressjs.com/starter/installing.html">here</a></p><h2>Source code</h2><pre><code class="lang-js"><code class="source-code prettyprint">// routes.js
 const { createRest } = require(&apos;createrest&apos;)
 
 
@@ -199,6 +231,19 @@ app.listen(PORT, () =&gt; {
 })</code>
 </code></pre></div>
         <a data-ice="link" href="manual/koa.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Handlers</h1><h2><a href="/class/lib/index.js~Maker.html#instance-method-get">get</a></h2><p>Add handler for GET route.</p><pre><code class="lang-js"><code class="source-code prettyprint">createRest(root =&gt; {
+  root.get(&apos;/&apos;, () =&gt; console.log(&apos;Handle GET /&apos;))
+
+  root.scope(&apos;demo&apos;, demo =&gt; {
+    demo.get(&apos;/&apos;, () =&gt; console.log(&apos;Handle GET /demo&apos;))
+  })
+})</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/handlers.html"></a>
       </div>
     </div>
 </div>

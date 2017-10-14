@@ -64,41 +64,14 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="installation">Installation</h1><h2 id="npm-packages">NPM packages</h2><p><a href="https://npmjs.com/createrest">createrest</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest</code>
-</code></pre>
-<h2 id="import-functions">Import functions</h2><p>If you use babel or latest build of node.js:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>
-</code></pre>
-<p>For commonjs based modules:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const { createRest, flattenRoutes, printRoutes } = require(&apos;createrest&apos;)</code>
-</code></pre>
-<h2 id="express">Express</h2><p><a href="https://npmjs.com/createrest-express">createrest-express</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-express express</code>
-</code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;express&apos;)
-const { createExpressMiddleware } = require(&apos;createrest-express&apos;)
-const routes = require(&apos;./routes&apos;)
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="handlers">Handlers</h1><h2 id="-a-href---class-lib-index-js-maker-html-instance-method-get--get--a-"><a href="/class/lib/index.js~Maker.html#instance-method-get">get</a></h2><p>Add handler for GET route.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">createRest(root =&gt; {
+  root.get(&apos;/&apos;, () =&gt; console.log(&apos;Handle GET /&apos;))
 
-const app = Express()
-
-app.use(createExpressMiddleware(routes))
-
-app.listen(8000)</code>
-</code></pre>
-<h2 id="koa2">Koa2</h2><p><a href="https://npmjs.com/createrest-koa">createrest-koa</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-koa koa@2</code>
-</code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;koa&apos;)
-const { createKoaRouter } = require(&apos;createrest-express&apos;)
-const routes = require(&apos;./routes&apos;)
-
-const app = new Koa()
-const router = createKoaRouter(routes)
-
-app.use(router.routes(), router.allowedMethods())
-
-app.listen(8000)</code>
+  root.scope(&apos;demo&apos;, demo =&gt; {
+    demo.get(&apos;/&apos;, () =&gt; console.log(&apos;Handle GET /demo&apos;))
+  })
+})</code>
 </code></pre>
 </div>
 </div>
