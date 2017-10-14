@@ -19,7 +19,8 @@
           "files": [
             "./esdocs/installation.md",
             "./esdocs/express.md",
-            "./esdocs/koa.md"
+            "./esdocs/koa.md",
+            "./esdocs/handlers.md"
           ]
         }
       }

@@ -149,6 +149,10 @@ h3 .right-info {
   color: #fdd687;
 }
 
+.content .detail > h3 {
+  background-color: transparent;
+}
+
 .content .detail + .detail {
   margin-top: 50px;
 }
@@ -176,7 +180,7 @@ table.summary span.access {
 }
 
 .inner-link-active, :target {
-  background: rgba(255, 52, 52, 0.33);
+  background: rgba(255, 52, 52, 0.33) !important;
   border-right: 3px solid #ffb44c;
 }
 
@@ -274,4 +278,9 @@ table.summary span.access {
 
 .search-result li.selected {
   background: rgba(255, 52, 52, 0.33);
+}
+
+.manual-index .manual-user-index,
+.manual-index .manual-card {
+  border-color: #5c6773;
 }

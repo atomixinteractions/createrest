@@ -6,6 +6,9 @@
 npm install express createrest createrest-express
 ```
 
+Installation manual for Express [here](http://expressjs.com/starter/installing.html)
+
+
 ## Source code
 
 ```js
