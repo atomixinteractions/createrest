@@ -70,6 +70,16 @@ test('deep path in simple handlers throws', async (t) => {
   })
 })
 
+test('throws when passed not routes', async (t) => {
+  t.throws(() => {
+    createKoaRouter(() => {})
+  }, TypeError)
+
+  t.throws(() => {
+    createKoaRouter({})
+  }, TypeError)
+})
+
 
 test('deep scopes works', async (t) => {
   t.plan(5)

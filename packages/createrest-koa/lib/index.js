@@ -4,7 +4,7 @@ import { flattenRoutes, isCreateRestInstance } from 'createrest'
 
 export function createKoaRouter(routing) {
   if (!isCreateRestInstance(routing)) {
-    throw new Error('You can create koa middleware only from createRest routes')
+    throw new TypeError('You can create koa middleware only from createRest routes')
   }
 
   const router = new Router()
