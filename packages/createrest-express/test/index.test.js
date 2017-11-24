@@ -1,18 +1,10 @@
 import test from 'ava'
-import express from 'express'
 import supertest from 'supertest'
 import sinon from 'sinon'
 import { createRest } from 'createrest'
 import { createExpressMiddleware } from '../lib'
+import { createRawServer } from './utils'
 
-
-let port = 4000
-
-function createRawServer(routesFn) {
-  const app = express()
-  app.use(createExpressMiddleware(createRest(routesFn)))
-  return app.listen(port++)
-}
 
 const newSpy = () => ({
   get: sinon.stub().callsFake((req, res) => res.send({})),

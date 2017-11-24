@@ -1,6 +1,8 @@
 {
   "rules": {
     "import/no-extraneous-dependencies": "off",
-    "no-magic-numbers": "off"
+    "no-magic-numbers": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off"
   }
 }
