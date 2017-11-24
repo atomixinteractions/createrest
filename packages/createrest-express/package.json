@@ -1,6 +1,6 @@
 {
   "name": "createrest-express",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Express middleware for generate routes from createrest",
   "main": "dist/index.js",
   "scripts": {
@@ -28,11 +28,11 @@
   ],
   "homepage": "https://github.com/atomixinteractions/createrest-express#readme",
   "peerDependencies": {
-    "createrest": "^0.13.0",
+    "createrest": "^0.14.0",
     "express": "4.*"
   },
   "devDependencies": {
-    "createrest": "^0.13.0",
+    "createrest": "^0.14.0",
     "express": "^4.16.2"
   },
   "ava": {
