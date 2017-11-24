@@ -25,7 +25,7 @@
     "url": "git+https://github.com/atomixinteractions/createrest-express.git"
   },
   "dependencies": {
-    "koa-router": "^7.2.0"
+    "koa-router": "^7.3.0"
   },
   "peerDependencies": {
     "createrest": "^0.13.0",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "createrest": "^0.13.0",
-    "koa": "^2.3.0"
+    "koa": "^2.4.1"
   },
   "ava": {
     "require": "babel-register",

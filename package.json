@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
+    "babel-eslint": "^8.0.2",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
@@ -28,13 +28,14 @@
     "babel-register": "^6.26.0",
     "buildbranch": "^2.0.0",
     "coveralls": "^3.0.0",
-    "eslint": "^4.8.0",
-    "eslint-config-atomix-base": "^4.3.2",
-    "lerna": "^2.4.0",
+    "eslint": "^4.11.0",
+    "eslint-config-atomix-base": "^4.6.0",
+    "lerna": "^2.5.1",
     "metapak": "0.0.21",
     "nodemon": "^1.12.1",
-    "nyc": "^11.2.1",
-    "rimraf": "^2.6.2"
+    "nyc": "^11.3.0",
+    "rimraf": "^2.6.2",
+    "supertest": "^3.0.0"
   },
   "dependencies": {}
 }
