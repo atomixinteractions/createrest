@@ -1,6 +1,6 @@
 {
   "name": "createrest-koa",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Koa2 middleware to generate routes by createRest",
   "main": "dist/index.js",
   "scripts": {
@@ -28,11 +28,11 @@
     "koa-router": "^7.3.0"
   },
   "peerDependencies": {
-    "createrest": "^0.14.0",
+    "createrest": "^0.14.1",
     "koa": "2.*"
   },
   "devDependencies": {
-    "createrest": "^0.14.0",
+    "createrest": "^0.14.1",
     "koa": "^2.4.1"
   },
   "ava": {
