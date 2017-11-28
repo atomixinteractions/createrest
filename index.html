@@ -31,6 +31,18 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html" data-ice="link">Quick guide</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#create-app-package" data-ice="link">Create app package</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#install-koa2--createrest-and-createrest-koa" data-ice="link">Install koa2, createrest and createrest-koa</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#create-common-files" data-ice="link">Create common files</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#-code-src-routes-js--code-" data-ice="link">src/routes.js</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#-code-src-app-js--code-" data-ice="link">src/app.js</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/quick-guide.html"><a href="manual/quick-guide.html#run-your-application" data-ice="link">Run your application</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
     <li data-ice="manualNav" class="indent-h1" data-link="manual/installation.html"><a href="manual/installation.html" data-ice="link">Installation</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#npm-packages" data-ice="link">NPM packages</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/installation.html"><a href="manual/installation.html#import-functions" data-ice="link">Import functions</a></li>
@@ -65,7 +77,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="github-markdown">
-  <div class="manual-user-index" data-ice="manualUserIndex"><h1 id="createrest">createRest</h1><p><code>createRest</code> is a node.js library for <a href="https://expressjs.com">Express</a> and <a href="http://koajs.com">koa</a> designed to build REST API routing scheme.</p>
+  <div class="manual-user-index" data-ice="manualUserIndex"><h1 id="createrest">createRest</h1><p><code>createRest</code> is a node.js library for <a href="https://expressjs.com">Express</a> and <a href="http://koajs.com">koa2</a> designed to build REST API routing scheme.</p>
 <h2 id="routing-sample">Routing sample</h2><blockquote>
 <p>Example for express</p>
 </blockquote>
@@ -100,6 +112,77 @@ app.listen(8000)</code>
   <div class="manual-cards">
     
   <div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Quick guide</h1><p>Let&apos;s create REST API on createRest and koa2.</p><h3>Create app package</h3><pre><code class="lang-bash"><code class="source-code prettyprint">mkdir restapi
+cd restapi
+npm init --force</code>
+</code></pre><h3>Install koa2, createrest and createrest-koa</h3><pre><code class="lang-bash"><code class="source-code prettyprint">npm install --save koa@2 createrest createrest-koa</code>
+</code></pre><h3>Create common files</h3><pre><code class="lang-bash"><code class="source-code prettyprint">mkdir src
+
+touch src/app.js
+touch src/routes.js</code>
+</code></pre><p>Open <code>app.js</code> and <code>routes.js</code> in IDE/editor.</p><h4><code>src/routes.js</code></h4><pre><code class="lang-js"><code class="source-code prettyprint">// Import createRest function
+const { createRest } = require(&apos;createrest&apos;)
+// Here you can import all of your route handlers
+
+// Let&apos;s create index and ping-pong handlers
+const ping = (ctx) =&gt; {
+  ctx.body = &apos;pong&apos;
+}
+
+const index = (ctx) =&gt; {
+  ctx.body = &apos;Hello world&apos;
+}
+
+// Now create routes for your handlers with createRest function
+const routes = createRest((root) =&gt; {
+  // root is a instance of Maker class
+  // with root you can define your routes, scopes, hooks
+
+  // Let&apos;s create hanler for `GET /` http request
+  root.get(&apos;/&apos;, index) // Complete! .get creates handler
+
+  // Now create handler for `GET /ping`
+  root.get(&apos;/ping&apos;, ping)
+})
+
+// Okay, export routes to use in app.js
+module.exports = routes</code>
+</code></pre><h4><code>src/app.js</code></h4><pre><code class="lang-js"><code class="source-code prettyprint">// Import only most necessary dependencies
+const Koa = require(&apos;koa&apos;)
+const { createRest, printRoutes } = require(&apos;createrest&apos;)
+const { createKoaRouter } = require(&apos;createrest-koa&apos;)
+
+// Import our routes
+const routes = require(&apos;./routes&apos;)
+
+
+// Create simple Koa2 application instance
+const app = new Koa()
+
+// Now create router special for koa2
+const router = createKoaRouter(routes)
+
+// Here just pass routes to application instance
+app.use(router.routes())
+
+// You can change port to listen
+app.listen(3000, () =&gt; {
+  // after app created print available routes to console
+  printRoutes(routes)
+  console.log(&apos;Listening port 3000...&apos;)
+})</code>
+</code></pre><h3>Run your application</h3><pre><code class="lang-bash"><code class="source-code prettyprint">node ./src/app.js</code>
+</code></pre><blockquote>
+<p>You can add npm-script <code>start</code> with <code>node src/app</code> or use <a href="https://npmjs.com/nodemon">nodemon</a> in <code>dev</code> task.</p>
+</blockquote><p>You should see in your console:</p><pre><code class="lang-text"><code class="source-code prettyprint">GET / -&gt; index()
+GET /ping/ -&gt; ping()
+Listening port 3000...</code>
+</code></pre><p>And if you open <a href="http://localhost:3000/">http://localhost:3000/</a> and <a href="http://localhost:3000/ping">http://localhost:3000/ping</a>, you see answers from your <code>index</code> and <code>ping</code> handlers.</p></div>
+        <a data-ice="link" href="manual/quick-guide.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
         <div data-ice="card"><h1>Installation</h1><h2>NPM packages</h2><p><a href="https://npmjs.com/createrest">createrest</a></p><pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest</code>
 </code></pre><h2>Import functions</h2><p>If you use babel or latest build of node.js:</p><pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>

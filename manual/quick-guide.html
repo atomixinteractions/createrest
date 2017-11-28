@@ -76,42 +76,83 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="installation">Installation</h1><h2 id="npm-packages">NPM packages</h2><p><a href="https://npmjs.com/createrest">createrest</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest</code>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="quick-guide">Quick guide</h1><p>Let&apos;s create REST API on createRest and koa2.</p>
+<h3 id="create-app-package">Create app package</h3><pre><code class="lang-bash"><code class="source-code prettyprint">mkdir restapi
+cd restapi
+npm init --force</code>
 </code></pre>
-<h2 id="import-functions">Import functions</h2><p>If you use babel or latest build of node.js:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">import { createRest, flattenRoutes, printRoutes } from &apos;createrest&apos;</code>
+<h3 id="install-koa2--createrest-and-createrest-koa">Install koa2, createrest and createrest-koa</h3><pre><code class="lang-bash"><code class="source-code prettyprint">npm install --save koa@2 createrest createrest-koa</code>
 </code></pre>
-<p>For commonjs based modules:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const { createRest, flattenRoutes, printRoutes } = require(&apos;createrest&apos;)</code>
+<h3 id="create-common-files">Create common files</h3><pre><code class="lang-bash"><code class="source-code prettyprint">mkdir src
+
+touch src/app.js
+touch src/routes.js</code>
 </code></pre>
-<h2 id="express">Express</h2><p><a href="https://npmjs.com/createrest-express">createrest-express</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-express express</code>
+<p>Open <code>app.js</code> and <code>routes.js</code> in IDE/editor.</p>
+<h4 id="-code-src-routes-js--code-"><code>src/routes.js</code></h4><pre><code class="lang-js"><code class="source-code prettyprint">// Import createRest function
+const { createRest } = require(&apos;createrest&apos;)
+// Here you can import all of your route handlers
+
+// Let&apos;s create index and ping-pong handlers
+const ping = (ctx) =&gt; {
+  ctx.body = &apos;pong&apos;
+}
+
+const index = (ctx) =&gt; {
+  ctx.body = &apos;Hello world&apos;
+}
+
+// Now create routes for your handlers with createRest function
+const routes = createRest((root) =&gt; {
+  // root is a instance of Maker class
+  // with root you can define your routes, scopes, hooks
+
+  // Let&apos;s create hanler for `GET /` http request
+  root.get(&apos;/&apos;, index) // Complete! .get creates handler
+
+  // Now create handler for `GET /ping`
+  root.get(&apos;/ping&apos;, ping)
+})
+
+// Okay, export routes to use in app.js
+module.exports = routes</code>
 </code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;express&apos;)
-const { createExpressMiddleware } = require(&apos;createrest-express&apos;)
+<h4 id="-code-src-app-js--code-"><code>src/app.js</code></h4><pre><code class="lang-js"><code class="source-code prettyprint">// Import only most necessary dependencies
+const Koa = require(&apos;koa&apos;)
+const { createRest, printRoutes } = require(&apos;createrest&apos;)
+const { createKoaRouter } = require(&apos;createrest-koa&apos;)
+
+// Import our routes
 const routes = require(&apos;./routes&apos;)
 
-const app = Express()
 
-app.use(createExpressMiddleware(routes))
-
-app.listen(8000)</code>
-</code></pre>
-<h2 id="koa2">Koa2</h2><p><a href="https://npmjs.com/createrest-koa">createrest-koa</a></p>
-<pre><code class="lang-shell"><code class="source-code prettyprint">npm install --save createrest createrest-koa koa@2</code>
-</code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">const Express = require(&apos;koa&apos;)
-const { createKoaRouter } = require(&apos;createrest-express&apos;)
-const routes = require(&apos;./routes&apos;)
-
+// Create simple Koa2 application instance
 const app = new Koa()
+
+// Now create router special for koa2
 const router = createKoaRouter(routes)
 
-app.use(router.routes(), router.allowedMethods())
+// Here just pass routes to application instance
+app.use(router.routes())
 
-app.listen(8000)</code>
+// You can change port to listen
+app.listen(3000, () =&gt; {
+  // after app created print available routes to console
+  printRoutes(routes)
+  console.log(&apos;Listening port 3000...&apos;)
+})</code>
 </code></pre>
+<h3 id="run-your-application">Run your application</h3><pre><code class="lang-bash"><code class="source-code prettyprint">node ./src/app.js</code>
+</code></pre>
+<blockquote>
+<p>You can add npm-script <code>start</code> with <code>node src/app</code> or use <a href="https://npmjs.com/nodemon">nodemon</a> in <code>dev</code> task.</p>
+</blockquote>
+<p>You should see in your console:</p>
+<pre><code class="lang-text"><code class="source-code prettyprint">GET / -&gt; index()
+GET /ping/ -&gt; ping()
+Listening port 3000...</code>
+</code></pre>
+<p>And if you open <a href="http://localhost:3000/">http://localhost:3000/</a> and <a href="http://localhost:3000/ping">http://localhost:3000/ping</a>, you see answers from your <code>index</code> and <code>ping</code> handlers.</p>
 </div>
 </div>
 
