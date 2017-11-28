@@ -1,6 +1,6 @@
 # createRest
 
-`createRest` is a node.js library for [Express](https://expressjs.com) and [koa](http://koajs.com) designed to build REST API routing scheme.
+`createRest` is a node.js library for [Express](https://expressjs.com) and [koa2](http://koajs.com) designed to build REST API routing scheme.
 
 
 ## Routing sample

@@ -17,6 +17,7 @@
           "index": "./esdocs/index.md",
           "globalIndex": true,
           "files": [
+            "./esdocs/quick-guide.md",
             "./esdocs/installation.md",
             "./esdocs/express.md",
             "./esdocs/koa.md",
