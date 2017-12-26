@@ -4,39 +4,39 @@
     "filePath": "lib/index.js",
     "lines": [
       {
-        "lineNumber": 244,
+        "lineNumber": 246,
         "line": "  /**"
       },
       {
-        "lineNumber": 245,
+        "lineNumber": 247,
         "line": "   * Handle method creator"
       },
       {
-        "lineNumber": 246,
+        "lineNumber": 248,
         "line": "   *"
       },
       {
-        "lineNumber": 247,
+        "lineNumber": 249,
         "line": "   * @ignore"
       },
       {
-        "lineNumber": 248,
+        "lineNumber": 250,
         "line": "   * @param {string} name"
       },
       {
-        "lineNumber": 249,
+        "lineNumber": 251,
         "line": "   * @param {string} method"
       },
       {
-        "lineNumber": 250,
+        "lineNumber": 252,
         "line": "   * @param {Function[]} listeners"
       },
       {
-        "lineNumber": 251,
+        "lineNumber": 253,
         "line": "   */"
       },
       {
-        "lineNumber": 252,
+        "lineNumber": 254,
         "line": "  method(method, _listeners) {"
       }
     ],
