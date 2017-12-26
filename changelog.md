@@ -1,5 +1,15 @@
 <a name=""></a>
-# [](https://github.com/atomixinteractions/createrest/compare/v0.14.1...v) (2017-12-26)
+# [](https://github.com/atomixinteractions/createrest/compare/v0.14.2...v) (2017-12-26)
+
+
+### Build system
+
+* Refactor changelog building ([79e114f](https://github.com/atomixinteractions/createrest/commit/79e114f))
+
+
+
+<a name="0.14.2"></a>
+## [0.14.2](https://github.com/atomixinteractions/createrest/compare/v0.14.1...v0.14.2) (2017-12-26)
 
 
 ### Build system
