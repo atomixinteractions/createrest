@@ -90,6 +90,7 @@ export class Maker {
    */
   build() {
     const scoped = {}
+
     Object.keys(this.ctx.scoped).forEach((name) => {
       scoped[name] = this.ctx.scoped[name].build()
     })
@@ -221,6 +222,7 @@ export class Maker {
     }
 
     const scopedCtx = this.ctx.scoped[name] || new Maker()
+
     creator(scopedCtx)
     this.ctx.scoped[name] = scopedCtx
   }
@@ -253,6 +255,7 @@ export class Maker {
   method(method, _listeners) {
     let name = ''
     let listeners = _listeners
+
     if (typeof listeners[0] === 'string') {
       [name] = listeners.splice(0, 1)
     }
@@ -272,6 +275,7 @@ export class Maker {
 
     if (name !== '') {
       let scoped = this.ctx.scoped[name]
+
       if (!scoped) {
         scoped = new Maker()
         this.ctx.scoped[name] = scoped
@@ -492,10 +496,11 @@ export class Maker {
     }
     const methodsList = Object.keys(methods)
 
-    const resolveMethodName = (handler, currentController) =>
+    const resolveMethodName = (handler, currentController) => (
       options.methodNames && options.methodNames[handler]
         ? currentController[options.methodNames[handler]]
         : currentController[handler]
+    )
 
     /**
      * @var {Array<[string, string]>} usedList [[handlerName, httpMethod], ...]
@@ -642,8 +647,7 @@ export class Maker {
      * @param {string} methodName
      * @private
      */
-    const checkMethod = methodName =>
-      noMethodsSlicingOption
+    const checkMethod = methodName => noMethodsSlicingOption
       || (options.only && options.only.length && options.only.includes(methodName))
       || (options.except && options.except.length && !options.except.includes(methodName))
 
@@ -705,6 +709,7 @@ export function createRest(creator) {
   }
 
   const ctx = new Maker('')
+
   creator(ctx)
   return ctx.build()
 }

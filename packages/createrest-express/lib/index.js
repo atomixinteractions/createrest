@@ -7,8 +7,8 @@ export function createExpressMiddleware(routing) {
     throw new TypeError('You can create express middleware only for createRest routes')
   }
   const router = Router()
-
   const flat = flattenRoutes(routing)
+
   Object.keys(flat).forEach((path) => {
     const methods = flat[path]
 

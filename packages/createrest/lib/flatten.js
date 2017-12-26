@@ -31,6 +31,7 @@ function flattenize(routes, prefix, parent) {
       before: parent.before.concat(routes.before),
       after: routes.after.concat(parent.after),
     })
+
     Object.assign(list, listeners)
   })
 

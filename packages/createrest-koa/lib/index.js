@@ -8,8 +8,8 @@ export function createKoaRouter(routing) {
   }
 
   const router = new Router()
-
   const flat = flattenRoutes(routing)
+
   Object.keys(flat).forEach((path) => {
     const methods = flat[path]
 
