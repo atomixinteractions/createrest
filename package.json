@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",
+    "changelog": "conventional-changelog -p atomix -i changelog.md -s -r 0 && git add changelog.md && git commit -m \"$(git describe --abbrev=0 --tags) changelog\"",
     "clean": "lerna run clean --stream",
     "coverage": "lerna run coverage --stream",
     "docs": "lerna run docs --scope createrest",
@@ -12,8 +13,7 @@
     "prepublish": "lerna run build --stream && lerna run test --stream",
     "publish": "lerna publish",
     "report": "lerna run report --stream",
-    "test": "lerna run build && lerna run test",
-    "changelog": "conventional-changelog -p atomix -i changelog.md -s -r 0 && git add changelog.md && git commit -m \"$(git describe --abbrev=0 --tags) changelog\""
+    "test": "lerna run build && lerna run test"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.1.0",
@@ -31,6 +31,7 @@
     "conventional-changelog-atomix": "^0.3.2",
     "conventional-changelog-cli": "^1.3.5",
     "coveralls": "^3.0.0",
+    "cz-customizable": "^5.2.0",
     "eslint": "^4.14.0",
     "eslint-config-atomix-base": "^5.1.1",
     "lerna": "^2.5.1",
@@ -41,5 +42,10 @@
     "sinon": "^4.1.3",
     "supertest": "^3.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  }
 }
