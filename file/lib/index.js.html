@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/atomixinteractions/createrest"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/atomixinteractions/createrest/tree/master/packages/createrest-koa"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -98,7 +98,7 @@ import { createRestInstanceSymbol } from &apos;./symbol&apos;
  * @param {RestRoutes} routes
  * @return {boolean}
  */
-export const isCreateRestInstance = routes =&gt; routes[createRestInstanceSymbol] === true
+export const isCreateRestInstance = (routes) =&gt; routes[createRestInstanceSymbol] === true
 
 /**
  * @desc Routes object
@@ -172,7 +172,7 @@ export class Maker {
    * })
    */
   beforeEach(...list) {
-    this.ctx.before = this.ctx.before.concat(list.filter(ln =&gt; !!ln))
+    this.ctx.before = this.ctx.before.concat(list.filter((ln) =&gt; !!ln))
   }
 
   /**
@@ -222,7 +222,7 @@ export class Maker {
    * // &gt; Just after request
    */
   afterEach(...list) {
-    this.ctx.after = this.ctx.after.concat(list.filter(ln =&gt; !!ln))
+    this.ctx.after = this.ctx.after.concat(list.filter((ln) =&gt; !!ln))
   }
 
   /**
@@ -299,9 +299,9 @@ export class Maker {
    * @param {string} method
    * @param {Function[]} listeners
    */
-  method(method, _listeners) {
+  method(method, listenersRaw) {
     let name = &apos;&apos;
-    let listeners = _listeners
+    let listeners = listenersRaw
 
     if (typeof listeners[0] === &apos;string&apos;) {
       [name] = listeners.splice(0, 1)
@@ -315,7 +315,7 @@ export class Maker {
       throw new TypeError(&apos;Maybe you forget to add listener?&apos;)
     }
 
-    listeners = listeners.filter(e =&gt; typeof e === &apos;function&apos;)
+    listeners = listeners.filter((e) =&gt; typeof e === &apos;function&apos;)
 
     // if added undefined listeners
     if (listeners.length === 0) return
@@ -559,7 +559,7 @@ export class Maker {
     }
     else if (Array.isArray(options.except)) {
       usedList = methodsList
-        .filter(handlerName =&gt; !options.except.includes(handlerName))
+        .filter((handlerName) =&gt; !options.except.includes(handlerName))
     }
     else {
       usedList = methodsList
@@ -570,8 +570,8 @@ export class Maker {
       scope.afterEach(controller.afterEach)
 
       usedList
-        .filter(handler =&gt; methodsList.includes(handler))
-        .map(handler =&gt; [handler, methods[handler]])
+        .filter((handler) =&gt; methodsList.includes(handler))
+        .map((handler) =&gt; [handler, methods[handler]])
         .forEach(([handler, httpMethod]) =&gt; {
           scope[httpMethod](resolveMethodName(handler, controller))
         })
@@ -694,7 +694,7 @@ export class Maker {
      * @param {string} methodName
      * @private
      */
-    const checkMethod = methodName =&gt; noMethodsSlicingOption
+    const checkMethod = (methodName) =&gt; noMethodsSlicingOption
       || (options.only &amp;&amp; options.only.length &amp;&amp; options.only.includes(methodName))
       || (options.except &amp;&amp; options.except.length &amp;&amp; !options.except.includes(methodName))
 

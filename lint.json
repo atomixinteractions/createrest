@@ -37,12 +37,12 @@
       },
       {
         "lineNumber": 254,
-        "line": "  method(method, _listeners) {"
+        "line": "  method(method, listenersRaw) {"
       }
     ],
     "codeParams": [
       "method",
-      "_listeners"
+      "listenersRaw"
     ],
     "docParams": [
       "name",
