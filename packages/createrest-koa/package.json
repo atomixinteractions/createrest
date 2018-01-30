@@ -26,7 +26,7 @@
   "homepage": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest",
   "repository": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest-koa",
   "dependencies": {
-    "koa-router": "^7.3.0"
+    "koa-router": "^7.4.0"
   },
   "peerDependencies": {
     "createrest": "^0.14.2",
