@@ -1,10 +1,32 @@
 <a name=""></a>
-# [](https://github.com/atomixinteractions/createrest/compare/v0.14.2...v) (2018-01-22)
+# [](https://github.com/atomixinteractions/createrest/compare/v0.15.0...v) (2018-01-30)
+
+
+
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/atomixinteractions/createrest/compare/v0.14.2...v0.15.0) (2018-01-30)
 
 
 ### Build system
 
 * Refactor changelog building ([79e114f](https://github.com/atomixinteractions/createrest/commit/79e114f))
+
+
+### Code Refactoring
+
+* fix linter issues ([fb9e68e](https://github.com/atomixinteractions/createrest/commit/fb9e68e))
+
+
+### Documentation
+
+* update versions and links in packages ([70a0555](https://github.com/atomixinteractions/createrest/commit/70a0555))
+
+
+### Features
+
+* add conventional-changelog and cz-customizable ([d8bcd18](https://github.com/atomixinteractions/createrest/commit/d8bcd18))
+* upgrade root dependencies ([3b79eb7](https://github.com/atomixinteractions/createrest/commit/3b79eb7))
+* **createrest-koa:** update koa-router version ([dfbeaf6](https://github.com/atomixinteractions/createrest/commit/dfbeaf6))
 
 
 
