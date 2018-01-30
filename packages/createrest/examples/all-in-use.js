@@ -1,4 +1,6 @@
-const { createRest, flattenRoutes, printRoutes } = require('../dist')
+/* eslint-disable no-console, no-magic-numbers */
+const { createRest, printRoutes } = require('../dist')
+
 
 const before1 = () => {
   console.log('before1()')

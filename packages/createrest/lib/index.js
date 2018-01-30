@@ -51,7 +51,7 @@ import { createRestInstanceSymbol } from './symbol'
  * @param {RestRoutes} routes
  * @return {boolean}
  */
-export const isCreateRestInstance = routes => routes[createRestInstanceSymbol] === true
+export const isCreateRestInstance = (routes) => routes[createRestInstanceSymbol] === true
 
 /**
  * @desc Routes object
@@ -125,7 +125,7 @@ export class Maker {
    * })
    */
   beforeEach(...list) {
-    this.ctx.before = this.ctx.before.concat(list.filter(ln => !!ln))
+    this.ctx.before = this.ctx.before.concat(list.filter((ln) => !!ln))
   }
 
   /**
@@ -175,7 +175,7 @@ export class Maker {
    * // > Just after request
    */
   afterEach(...list) {
-    this.ctx.after = this.ctx.after.concat(list.filter(ln => !!ln))
+    this.ctx.after = this.ctx.after.concat(list.filter((ln) => !!ln))
   }
 
   /**
@@ -252,9 +252,9 @@ export class Maker {
    * @param {string} method
    * @param {Function[]} listeners
    */
-  method(method, _listeners) {
+  method(method, listenersRaw) {
     let name = ''
-    let listeners = _listeners
+    let listeners = listenersRaw
 
     if (typeof listeners[0] === 'string') {
       [name] = listeners.splice(0, 1)
@@ -268,7 +268,7 @@ export class Maker {
       throw new TypeError('Maybe you forget to add listener?')
     }
 
-    listeners = listeners.filter(e => typeof e === 'function')
+    listeners = listeners.filter((e) => typeof e === 'function')
 
     // if added undefined listeners
     if (listeners.length === 0) return
@@ -512,7 +512,7 @@ export class Maker {
     }
     else if (Array.isArray(options.except)) {
       usedList = methodsList
-        .filter(handlerName => !options.except.includes(handlerName))
+        .filter((handlerName) => !options.except.includes(handlerName))
     }
     else {
       usedList = methodsList
@@ -523,8 +523,8 @@ export class Maker {
       scope.afterEach(controller.afterEach)
 
       usedList
-        .filter(handler => methodsList.includes(handler))
-        .map(handler => [handler, methods[handler]])
+        .filter((handler) => methodsList.includes(handler))
+        .map((handler) => [handler, methods[handler]])
         .forEach(([handler, httpMethod]) => {
           scope[httpMethod](resolveMethodName(handler, controller))
         })
@@ -647,7 +647,7 @@ export class Maker {
      * @param {string} methodName
      * @private
      */
-    const checkMethod = methodName => noMethodsSlicingOption
+    const checkMethod = (methodName) => noMethodsSlicingOption
       || (options.only && options.only.length && options.only.includes(methodName))
       || (options.except && options.except.length && !options.except.includes(methodName))
 

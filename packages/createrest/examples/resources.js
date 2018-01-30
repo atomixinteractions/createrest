@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies, no-unused-vars, no-console */
+/* eslint-disable unicorn/prefer-starts-ends-with */
 const stringify = require('stringify-object')
 const chalk = require('chalk')
 
@@ -87,10 +89,10 @@ const routes = createRest((root) => {
   // root.post('/', post1)
 
   // root.scope('demo', (demo) => {
-    // demo.crud('bar', TestsController, {}, bar => {
-    //   bar.get('baz', get3)
-    // })
-    // demo.get('bar', get3)
+  // demo.crud('bar', TestsController, {}, bar => {
+  //   bar.get('baz', get3)
+  // })
+  // demo.get('bar', get3)
   // })
   // root.scope('demo', (demo) => {
   //   demo.get('baz', get2)
@@ -108,12 +110,10 @@ const strf = (data, indent = '  ') => stringify(data, {
   indent,
   transform(obj, prop, original) {
     if (/^function/.test(original)) {
-      return chalk.blue(
-        original
-          .replace(/\n+/mg, '')
-          .replace(/\s+/mg, ' ')
-          .replace(/^\w+\s+(\w+)\(\).*/mg, '$1()')
-      )
+      return chalk.blue(original
+        .replace(/\n+/mg, '')
+        .replace(/\s+/mg, ' ')
+        .replace(/^\w+\s+(\w+)\(\).*/mg, '$1()'))
     }
 
     return original
@@ -123,13 +123,15 @@ const strf = (data, indent = '  ') => stringify(data, {
 console.log(strf(routes))
 
 const flat = flattenRoutes(routes)
+
 Object.keys(flat).forEach((path) => {
   const mt = flat[path]
+
   Object.keys(mt).forEach((method) => {
     console.log(
       chalk.green(`${method} ${path}`),
       ' >> ',
-      mt[method].map(fn => `${chalk.yellow(fn.name)}()`).join(', ')
+      mt[method].map((fn) => `${chalk.yellow(fn.name)}()`).join(', ')
     )
   })
 })

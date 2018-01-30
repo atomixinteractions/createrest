@@ -12,7 +12,7 @@ import { flattenRoutes } from './flatten'
  * @return {string}
  */
 function print(path, method, handlers) {
-  const handlersNames = handlers.map(handler => `${handler.displayName || handler.name || '<function>'}()`).join(', ')
+  const handlersNames = handlers.map((handler) => `${handler.displayName || handler.name || '<function>'}()`).join(', ')
 
   return `${method.toUpperCase()} ${path} -> ${handlersNames}`
 }

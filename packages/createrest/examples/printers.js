@@ -1,3 +1,5 @@
+/* eslint-disable no-console, no-magic-numbers, import/no-extraneous-dependencies */
+/* eslint-disable unicorn/prefer-starts-ends-with, no-unused-vars */
 const stringify = require('stringify-object')
 const chalk = require('chalk')
 
@@ -110,12 +112,10 @@ const strf = (data, indent = '  ') => stringify(data, {
   indent,
   transform(obj, prop, original) {
     if (/^function/.test(original)) {
-      return chalk.blue(
-        original
-          .replace(/\n+/mg, '')
-          .replace(/\s+/mg, ' ')
-          .replace(/^\w+\s+(\w+)\(\).*/mg, '$1()')
-      )
+      return chalk.blue(original
+        .replace(/\n+/mg, '')
+        .replace(/\s+/mg, ' ')
+        .replace(/^\w+\s+(\w+)\(\).*/mg, '$1()'))
     }
 
     return original
@@ -125,13 +125,15 @@ const strf = (data, indent = '  ') => stringify(data, {
 console.log(strf(routes))
 
 const flat = flattenRoutes(routes)
+
 Object.keys(flat).forEach((path) => {
   const mt = flat[path]
+
   Object.keys(mt).forEach((method) => {
     console.log(
       chalk.green(`${method} ${path}`),
       ' >> ',
-      mt[method].map(fn => `${chalk.yellow(fn.name)}()`).join(', ')
+      mt[method].map((fn) => `${chalk.yellow(fn.name)}()`).join(', ')
     )
   })
 })

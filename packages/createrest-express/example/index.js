@@ -1,9 +1,11 @@
+/* eslint-disable no-console, no-magic-numbers */
 const {
   createRest,
   printRoutes,
 } = require('createrest')
-const { createExressMiddleware } = require('../dist')
 const express = require('express')
+const { createExressMiddleware } = require('../dist')
+
 
 const app = express()
 
@@ -53,24 +55,24 @@ function get4(req, res, next) {
   next()
 }
 
-const routes = createRest(e => {
-  e.before(before1)
-  e.after(after1)
+const routes = createRest((root) => {
+  root.before(before1)
+  root.after(after1)
 
-  e.get('/', get1)
+  root.get('/', get1)
 
-  e.scope('demo', e => {
-    e.before(before2)
-    e.after(after2)
+  root.scope('demo', (demo) => {
+    demo.before(before2)
+    demo.after(after2)
 
-    e.get('/', get2)
-    e.get('/foo', get3)
+    demo.get('/', get2)
+    demo.get('/foo', get3)
 
-    e.scope('bar', e => {
-      e.before(before3)
-      e.after(after3)
+    demo.scope('bar', (bar) => {
+      bar.before(before3)
+      bar.after(after3)
 
-      e.get('/baz', get4)
+      bar.get('/baz', get4)
     })
   })
 })
