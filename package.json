@@ -16,6 +16,7 @@
     "test": "lerna run build && lerna run test"
   },
   "devDependencies": {
+    "@atomix/eslint-config": "^6.1.1",
     "@ava/babel-preset-stage-4": "^1.1.0",
     "ava": "^0.24.0",
     "babel-cli": "^6.26.0",
@@ -33,7 +34,6 @@
     "coveralls": "^3.0.0",
     "cz-customizable": "^5.2.0",
     "eslint": "^4.14.0",
-    "eslint-config-atomix-base": "^5.1.1",
     "lerna": "^2.5.1",
     "metapak": "0.0.21",
     "nodemon": "^1.14.3",

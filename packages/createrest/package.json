@@ -27,16 +27,13 @@
     "dist",
     "bin"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/atomixinteractions/createrest.git"
-  },
-  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/atomixinteractions/createrest/issues"
   },
-  "homepage": "https://github.com/atomixinteractions/createrest#readme",
+  "homepage": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest",
+  "repository": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest-koa",
+  "author": "Sergey Sova <mail@sergeysova.com> (https://sergeysova.com)",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^2.3.0",
     "pluralize": "^7.0.0"

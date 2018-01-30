@@ -14,19 +14,16 @@
     "test:code": "NODE_ENV=test nyc ava",
     "test:lint": "eslint ./lib"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/atomixinteractions/createrest-express.git"
-  },
-  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/atomixinteractions/createrest-express/issues"
+    "url": "https://github.com/atomixinteractions/createrest/issues"
   },
+  "homepage": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest",
+  "repository": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest-koa",
+  "author": "Sergey Sova <mail@sergeysova.com> (https://sergeysova.com)",
+  "license": "MIT",
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/atomixinteractions/createrest-express#readme",
   "peerDependencies": {
     "createrest": "^0.14.2",
     "express": "4.*"

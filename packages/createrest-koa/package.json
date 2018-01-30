@@ -15,15 +15,16 @@
     "test:lint": "eslint ./lib"
   },
   "keywords": [],
-  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "author": "Sergey Sova <mail@sergeysova.com> (https://sergeysova.com)",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/atomixinteractions/createrest-express.git"
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/createrest/issues"
   },
+  "homepage": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest",
+  "repository": "https://github.com/atomixinteractions/createrest/tree/master/packages/createrest-koa",
   "dependencies": {
     "koa-router": "^7.3.0"
   },
